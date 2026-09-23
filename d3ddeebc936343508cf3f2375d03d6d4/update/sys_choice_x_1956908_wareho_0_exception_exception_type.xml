@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+  <sys_choice_set action="INSERT_OR_UPDATE" apply_defaults="true" field="exception_type" table="x_1956908_wareho_0_exception" version="3">
+    <sys_choice_set action="INSERT_OR_UPDATE" apply_defaults="true">
+      <sys_id>b7620a7fecc849209982c3a40e507d03</sys_id>
+      <element>exception_type</element>
+      <sys_update_name>sys_choice_x_1956908_wareho_0_exception_exception_type</sys_update_name>
+      <name>x_1956908_wareho_0_exception</name>
+      <sys_class_name>sys_choice_set</sys_class_name>
+      <sys_scope display_value="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
+      <sys_package display_value="x_1956908_wareho_0" source="d3ddeebc936343508cf3f2375d03d6d4">d3ddeebc936343508cf3f2375d03d6d4</sys_package>
+      <sys_name>exception_type</sys_name>
+    </sys_choice_set>
+    <sys_choice action="INSERT_OR_UPDATE" apply_defaults="true">
+      <sys_id>d7f265f04a8b4ace9580879ebcc28da6</sys_id>
+      <name>x_1956908_wareho_0_exception</name>
+      <element>exception_type</element>
+      <label>Damaged Goods</label>
+      <value>damaged_goods</value>
+      <sequence>1</sequence>
+      <language>en</language>
+    </sys_choice>
+    <sys_choice action="INSERT_OR_UPDATE" apply_defaults="true">
+      <sys_id>b97118f9cd3a4009a477f827ed119a17</sys_id>
+      <name>x_1956908_wareho_0_exception</name>
+      <element>exception_type</element>
+      <label>Inventory Mismatch</label>
+      <value>inventory_mismatch</value>
+      <sequence>2</sequence>
+      <language>en</language>
+    </sys_choice>
+    <sys_choice action="INSERT_OR_UPDATE" apply_defaults="true">
+      <sys_id>3a75832b2fc948078bc26745a003c8ba</sys_id>
+      <name>x_1956908_wareho_0_exception</name>
+      <element>exception_type</element>
+      <label>Equipment Malfunction</label>
+      <value>equipment_malfunction</value>
+      <sequence>3</sequence>
+      <language>en</language>
+    </sys_choice>
+    <sys_choice action="INSERT_OR_UPDATE" apply_defaults="true">
+      <sys_id>9890f25fd1714aa28a066e3fb8edd278</sys_id>
+      <name>x_1956908_wareho_0_exception</name>
+      <element>exception_type</element>
+      <label>Process Error</label>
+      <value>process_error</value>
+      <sequence>4</sequence>
+      <language>en</language>
+    </sys_choice>
+  </sys_choice_set>
+</record_update>

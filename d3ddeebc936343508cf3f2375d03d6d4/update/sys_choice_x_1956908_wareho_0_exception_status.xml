@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+  <sys_choice_set action="INSERT_OR_UPDATE" apply_defaults="true" field="status" table="x_1956908_wareho_0_exception" version="3">
+    <sys_choice_set action="INSERT_OR_UPDATE" apply_defaults="true">
+      <sys_id>d77821fe21104553b4fb816ac9d3dd53</sys_id>
+      <element>status</element>
+      <sys_update_name>sys_choice_x_1956908_wareho_0_exception_status</sys_update_name>
+      <name>x_1956908_wareho_0_exception</name>
+      <sys_class_name>sys_choice_set</sys_class_name>
+      <sys_scope display_value="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
+      <sys_package display_value="x_1956908_wareho_0" source="d3ddeebc936343508cf3f2375d03d6d4">d3ddeebc936343508cf3f2375d03d6d4</sys_package>
+      <sys_name>status</sys_name>
+    </sys_choice_set>
+    <sys_choice action="INSERT_OR_UPDATE" apply_defaults="true">
+      <sys_id>4501ee4cb8314a09b644fadffd163a3b</sys_id>
+      <name>x_1956908_wareho_0_exception</name>
+      <element>status</element>
+      <label>New</label>
+      <value>new</value>
+      <sequence>1</sequence>
+      <language>en</language>
+    </sys_choice>
+    <sys_choice action="INSERT_OR_UPDATE" apply_defaults="true">
+      <sys_id>893d8f6175a04759ab340c79ab375f1c</sys_id>
+      <name>x_1956908_wareho_0_exception</name>
+      <element>status</element>
+      <label>Assigned</label>
+      <value>assigned</value>
+      <sequence>2</sequence>
+      <language>en</language>
+    </sys_choice>
+    <sys_choice action="INSERT_OR_UPDATE" apply_defaults="true">
+      <sys_id>8e3d089c6c8d444f8d4401efd6c7979a</sys_id>
+      <name>x_1956908_wareho_0_exception</name>
+      <element>status</element>
+      <label>In Progress</label>
+      <value>in_progress</value>
+      <sequence>3</sequence>
+      <language>en</language>
+    </sys_choice>
+    <sys_choice action="INSERT_OR_UPDATE" apply_defaults="true">
+      <sys_id>b47d0d1ed43b409b8ab9e6dfc78c5fad</sys_id>
+      <name>x_1956908_wareho_0_exception</name>
+      <element>status</element>
+      <label>Pending</label>
+      <value>pending</value>
+      <sequence>4</sequence>
+      <language>en</language>
+    </sys_choice>
+    <sys_choice action="INSERT_OR_UPDATE" apply_defaults="true">
+      <sys_id>0a432626136e490fabc0563a203aea78</sys_id>
+      <name>x_1956908_wareho_0_exception</name>
+      <element>status</element>
+      <label>Resolved</label>
+      <value>resolved</value>
+      <sequence>5</sequence>
+      <language>en</language>
+    </sys_choice>
+    <sys_choice action="INSERT_OR_UPDATE" apply_defaults="true">
+      <sys_id>e1431e401ef14cc29905c12c83ea1e95</sys_id>
+      <name>x_1956908_wareho_0_exception</name>
+      <element>status</element>
+      <label>Closed</label>
+      <value>closed</value>
+      <sequence>6</sequence>
+      <language>en</language>
+    </sys_choice>
+  </sys_choice_set>
+</record_update>
