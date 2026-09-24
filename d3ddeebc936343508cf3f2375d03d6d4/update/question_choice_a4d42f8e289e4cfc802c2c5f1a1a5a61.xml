@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="question_choice">
+  <question_choice action="INSERT_OR_UPDATE" apply_defaults="true">
+    <sys_id>a4d42f8e289e4cfc802c2c5f1a1a5a61</sys_id>
+    <sys_scope display_value="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
+    <sys_update_name>question_choice_a4d42f8e289e4cfc802c2c5f1a1a5a61</sys_update_name>
+    <inactive>false</inactive>
+    <order>1</order>
+    <question cat_item="6f88cfd2297a4aeebef0e8bae5341f82" name="exc_type" variable_set="NULL">5d1f02189d224bc0b3603d85d63d7483</question>
+    <text>Damaged Goods</text>
+    <value>damaged_goods</value>
+  </question_choice>
+</record_update>

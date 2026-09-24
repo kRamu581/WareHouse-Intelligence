@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="question_choice">
+  <question_choice action="INSERT_OR_UPDATE" apply_defaults="true">
+    <sys_id>26bb8a64e75443b693d5dc53d799380d</sys_id>
+    <sys_scope display_value="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
+    <sys_update_name>question_choice_26bb8a64e75443b693d5dc53d799380d</sys_update_name>
+    <inactive>false</inactive>
+    <order>4</order>
+    <question cat_item="6f88cfd2297a4aeebef0e8bae5341f82" name="exc_severity" variable_set="NULL">9b8ce22998b349288daf92503d118e9f</question>
+    <text>Low</text>
+    <value>low</value>
+  </question_choice>
+</record_update>

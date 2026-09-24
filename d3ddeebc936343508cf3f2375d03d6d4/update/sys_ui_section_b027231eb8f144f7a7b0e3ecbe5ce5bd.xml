@@ -1,45 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update>
   <sys_ui_section caption="Resolution" section_id="b027231eb8f144f7a7b0e3ecbe5ce5bd" sys_domain="global" table="x_1956908_wareho_0_exception" view="">
     <sys_ui_element action="INSERT_OR_UPDATE" apply_defaults="true">
-      <element>.begin_split</element>
-      <position>0</position>
-      <sys_id>15c6f4b16d6147589750abc3325e358c</sys_id>
-      <sys_ui_formatter/>
-      <sys_ui_section caption="Resolution" display_value="Resolution" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">b027231eb8f144f7a7b0e3ecbe5ce5bd</sys_ui_section>
-      <sys_user/>
-      <type>.begin_split</type>
-    </sys_ui_element>
-    <sys_ui_element action="INSERT_OR_UPDATE" apply_defaults="true">
       <element>resolved_at</element>
-      <position>1</position>
-      <sys_id>ba5972e11e4040e3b10ec071e26c0023</sys_id>
+      <position>0</position>
+      <sys_id>0bed0a0064af417c8f3c7f0c5410382f</sys_id>
       <sys_ui_formatter/>
       <sys_ui_section caption="Resolution" display_value="Resolution" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">b027231eb8f144f7a7b0e3ecbe5ce5bd</sys_ui_section>
       <sys_user/>
       <type/>
     </sys_ui_element>
     <sys_ui_element action="INSERT_OR_UPDATE" apply_defaults="true">
-      <element>.split</element>
-      <position>2</position>
-      <sys_id>dfa90d8e8772488083bec6ef60f6d7c1</sys_id>
-      <sys_ui_formatter/>
-      <sys_ui_section caption="Resolution" display_value="Resolution" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">b027231eb8f144f7a7b0e3ecbe5ce5bd</sys_ui_section>
-      <sys_user/>
-      <type>.split</type>
-    </sys_ui_element>
-    <sys_ui_element action="INSERT_OR_UPDATE" apply_defaults="true">
-      <element>.end_split</element>
-      <position>3</position>
-      <sys_id>2766ffaf04ee4538b0667e2b11518c2f</sys_id>
-      <sys_ui_formatter/>
-      <sys_ui_section caption="Resolution" display_value="Resolution" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">b027231eb8f144f7a7b0e3ecbe5ce5bd</sys_ui_section>
-      <sys_user/>
-      <type>.end_split</type>
-    </sys_ui_element>
-    <sys_ui_element action="INSERT_OR_UPDATE" apply_defaults="true">
       <element>resolution_notes</element>
-      <position>4</position>
-      <sys_id>897fef5937fb4cee8e04f96b1fbb4017</sys_id>
+      <position>1</position>
+      <sys_id>846068e022604aa4981daa523f863e19</sys_id>
       <sys_ui_formatter/>
       <sys_ui_section caption="Resolution" display_value="Resolution" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">b027231eb8f144f7a7b0e3ecbe5ce5bd</sys_ui_section>
       <sys_user/>
