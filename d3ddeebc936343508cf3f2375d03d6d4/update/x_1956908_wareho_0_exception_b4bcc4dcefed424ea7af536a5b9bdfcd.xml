@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="x_1956908_wareho_0_exception">
+  <x_1956908_wareho_0_exception action="INSERT_OR_UPDATE" apply_defaults="true">
+    <sys_id>b4bcc4dcefed424ea7af536a5b9bdfcd</sys_id>
+    <sys_scope display_value="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
+    <sys_update_name>x_1956908_wareho_0_exception_b4bcc4dcefed424ea7af536a5b9bdfcd</sys_update_name>
+    <description>Multiple items on pallet #4521 found damaged during unloading. Packaging was crushed and 12 units appear unusable.</description>
+    <exception_type>damaged_goods</exception_type>
+    <location>Warehouse A - Receiving Bay 1</location>
+    <priority>p2_high</priority>
+    <resolution_notes>Damaged items documented, insurance claim filed, replacement order placed.</resolution_notes>
+    <severity>high</severity>
+    <short_description>Damaged pallet in receiving area</short_description>
+    <status>resolved</status>
+  </x_1956908_wareho_0_exception>
+</record_update>

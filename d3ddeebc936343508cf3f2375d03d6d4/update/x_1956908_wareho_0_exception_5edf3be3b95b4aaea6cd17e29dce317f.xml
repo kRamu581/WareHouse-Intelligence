@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="x_1956908_wareho_0_exception">
+  <x_1956908_wareho_0_exception action="INSERT_OR_UPDATE" apply_defaults="true">
+    <sys_id>5edf3be3b95b4aaea6cd17e29dce317f</sys_id>
+    <sys_scope display_value="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
+    <sys_update_name>x_1956908_wareho_0_exception_5edf3be3b95b4aaea6cd17e29dce317f</sys_update_name>
+    <description>End-of-shift audit found 18 units of SKU WH-5590 unaccounted for in Section 2. Items were present in morning count but missing after second shift handover.</description>
+    <exception_type>inventory_mismatch</exception_type>
+    <location>Warehouse A - Section 2</location>
+    <priority>p3_medium</priority>
+    <severity>medium</severity>
+    <short_description>Missing inventory after shift change</short_description>
+    <status>new</status>
+  </x_1956908_wareho_0_exception>
+</record_update>

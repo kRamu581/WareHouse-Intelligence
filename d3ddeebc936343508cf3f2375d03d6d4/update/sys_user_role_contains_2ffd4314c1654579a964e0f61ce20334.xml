@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_user_role_contains">
+  <sys_user_role_contains action="INSERT_OR_UPDATE" apply_defaults="true">
+    <sys_id>2ffd4314c1654579a964e0f61ce20334</sys_id>
+    <sys_scope display_value="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
+    <sys_update_name>sys_user_role_contains_2ffd4314c1654579a964e0f61ce20334</sys_update_name>
+    <contains name="x_1956908_wareho_0.staff">f933bfcf6724403280e27b25e7ef7255</contains>
+    <role name="x_1956908_wareho_0.supervisor">cc47b3e833734d8dac18f80e10944bf2</role>
+  </sys_user_role_contains>
+</record_update>
