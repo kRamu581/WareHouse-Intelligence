@@ -20,6 +20,12 @@
     </sys_ui_form_section>
     <sys_ui_form_section action="INSERT_OR_UPDATE" apply_defaults="true">
       <position>3</position>
+      <sys_id>899eab79366544ee84b136c598fe756f</sys_id>
+      <sys_ui_form display_value="x_1956908_wareho_0_exception" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">b0a542bda3e2437d8886f9d363771a1c</sys_ui_form>
+      <sys_ui_section caption="AI Suggestions" display_value="AI Suggestions" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">de8f7951e1da4d3db5078a605596def4</sys_ui_section>
+    </sys_ui_form_section>
+    <sys_ui_form_section action="INSERT_OR_UPDATE" apply_defaults="true">
+      <position>4</position>
       <sys_id>98a995bd10584a919abcdec2c45abbae</sys_id>
       <sys_ui_form display_value="x_1956908_wareho_0_exception" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">b0a542bda3e2437d8886f9d363771a1c</sys_ui_form>
       <sys_ui_section caption="Activity" display_value="Activity" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">0edff65f32d04983a0d3e5efd06f7552</sys_ui_section>

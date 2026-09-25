@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+  <sys_script_include action="INSERT_OR_UPDATE" apply_defaults="true">
+    <sys_id>bc7e2763a56846b9bc5ba9e2d6a52c1e</sys_id>
+    <sys_scope display_value="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
+    <sys_update_name>sys_script_include_bc7e2763a56846b9bc5ba9e2d6a52c1e</sys_update_name>
+    <access>public</access>
+    <active>true</active>
+    <api_name>x_1956908_wareho_0.AIRootCauseInsights</api_name>
+    <caller_access/>
+    <client_callable>false</client_callable>
+    <description>AI-powered root-cause analysis that identifies recurring patterns and generates insights from historical warehouse exceptions.</description>
+    <mobile_callable>false</mobile_callable>
+    <name>AIRootCauseInsights</name>
+    <sandbox_callable>false</sandbox_callable>
+    <script><![CDATA[var AIRootCauseInsights = Class.create();
+AIRootCauseInsights.prototype = {
+    initialize: function(exceptionGr) {
+        this._gr = exceptionGr;
+    },
+
+    analyze: function() {
+        var historicalData = this._getHistoricalData();
+
+        var shortDesc = this._gr.getValue('short_description') || '';
+        var description = this._gr.getValue('description') || '';
+        var location = this._gr.getValue('location') || '';
+        var exceptionType = this._gr.getValue('exception_type') || '';
+
+        var prompt = 'You are a warehouse operations analyst specializing in root-cause analysis.\n\n' +
+            'A new warehouse exception has been reported:\n' +
+            'Short Description: ' + shortDesc + '\n' +
+            'Description: ' + description + '\n' +
+            'Location: ' + location + '\n' +
+            'Exception Type: ' + exceptionType + '\n\n' +
+            'Historical exception data from the last 30 days:\n' +
+            historicalData + '\n\n' +
+            'Based on this information, provide insights about:\n' +
+            '1. Recurring patterns you can identify\n' +
+            '2. Potential root causes for this exception\n' +
+            '3. Suggested investigation areas\n' +
+            '4. Preventive measures to consider\n\n' +
+            'Provide a concise but thorough analysis.';
+
+        try {
+            var llmClient = new sn_generative_ai.LLMClient();
+            var result = llmClient.call({ prompt: prompt });
+
+            if (result.status === 'Success') {
+                var response = result.response.trim();
+                this._gr.setValue('ai_insights', response);
+                this._gr.update();
+
+                gs.info('AIRootCauseInsights: Successfully generated insights for exception ' + this._gr.getValue('number'));
+            } else {
+                gs.error('AIRootCauseInsights: LLM call failed - ' + result.response);
+            }
+        } catch (e) {
+            gs.error('AIRootCauseInsights: Error generating insights - ' + e.message);
+        }
+    },
+
+    _getHistoricalData: function() {
+        var summary = '';
+        var typeCounts = {};
+        var locationCounts = {};
+        var totalCount = 0;
+
+        var thirtyDaysAgo = new GlideDateTime();
+        thirtyDaysAgo.addDaysLocalTime(-30);
+
+        var currentType = this._gr.getValue('exception_type') || '';
+        var currentLocation = this._gr.getValue('location') || '';
+
+        var gr = new GlideRecord('x_1956908_wareho_0_exception');
+        gr.addQuery('sys_created_on', '>=', thirtyDaysAgo.getValue());
+
+        var qc = gr.addQuery('exception_type', currentType);
+        if (currentLocation) {
+            qc.addOrCondition('location', currentLocation);
+        }
+
+        gr.orderByDesc('sys_created_on');
+        gr.setLimit(50);
+        gr.query();
+
+        while (gr.next()) {
+            totalCount++;
+            var type = gr.getValue('exception_type') || 'Unknown';
+            var loc = gr.getValue('location') || 'Unknown';
+
+            typeCounts[type] = (typeCounts[type] || 0) + 1;
+            locationCounts[loc] = (locationCounts[loc] || 0) + 1;
+        }
+
+        summary += 'Total similar exceptions in last 30 days: ' + totalCount + '\n';
+
+        summary += '\nExceptions by type:\n';
+        for (var t in typeCounts) {
+            summary += '  - ' + t + ': ' + typeCounts[t] + '\n';
+        }
+
+        summary += '\nExceptions by location:\n';
+        for (var l in locationCounts) {
+            summary += '  - ' + l + ': ' + locationCounts[l] + '\n';
+        }
+
+        return summary;
+    },
+
+    type: 'AIRootCauseInsights'
+};
+]]></script>
+    <sys_name>AIRootCauseInsights</sys_name>
+  </sys_script_include>
+</record_update>

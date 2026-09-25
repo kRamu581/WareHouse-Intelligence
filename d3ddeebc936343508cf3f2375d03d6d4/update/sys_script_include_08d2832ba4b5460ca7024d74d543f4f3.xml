@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+  <sys_script_include action="INSERT_OR_UPDATE" apply_defaults="true">
+    <sys_id>08d2832ba4b5460ca7024d74d543f4f3</sys_id>
+    <sys_scope display_value="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
+    <sys_update_name>sys_script_include_08d2832ba4b5460ca7024d74d543f4f3</sys_update_name>
+    <access>public</access>
+    <active>true</active>
+    <api_name>x_1956908_wareho_0.AIExceptionClassifier</api_name>
+    <caller_access/>
+    <client_callable>false</client_callable>
+    <description>AI-powered exception classification using LLMClient. Analyzes exception descriptions to suggest type, severity, priority, and routing.</description>
+    <mobile_callable>false</mobile_callable>
+    <name>AIExceptionClassifier</name>
+    <sandbox_callable>false</sandbox_callable>
+    <script><![CDATA[var AIExceptionClassifier = Class.create();
+AIExceptionClassifier.prototype = {
+    initialize: function(exceptionGr) {
+        this._gr = exceptionGr;
+    },
+
+    classify: function() {
+        var shortDesc = this._gr.getValue('short_description') || '';
+        var description = this._gr.getValue('description') || '';
+        var location = this._gr.getValue('location') || '';
+
+        var prompt = 'You are a warehouse exception classification assistant.\n\n' +
+            'Analyze the following warehouse exception and provide a structured classification.\n\n' +
+            'Short Description: ' + shortDesc + '\n' +
+            'Description: ' + description + '\n' +
+            'Location: ' + location + '\n\n' +
+            'Classify into exactly one category:\n' +
+            '- Damaged Goods\n' +
+            '- Inventory Mismatch\n' +
+            '- Equipment Malfunction\n' +
+            '- Process Error\n\n' +
+            'Determine severity: Critical, High, Medium, or Low\n\n' +
+            'Respond ONLY with a valid JSON object (no markdown, no code fences):\n' +
+            '{"type": "...", "severity": "...", "confidence": 0-100, "reason": "...", "routing_suggestion": "..."}';
+
+        try {
+            var llmClient = new sn_generative_ai.LLMClient();
+            var result = llmClient.call({ prompt: prompt });
+
+            if (result.status === 'Success') {
+                var response = result.response.trim();
+                var parsed = JSON.parse(response);
+
+                this._gr.setValue('ai_suggested_type', parsed.type || '');
+                this._gr.setValue('ai_suggested_severity', parsed.severity || '');
+                this._gr.setValue('ai_confidence', String(parsed.confidence || 0) + '%');
+                this._gr.setValue('ai_reason', parsed.reason || '');
+                this._gr.setValue('ai_routing_suggestion', parsed.routing_suggestion || '');
+                this._gr.update();
+
+                gs.info('AIExceptionClassifier: Successfully classified exception ' + this._gr.getValue('number'));
+            } else {
+                gs.error('AIExceptionClassifier: LLM call failed - ' + result.response);
+            }
+        } catch (e) {
+            gs.error('AIExceptionClassifier: Error classifying exception - ' + e.message);
+        }
+    },
+
+    type: 'AIExceptionClassifier'
+};
+]]></script>
+    <sys_name>AIExceptionClassifier</sys_name>
+  </sys_script_include>
+</record_update>
