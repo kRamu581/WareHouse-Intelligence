@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl">
+  <sys_security_acl action="INSERT_OR_UPDATE" apply_defaults="true">
+    <sys_id>4bfd89e49bbd40deb454fec8f386c666</sys_id>
+    <sys_scope display_value="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
+    <sys_update_name>sys_security_acl_4bfd89e49bbd40deb454fec8f386c666</sys_update_name>
+    <active>true</active>
+    <admin_overrides>true</admin_overrides>
+    <advanced>false</advanced>
+    <applies_to/>
+    <condition/>
+    <decision_type>allow</decision_type>
+    <description>Allow staff, supervisors, and admins to create exceptions</description>
+    <name>x_1956908_wareho_0_exception</name>
+    <operation display_value="create">create</operation>
+    <script/>
+    <security_attribute/>
+    <sys_name>x_1956908_wareho_0_exception</sys_name>
+    <type>record</type>
+  </sys_security_acl>
+</record_update>

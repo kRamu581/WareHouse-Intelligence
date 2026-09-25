@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl_role">
+  <sys_security_acl_role action="INSERT_OR_UPDATE" apply_defaults="true">
+    <sys_id>25a01816ed9845fc8a8359054260dce9</sys_id>
+    <sys_scope display_value="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
+    <sys_update_name>sys_security_acl_role_25a01816ed9845fc8a8359054260dce9</sys_update_name>
+    <sys_security_acl>4bfd89e49bbd40deb454fec8f386c666</sys_security_acl>
+    <sys_user_role name="x_1956908_wareho_0.admin">3aa2d18b74b54f2785037cba67a8a1fc</sys_user_role>
+  </sys_security_acl_role>
+</record_update>

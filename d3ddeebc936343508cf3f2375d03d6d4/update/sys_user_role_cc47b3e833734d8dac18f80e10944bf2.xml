@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_user_role">
+  <sys_user_role action="INSERT_OR_UPDATE" apply_defaults="true">
+    <sys_id>cc47b3e833734d8dac18f80e10944bf2</sys_id>
+    <sys_scope display_value="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
+    <sys_update_name>sys_user_role_cc47b3e833734d8dac18f80e10944bf2</sys_update_name>
+    <assignable_by/>
+    <can_delegate>true</can_delegate>
+    <description>Supervisor — oversees staff and technicians</description>
+    <elevated_privilege>false</elevated_privilege>
+    <grantable>true</grantable>
+    <name>x_1956908_wareho_0.supervisor</name>
+    <scoped_admin>false</scoped_admin>
+    <suffix>supervisor</suffix>
+  </sys_user_role>
+</record_update>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_app_module">
+  <sys_app_module action="INSERT_OR_UPDATE" apply_defaults="true">
+    <sys_id>23e8f475f3d845e38a196a94574d3da3</sys_id>
+    <sys_scope display_value="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
+    <sys_update_name>sys_app_module_23e8f475f3d845e38a196a94574d3da3</sys_update_name>
+    <active>true</active>
+    <application>443b686240714129be8fb024b5a97e33</application>
+    <filter>status=resolved^ORstatus=closed</filter>
+    <hint>Exceptions that are resolved or closed</hint>
+    <link_type>FILTER</link_type>
+    <name>x_1956908_wareho_0_exception</name>
+    <order>700</order>
+    <title>Resolved / Closed</title>
+  </sys_app_module>
+</record_update>

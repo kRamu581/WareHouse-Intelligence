@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ui_style">
+  <sys_ui_style action="INSERT_OR_UPDATE" apply_defaults="true">
+    <sys_id>d2ff9bec1da241ef9f69ff5231ae2aa8</sys_id>
+    <sys_scope display_value="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
+    <sys_update_name>sys_ui_style_d2ff9bec1da241ef9f69ff5231ae2aa8</sys_update_name>
+    <element>status</element>
+    <name>x_1956908_wareho_0_exception</name>
+    <style>background-color:#eceff1</style>
+    <value>closed</value>
+  </sys_ui_style>
+</record_update>

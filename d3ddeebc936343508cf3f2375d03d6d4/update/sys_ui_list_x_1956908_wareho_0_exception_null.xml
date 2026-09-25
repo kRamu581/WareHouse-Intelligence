@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+  <sys_ui_list parent="" relationship="" sys_domain="global" table="x_1956908_wareho_0_exception" view="">
+    <sys_ui_list_element action="INSERT_OR_UPDATE" apply_defaults="true">
+      <sys_id>ac3975f79fb94241a11d7d5626b0cdcd</sys_id>
+      <list_id display_value="x_1956908_wareho_0_exception" element="NULL" name="x_1956908_wareho_0_exception" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">cd4fa86bd08447538e74681fb511b8c1</list_id>
+      <element>number</element>
+      <position>0</position>
+    </sys_ui_list_element>
+    <sys_ui_list_element action="INSERT_OR_UPDATE" apply_defaults="true">
+      <sys_id>379b6c9ae56d45ab850e3bea21e2893b</sys_id>
+      <list_id display_value="x_1956908_wareho_0_exception" element="NULL" name="x_1956908_wareho_0_exception" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">cd4fa86bd08447538e74681fb511b8c1</list_id>
+      <element>short_description</element>
+      <position>1</position>
+    </sys_ui_list_element>
+    <sys_ui_list_element action="INSERT_OR_UPDATE" apply_defaults="true">
+      <sys_id>cf917b0f3d0646118b5fcf3e0b53c37c</sys_id>
+      <list_id display_value="x_1956908_wareho_0_exception" element="NULL" name="x_1956908_wareho_0_exception" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">cd4fa86bd08447538e74681fb511b8c1</list_id>
+      <element>exception_type</element>
+      <position>2</position>
+    </sys_ui_list_element>
+    <sys_ui_list_element action="INSERT_OR_UPDATE" apply_defaults="true">
+      <sys_id>54b92533f37645d38b65df8b9a561391</sys_id>
+      <list_id display_value="x_1956908_wareho_0_exception" element="NULL" name="x_1956908_wareho_0_exception" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">cd4fa86bd08447538e74681fb511b8c1</list_id>
+      <element>severity</element>
+      <position>3</position>
+    </sys_ui_list_element>
+    <sys_ui_list_element action="INSERT_OR_UPDATE" apply_defaults="true">
+      <sys_id>ebe24cdcb6fb4880ada92a83c6898217</sys_id>
+      <list_id display_value="x_1956908_wareho_0_exception" element="NULL" name="x_1956908_wareho_0_exception" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">cd4fa86bd08447538e74681fb511b8c1</list_id>
+      <element>priority</element>
+      <position>4</position>
+    </sys_ui_list_element>
+    <sys_ui_list_element action="INSERT_OR_UPDATE" apply_defaults="true">
+      <sys_id>42b16ba6d0cd48949c9f8f531e70e0db</sys_id>
+      <list_id display_value="x_1956908_wareho_0_exception" element="NULL" name="x_1956908_wareho_0_exception" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">cd4fa86bd08447538e74681fb511b8c1</list_id>
+      <element>status</element>
+      <position>5</position>
+    </sys_ui_list_element>
+    <sys_ui_list_element action="INSERT_OR_UPDATE" apply_defaults="true">
+      <sys_id>06a6f4fe56bf4c3e9b32690111d99069</sys_id>
+      <list_id display_value="x_1956908_wareho_0_exception" element="NULL" name="x_1956908_wareho_0_exception" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">cd4fa86bd08447538e74681fb511b8c1</list_id>
+      <element>location</element>
+      <position>6</position>
+    </sys_ui_list_element>
+    <sys_ui_list_element action="INSERT_OR_UPDATE" apply_defaults="true">
+      <sys_id>a3570b8492c24a4ea92ccb3519fa8f1c</sys_id>
+      <list_id display_value="x_1956908_wareho_0_exception" element="NULL" name="x_1956908_wareho_0_exception" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">cd4fa86bd08447538e74681fb511b8c1</list_id>
+      <element>assigned_to</element>
+      <position>7</position>
+    </sys_ui_list_element>
+    <sys_ui_list_element action="INSERT_OR_UPDATE" apply_defaults="true">
+      <sys_id>528047e68cd94cad8ae2281f56078cc8</sys_id>
+      <list_id display_value="x_1956908_wareho_0_exception" element="NULL" name="x_1956908_wareho_0_exception" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">cd4fa86bd08447538e74681fb511b8c1</list_id>
+      <element>assignment_group</element>
+      <position>8</position>
+    </sys_ui_list_element>
+    <sys_ui_list action="INSERT_OR_UPDATE" apply_defaults="true">
+      <sys_id>cd4fa86bd08447538e74681fb511b8c1</sys_id>
+      <sys_scope display_value="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
+      <view name="NULL">Default view</view>
+      <name>x_1956908_wareho_0_exception</name>
+      <sys_domain>global</sys_domain>
+    </sys_ui_list>
+  </sys_ui_list>
+</record_update>

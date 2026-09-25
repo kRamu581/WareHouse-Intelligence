@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_app_module">
+  <sys_app_module action="INSERT_OR_UPDATE" apply_defaults="true">
+    <sys_id>1b852fef6ffa441b8fb3b274823c1c4f</sys_id>
+    <sys_scope display_value="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
+    <sys_update_name>sys_app_module_1b852fef6ffa441b8fb3b274823c1c4f</sys_update_name>
+    <active>true</active>
+    <application>443b686240714129be8fb024b5a97e33</application>
+    <hint>Create a new warehouse exception</hint>
+    <link_type>NEW</link_type>
+    <name>x_1956908_wareho_0_exception</name>
+    <order>200</order>
+    <title>New Exception</title>
+  </sys_app_module>
+</record_update>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ui_style">
+  <sys_ui_style action="INSERT_OR_UPDATE" apply_defaults="true">
+    <sys_id>91ce36f445fe4ced8c3bdd61b95959a0</sys_id>
+    <sys_scope display_value="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
+    <sys_update_name>sys_ui_style_91ce36f445fe4ced8c3bdd61b95959a0</sys_update_name>
+    <element>severity</element>
+    <name>x_1956908_wareho_0_exception</name>
+    <style>background-color:tomato;color:white;font-weight:bold</style>
+    <value>critical</value>
+  </sys_ui_style>
+</record_update>
