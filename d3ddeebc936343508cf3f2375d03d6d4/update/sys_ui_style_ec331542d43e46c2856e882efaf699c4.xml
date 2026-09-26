@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ui_style">
+    <sys_ui_style action="INSERT_OR_UPDATE">
+        <alt/>
+        <element>severity</element>
+        <name>x_1956908_wareho_0_exception</name>
+        <style>background-color:#ffeb3b</style>
+        <sys_class_name>sys_ui_style</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 01:52:35</sys_created_on>
+        <sys_id>ec331542d43e46c2856e882efaf699c4</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_1956908_wareho_0_exception</sys_name>
+        <sys_package display_value="Warehouse Exception Intelligence" source="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Warehouse Exception Intelligence">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
+        <sys_update_name>sys_ui_style_ec331542d43e46c2856e882efaf699c4</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-09-25 01:52:35</sys_updated_on>
+        <themed_style/>
+        <value>medium</value>
+    </sys_ui_style>
+    <sys_translated_text action="delete_multiple" query="documentkey=ec331542d43e46c2856e882efaf699c4"/>
+</record_update>

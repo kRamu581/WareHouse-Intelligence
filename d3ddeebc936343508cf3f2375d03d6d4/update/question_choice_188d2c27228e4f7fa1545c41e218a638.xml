@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="question_choice">
+    <question_choice action="INSERT_OR_UPDATE">
+        <inactive>false</inactive>
+        <order>4</order>
+        <published_ref/>
+        <question display_value="Exception Type">5d1f02189d224bc0b3603d85d63d7483</question>
+        <sys_class_name>question_choice</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-24 09:23:26</sys_created_on>
+        <sys_id>188d2c27228e4f7fa1545c41e218a638</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Process Error</sys_name>
+        <sys_package display_value="Warehouse Exception Intelligence" source="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Warehouse Exception Intelligence">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
+        <sys_update_name>question_choice_188d2c27228e4f7fa1545c41e218a638</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-09-24 09:23:26</sys_updated_on>
+        <text>Process Error</text>
+        <value>process_error</value>
+    </question_choice>
+    <fx_price action="delete_multiple" query="id=188d2c27228e4f7fa1545c41e218a638"/>
+</record_update>

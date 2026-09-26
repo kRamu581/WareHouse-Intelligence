@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl_role">
+    <sys_security_acl_role action="INSERT_OR_UPDATE">
+        <sys_class_name>sys_security_acl_role</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 01:51:58</sys_created_on>
+        <sys_id>3adb019db4d74b1dafae5c2f40bb3bce</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_1956908_wareho_0_exception.</sys_name>
+        <sys_package display_value="Warehouse Exception Intelligence" source="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Warehouse Exception Intelligence">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
+        <sys_security_acl display_value="x_1956908_wareho_0_exception">699e1b731e994d4d88c72df5d469ea3f</sys_security_acl>
+        <sys_update_name>sys_security_acl_role_3adb019db4d74b1dafae5c2f40bb3bce</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-09-25 01:51:58</sys_updated_on>
+        <sys_user_role display_value="x_1956908_wareho_0.supervisor" name="x_1956908_wareho_0.supervisor">cc47b3e833734d8dac18f80e10944bf2</sys_user_role>
+    </sys_security_acl_role>
+</record_update>

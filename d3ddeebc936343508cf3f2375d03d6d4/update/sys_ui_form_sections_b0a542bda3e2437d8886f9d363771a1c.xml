@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_ui_form_sections form_id="b0a542bda3e2437d8886f9d363771a1c" sys_domain="global" table="x_1956908_wareho_0_exception" version="3">
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>0</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-09-26 04:58:09</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>b90de8cd876d4a82997c7e2f0102203a</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_1956908_wareho_0_exception" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">b0a542bda3e2437d8886f9d363771a1c</sys_ui_form>
+            <sys_ui_section caption="Exception Details" display_value="Exception Details" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">4f7edcbc52044dae88c811dcc493273f</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-09-26 04:58:09</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>1</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-09-26 04:58:09</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>f10dfc0633d34d09a95e543d67091334</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_1956908_wareho_0_exception" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">b0a542bda3e2437d8886f9d363771a1c</sys_ui_form>
+            <sys_ui_section caption="Assignment" display_value="Assignment" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">d45c3ef4d9c3464f83d18bca82c90973</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-09-26 04:58:09</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>2</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-09-26 04:58:09</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>7b30a66d856e4d41b25261597a75fecf</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_1956908_wareho_0_exception" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">b0a542bda3e2437d8886f9d363771a1c</sys_ui_form>
+            <sys_ui_section caption="Resolution" display_value="Resolution" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">b027231eb8f144f7a7b0e3ecbe5ce5bd</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-09-26 04:58:09</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>3</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-09-26 04:58:09</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>899eab79366544ee84b136c598fe756f</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_1956908_wareho_0_exception" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">b0a542bda3e2437d8886f9d363771a1c</sys_ui_form>
+            <sys_ui_section caption="AI Suggestions" display_value="AI Suggestions" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">de8f7951e1da4d3db5078a605596def4</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-09-26 04:58:09</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>4</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-09-26 04:58:09</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>98a995bd10584a919abcdec2c45abbae</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_1956908_wareho_0_exception" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">b0a542bda3e2437d8886f9d363771a1c</sys_ui_form>
+            <sys_ui_section caption="Activity" display_value="Activity" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">0edff65f32d04983a0d3e5efd06f7552</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-09-26 04:58:09</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form action="INSERT_OR_UPDATE">
+            <name>x_1956908_wareho_0_exception</name>
+            <roles/>
+            <sys_class_name>sys_ui_form</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-09-23 09:58:56</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>b0a542bda3e2437d8886f9d363771a1c</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>x_1956908_wareho_0_exception</sys_name>
+            <sys_overrides/>
+            <sys_package display_value="Warehouse Exception Intelligence" source="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="Warehouse Exception Intelligence">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
+            <sys_update_name>sys_ui_form_sections_b0a542bda3e2437d8886f9d363771a1c</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-09-23 09:58:56</sys_updated_on>
+            <sys_user/>
+            <view display_value="Default view" name="NULL">Default view</view>
+            <view_name/>
+        </sys_ui_form>
+    </sys_ui_form_sections>
+</record_update>

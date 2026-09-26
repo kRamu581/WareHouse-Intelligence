@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_user_role">
+    <sys_user_role action="INSERT_OR_UPDATE">
+        <assignable_by/>
+        <can_delegate>true</can_delegate>
+        <description>Supervisor — oversees staff and technicians</description>
+        <elevated_privilege>false</elevated_privilege>
+        <federated_id>2MhjEH4fkXi1HG3KIHtRrP+kDNQigPHqBy7Qv07ij7A=</federated_id>
+        <grantable>true</grantable>
+        <includes_roles/>
+        <name>x_1956908_wareho_0.supervisor</name>
+        <scoped_admin>false</scoped_admin>
+        <suffix>supervisor</suffix>
+        <sys_class_name>sys_user_role</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 01:52:36</sys_created_on>
+        <sys_id>cc47b3e833734d8dac18f80e10944bf2</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_1956908_wareho_0.supervisor</sys_name>
+        <sys_package display_value="Warehouse Exception Intelligence" source="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Warehouse Exception Intelligence">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
+        <sys_update_name>sys_user_role_cc47b3e833734d8dac18f80e10944bf2</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-09-25 01:52:36</sys_updated_on>
+    </sys_user_role>
+</record_update>
