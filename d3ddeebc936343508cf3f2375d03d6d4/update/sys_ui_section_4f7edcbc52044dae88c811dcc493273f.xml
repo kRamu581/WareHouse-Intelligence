@@ -1,116 +1,183 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update>
-  <sys_ui_section caption="Exception Details" section_id="4f7edcbc52044dae88c811dcc493273f" sys_domain="global" table="x_1956908_wareho_0_exception" view="">
-    <sys_ui_element action="INSERT_OR_UPDATE" apply_defaults="true">
-      <element>.begin_split</element>
-      <position>0</position>
-      <sys_id>b6fcc1db7cfa4c42bc93c9935f341524</sys_id>
-      <sys_ui_formatter/>
-      <sys_ui_section caption="Exception Details" display_value="Exception Details" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">4f7edcbc52044dae88c811dcc493273f</sys_ui_section>
-      <sys_user/>
-      <type>.begin_split</type>
-    </sys_ui_element>
-    <sys_ui_element action="INSERT_OR_UPDATE" apply_defaults="true">
-      <element>number</element>
-      <position>1</position>
-      <sys_id>daff7adf0ed241b89da4d35df12ba8c6</sys_id>
-      <sys_ui_formatter/>
-      <sys_ui_section caption="Exception Details" display_value="Exception Details" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">4f7edcbc52044dae88c811dcc493273f</sys_ui_section>
-      <sys_user/>
-      <type/>
-    </sys_ui_element>
-    <sys_ui_element action="INSERT_OR_UPDATE" apply_defaults="true">
-      <element>exception_type</element>
-      <position>2</position>
-      <sys_id>5aa4813848354e2b80ecbc1e4d19e465</sys_id>
-      <sys_ui_formatter/>
-      <sys_ui_section caption="Exception Details" display_value="Exception Details" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">4f7edcbc52044dae88c811dcc493273f</sys_ui_section>
-      <sys_user/>
-      <type/>
-    </sys_ui_element>
-    <sys_ui_element action="INSERT_OR_UPDATE" apply_defaults="true">
-      <element>severity</element>
-      <position>3</position>
-      <sys_id>a6dc3f27d8e34a339a65cac1f95d085a</sys_id>
-      <sys_ui_formatter/>
-      <sys_ui_section caption="Exception Details" display_value="Exception Details" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">4f7edcbc52044dae88c811dcc493273f</sys_ui_section>
-      <sys_user/>
-      <type/>
-    </sys_ui_element>
-    <sys_ui_element action="INSERT_OR_UPDATE" apply_defaults="true">
-      <element>.split</element>
-      <position>4</position>
-      <sys_id>e66c9311cba2475fa24538493b348227</sys_id>
-      <sys_ui_formatter/>
-      <sys_ui_section caption="Exception Details" display_value="Exception Details" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">4f7edcbc52044dae88c811dcc493273f</sys_ui_section>
-      <sys_user/>
-      <type>.split</type>
-    </sys_ui_element>
-    <sys_ui_element action="INSERT_OR_UPDATE" apply_defaults="true">
-      <element>status</element>
-      <position>5</position>
-      <sys_id>7d98deeaed284d9e99ff45bebe16c971</sys_id>
-      <sys_ui_formatter/>
-      <sys_ui_section caption="Exception Details" display_value="Exception Details" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">4f7edcbc52044dae88c811dcc493273f</sys_ui_section>
-      <sys_user/>
-      <type/>
-    </sys_ui_element>
-    <sys_ui_element action="INSERT_OR_UPDATE" apply_defaults="true">
-      <element>location</element>
-      <position>6</position>
-      <sys_id>7027c04c8cef429ca1b286cb31b1cc0f</sys_id>
-      <sys_ui_formatter/>
-      <sys_ui_section caption="Exception Details" display_value="Exception Details" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">4f7edcbc52044dae88c811dcc493273f</sys_ui_section>
-      <sys_user/>
-      <type/>
-    </sys_ui_element>
-    <sys_ui_element action="INSERT_OR_UPDATE" apply_defaults="true">
-      <element>priority</element>
-      <position>7</position>
-      <sys_id>cd4ee53f6ed247dfbd0b852557a42f50</sys_id>
-      <sys_ui_formatter/>
-      <sys_ui_section caption="Exception Details" display_value="Exception Details" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">4f7edcbc52044dae88c811dcc493273f</sys_ui_section>
-      <sys_user/>
-      <type/>
-    </sys_ui_element>
-    <sys_ui_element action="INSERT_OR_UPDATE" apply_defaults="true">
-      <element>.end_split</element>
-      <position>8</position>
-      <sys_id>d0b595696a92448091241e751db74d53</sys_id>
-      <sys_ui_formatter/>
-      <sys_ui_section caption="Exception Details" display_value="Exception Details" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">4f7edcbc52044dae88c811dcc493273f</sys_ui_section>
-      <sys_user/>
-      <type>.end_split</type>
-    </sys_ui_element>
-    <sys_ui_element action="INSERT_OR_UPDATE" apply_defaults="true">
-      <element>short_description</element>
-      <position>9</position>
-      <sys_id>a80089a40bb041f38859cd753e103be9</sys_id>
-      <sys_ui_formatter/>
-      <sys_ui_section caption="Exception Details" display_value="Exception Details" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">4f7edcbc52044dae88c811dcc493273f</sys_ui_section>
-      <sys_user/>
-      <type/>
-    </sys_ui_element>
-    <sys_ui_element action="INSERT_OR_UPDATE" apply_defaults="true">
-      <element>description</element>
-      <position>10</position>
-      <sys_id>f303a81855824286ad915ec125a1d96d</sys_id>
-      <sys_ui_formatter/>
-      <sys_ui_section caption="Exception Details" display_value="Exception Details" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">4f7edcbc52044dae88c811dcc493273f</sys_ui_section>
-      <sys_user/>
-      <type/>
-    </sys_ui_element>
-    <sys_ui_section action="INSERT_OR_UPDATE" apply_defaults="true">
-      <caption>Exception Details</caption>
-      <header>false</header>
-      <name>x_1956908_wareho_0_exception</name>
-      <roles/>
-      <sys_domain>global</sys_domain>
-      <sys_id>4f7edcbc52044dae88c811dcc493273f</sys_id>
-      <sys_scope display_value="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
-      <sys_user/>
-      <title>false</title>
-      <view_name/>
-      <view display_value="Default view" name="NULL">Default view</view>
+    <sys_ui_section caption="Exception Details" section_id="4f7edcbc52044dae88c811dcc493273f" sys_domain="global" table="x_1956908_wareho_0_exception" version="3" view="">
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>.begin_split</element>
+            <position>0</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-09-26 04:58:17</sys_created_on>
+            <sys_id>b6fcc1db7cfa4c42bc93c9935f341524</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Exception Details" display_value="Exception Details" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">4f7edcbc52044dae88c811dcc493273f</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-09-26 04:58:17</sys_updated_on>
+            <sys_user/>
+            <type>.begin_split</type>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>number</element>
+            <position>1</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-09-26 04:58:17</sys_created_on>
+            <sys_id>daff7adf0ed241b89da4d35df12ba8c6</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Exception Details" display_value="Exception Details" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">4f7edcbc52044dae88c811dcc493273f</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-09-26 04:58:17</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>exception_type</element>
+            <position>2</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-09-26 04:58:17</sys_created_on>
+            <sys_id>5aa4813848354e2b80ecbc1e4d19e465</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Exception Details" display_value="Exception Details" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">4f7edcbc52044dae88c811dcc493273f</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-09-26 04:58:17</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>severity</element>
+            <position>3</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-09-26 04:58:17</sys_created_on>
+            <sys_id>a6dc3f27d8e34a339a65cac1f95d085a</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Exception Details" display_value="Exception Details" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">4f7edcbc52044dae88c811dcc493273f</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-09-26 04:58:17</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>.split</element>
+            <position>4</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-09-26 04:58:17</sys_created_on>
+            <sys_id>e66c9311cba2475fa24538493b348227</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Exception Details" display_value="Exception Details" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">4f7edcbc52044dae88c811dcc493273f</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-09-26 04:58:17</sys_updated_on>
+            <sys_user/>
+            <type>.split</type>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>status</element>
+            <position>5</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-09-26 04:58:17</sys_created_on>
+            <sys_id>7d98deeaed284d9e99ff45bebe16c971</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Exception Details" display_value="Exception Details" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">4f7edcbc52044dae88c811dcc493273f</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-09-26 04:58:17</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>location</element>
+            <position>6</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-09-26 04:58:17</sys_created_on>
+            <sys_id>7027c04c8cef429ca1b286cb31b1cc0f</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Exception Details" display_value="Exception Details" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">4f7edcbc52044dae88c811dcc493273f</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-09-26 04:58:17</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>priority</element>
+            <position>7</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-09-26 04:58:17</sys_created_on>
+            <sys_id>cd4ee53f6ed247dfbd0b852557a42f50</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Exception Details" display_value="Exception Details" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">4f7edcbc52044dae88c811dcc493273f</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-09-26 04:58:17</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>.end_split</element>
+            <position>8</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-09-26 04:58:17</sys_created_on>
+            <sys_id>d0b595696a92448091241e751db74d53</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Exception Details" display_value="Exception Details" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">4f7edcbc52044dae88c811dcc493273f</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-09-26 04:58:17</sys_updated_on>
+            <sys_user/>
+            <type>.end_split</type>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>short_description</element>
+            <position>9</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-09-26 04:58:17</sys_created_on>
+            <sys_id>a80089a40bb041f38859cd753e103be9</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Exception Details" display_value="Exception Details" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">4f7edcbc52044dae88c811dcc493273f</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-09-26 04:58:17</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>description</element>
+            <position>10</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-09-26 04:58:17</sys_created_on>
+            <sys_id>f303a81855824286ad915ec125a1d96d</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Exception Details" display_value="Exception Details" name="x_1956908_wareho_0_exception" sys_domain="global" view="Default view">4f7edcbc52044dae88c811dcc493273f</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-09-26 04:58:17</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_section action="INSERT_OR_UPDATE">
+            <caption>Exception Details</caption>
+            <header>false</header>
+            <name>x_1956908_wareho_0_exception</name>
+            <roles/>
+            <sys_class_name>sys_ui_section</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-09-23 09:58:58</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>4f7edcbc52044dae88c811dcc493273f</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>x_1956908_wareho_0_exception</sys_name>
+            <sys_overrides/>
+            <sys_package display_value="Warehouse Exception Intelligence" source="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="Warehouse Exception Intelligence">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
+            <sys_update_name>sys_ui_section_4f7edcbc52044dae88c811dcc493273f</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-09-23 09:58:58</sys_updated_on>
+            <sys_user/>
+            <title>false</title>
+            <view display_value="Default view" name="NULL">Default view</view>
+            <view_name/>
+        </sys_ui_section>
     </sys_ui_section>
-  </sys_ui_section>
 </record_update>
