@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_ui_action">
+    <sys_ui_action action="INSERT_OR_UPDATE">
+        <action_name>resolve_exception</action_name>
+        <active>true</active>
+        <client>true</client>
+        <client_script_v2><![CDATA[function onClick() {}]]></client_script_v2>
+        <comments>Validates resolution notes and marks the warehouse exception as Resolved.</comments>
+        <condition>current.status != 'resolved' &amp;&amp; current.status != 'closed'</condition>
+        <form_action>true</form_action>
+        <form_button>true</form_button>
+        <form_button_v2>false</form_button_v2>
+        <form_context_menu>false</form_context_menu>
+        <form_link>false</form_link>
+        <form_menu_button_v2>false</form_menu_button_v2>
+        <form_style>primary</form_style>
+        <format_for_configurable_workspace>false</format_for_configurable_workspace>
+        <hint>Resolve this warehouse exception</hint>
+        <isolate_script>true</isolate_script>
+        <list_action>false</list_action>
+        <list_banner_button>false</list_banner_button>
+        <list_button>false</list_button>
+        <list_choice>false</list_choice>
+        <list_context_menu>false</list_context_menu>
+        <list_link>false</list_link>
+        <list_save_with_form_button>false</list_save_with_form_button>
+        <list_style/>
+        <messages/>
+        <name>Resolve Exception</name>
+        <onclick>resolveExceptionClient()</onclick>
+        <order>200</order>
+        <script><![CDATA[function resolveExceptionClient() {
+    var notes = g_form.getValue('resolution_notes');
+    var cleanNotes = notes ? notes.replace(/<[^>]*>/g, '').trim() : '';
+    if (!cleanNotes) {
+        g_form.addErrorMessage('Please enter Resolution Notes in the Resolution tab before clicking Resolve.');
+        g_form.setMandatory('resolution_notes', true);
+        return false;
+    }
+    g_form.setValue('status', 'resolved');
+    gsftSubmit(null, g_form.getFormElement(), 'resolve_exception');
+}
+
+if (typeof window == 'undefined')
+    serverResolve();
+
+function serverResolve() {
+    current.status = 'resolved';
+    current.update();
+    gs.addInfoMessage('Exception ' + current.number + ' has been marked Resolved.');
+    action.setRedirectURL(current);
+}
+]]></script>
+        <show_insert>false</show_insert>
+        <show_multiple_update>false</show_multiple_update>
+        <show_query>false</show_query>
+        <show_update>true</show_update>
+        <sys_class_name>sys_ui_action</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-29 10:28:00</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>0dd177f6c32d40729a4d1efc2a2705db</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Resolve Exception</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Warehouse Exception Intelligence" source="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Warehouse Exception Intelligence">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
+        <sys_update_name>sys_ui_action_0dd177f6c32d40729a4d1efc2a2705db</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-09-29 10:28:00</sys_updated_on>
+        <table>x_1956908_wareho_0_exception</table>
+        <ui_type>0</ui_type>
+        <view/>
+    </sys_ui_action>
+</record_update>
