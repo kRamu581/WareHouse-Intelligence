@@ -6,6 +6,7 @@
             <sys_class_name>sys_choice_set</sys_class_name>
             <sys_created_by>admin</sys_created_by>
             <sys_created_on>2026-09-23 09:58:09</sys_created_on>
+            <sys_id>5542be8b736743506e69fda14ab8b7ac</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_name>exception_type</sys_name>
             <sys_package display_value="Warehouse Exception Intelligence" source="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_package>
@@ -29,6 +30,7 @@
             <sys_created_on>2026-09-26 04:57:03</sys_created_on>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
+            <sys_id>8713f24f736743506e69fda14ab8b7d8</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>admin</sys_updated_by>
             <sys_updated_on>2026-09-26 04:57:03</sys_updated_on>
@@ -48,6 +50,7 @@
             <sys_created_on>2026-09-26 04:57:03</sys_created_on>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
+            <sys_id>5713f24f736743506e69fda14ab8b7da</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>admin</sys_updated_by>
             <sys_updated_on>2026-09-26 04:57:03</sys_updated_on>
@@ -67,6 +70,7 @@
             <sys_created_on>2026-09-26 04:57:03</sys_created_on>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
+            <sys_id>1f13f24f736743506e69fda14ab8b7db</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>admin</sys_updated_by>
             <sys_updated_on>2026-09-26 04:57:03</sys_updated_on>
@@ -86,6 +90,7 @@
             <sys_created_on>2026-09-26 04:57:03</sys_created_on>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
+            <sys_id>d313f24f736743506e69fda14ab8b7dd</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>admin</sys_updated_by>
             <sys_updated_on>2026-09-26 04:57:03</sys_updated_on>

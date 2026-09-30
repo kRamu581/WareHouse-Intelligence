@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_ui_policy">
     <sys_ui_policy action="INSERT_OR_UPDATE">
         <active>true</active>
-        <applies_extended>false</applies_extended>
-        <applies_to>table</applies_to>
         <conditions table="x_1956908_wareho_0_exception">status=closed<item display_value="Closed" endquery="false" field="status" goto="false" newquery="false" operator="=" or="false" value="closed"/>
         </conditions>
         <description>Locks the exception record by setting key fields to read-only once closed.</description>
