@@ -3,389 +3,386 @@
         <category>custom</category>
         <client_script><![CDATA[api.controller=function() {  /* widget controller */  var c = this;};]]></client_script>
         <controller_as>c</controller_as>
-        <css>.wei-landing {&#13;
-  font-family: Arial, sans-serif;&#13;
-  color: #1A1A1A;&#13;
-}&#13;
-&#13;
-/* Navigation */&#13;
-.wei-nav {&#13;
-  display: flex;&#13;
-  justify-content: space-between;&#13;
-  align-items: center;&#13;
-  padding: 16px 32px;&#13;
-  background: #fff;&#13;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);&#13;
-  position: sticky;&#13;
-  top: 0;&#13;
-  z-index: 10;&#13;
-}&#13;
-&#13;
-.wei-logo {&#13;
-  font-weight: 700;&#13;
-  font-size: 18px;&#13;
-  white-space: nowrap;&#13;
-}&#13;
-&#13;
-.wei-logo-accent {&#13;
-  color: #FF5A1F;&#13;
-}&#13;
-&#13;
-.wei-nav-links {&#13;
-  display: flex;&#13;
-  align-items: center;&#13;
-}&#13;
-&#13;
-.wei-nav-links a {&#13;
-  margin: 0 14px;&#13;
-  text-decoration: none;&#13;
-  color: #333;&#13;
-  font-size: 14px;&#13;
-  font-weight: 500;&#13;
-}&#13;
-&#13;
-.wei-nav-links a:hover {&#13;
-  color: #FF5A1F;&#13;
-}&#13;
-&#13;
-.wei-nav-auth {&#13;
-  display: flex;&#13;
-  align-items: center;&#13;
-  font-size: 13px;&#13;
-}&#13;
-&#13;
-/* Buttons */&#13;
-.wei-btn {&#13;
-  display: inline-block;&#13;
-  border-radius: 24px;&#13;
-  padding: 8px 20px;&#13;
-  font-size: 13px;&#13;
-  font-weight: 600;&#13;
-  cursor: pointer;&#13;
-  border: none;&#13;
-  text-decoration: none;&#13;
-}&#13;
-&#13;
-.wei-btn-primary {&#13;
-  background: #FF5A1F;&#13;
-  color: #fff;&#13;
-}&#13;
-&#13;
-.wei-btn-primary:hover {&#13;
-  background: #E94E17;&#13;
-  color: #fff;&#13;
-}&#13;
-&#13;
-.wei-btn-outline {&#13;
-  border: 1.5px solid #FF5A1F;&#13;
-  color: #FF5A1F;&#13;
-  background: transparent;&#13;
-}&#13;
-&#13;
-.wei-btn-outline:hover {&#13;
-  background: #FF5A1F;&#13;
-  color: #fff;&#13;
-}&#13;
-&#13;
-.wei-btn-ghost {&#13;
-  background: #F3F3F3;&#13;
-  color: #1A1A1A;&#13;
-}&#13;
-&#13;
-.wei-btn-ghost:hover {&#13;
-  background: #E8E8E8;&#13;
-}&#13;
-&#13;
-/* Hero */&#13;
-.wei-hero {&#13;
-  text-align: center;&#13;
-  padding: 72px 24px;&#13;
-  color: #fff;&#13;
-  background: linear-gradient(&#13;
-    135deg,&#13;
-    #1A1A1A 0%,&#13;
-    #3A2416 60%,&#13;
-    #FF5A1F 140%&#13;
-  );&#13;
-}&#13;
-&#13;
-.wei-hero-badge {&#13;
-  display: inline-block;&#13;
-  background: rgba(255, 255, 255, 0.12);&#13;
-  border-radius: 20px;&#13;
-  padding: 6px 16px;&#13;
-  font-size: 12px;&#13;
-  margin-bottom: 16px;&#13;
-}&#13;
-&#13;
-.wei-hero h1 {&#13;
-  font-size: 34px;&#13;
-  font-weight: 700;&#13;
-  max-width: 680px;&#13;
-  margin: 0 auto 16px;&#13;
-  line-height: 1.25;&#13;
-}&#13;
-&#13;
-.wei-hero p {&#13;
-  font-size: 15px;&#13;
-  opacity: 0.85;&#13;
-  max-width: 560px;&#13;
-  margin: 0 auto 28px;&#13;
-  line-height: 1.6;&#13;
-}&#13;
-&#13;
-.wei-hero-actions {&#13;
-  display: flex;&#13;
-  justify-content: center;&#13;
-  gap: 12px;&#13;
-  margin-bottom: 24px;&#13;
-  flex-wrap: wrap;&#13;
-}&#13;
-&#13;
-.wei-hero-trust {&#13;
-  display: flex;&#13;
-  justify-content: center;&#13;
-  gap: 20px;&#13;
-  font-size: 12px;&#13;
-  opacity: 0.8;&#13;
-  flex-wrap: wrap;&#13;
-}&#13;
-&#13;
-/* Sections */&#13;
-.wei-section {&#13;
-  padding: 56px 24px;&#13;
-  max-width: 1040px;&#13;
-  margin: 0 auto;&#13;
-}&#13;
-&#13;
-.wei-section h2 {&#13;
-  font-size: 26px;&#13;
-  font-weight: 700;&#13;
-  text-align: center;&#13;
-  margin: 0 0 8px;&#13;
-}&#13;
-&#13;
-.wei-section-sub {&#13;
-  text-align: center;&#13;
-  color: #666;&#13;
-  font-size: 14px;&#13;
-  margin-bottom: 36px;&#13;
-}&#13;
-&#13;
-/* Section 1 - Stats */&#13;
-.wei-stats-section {&#13;
-  display: flex;&#13;
-  justify-content: center;&#13;
-  gap: 48px;&#13;
-  flex-wrap: wrap;&#13;
-}&#13;
-&#13;
-.wei-stat-card {&#13;
-  text-align: center;&#13;
-  min-width: 120px;&#13;
-}&#13;
-&#13;
-.wei-stat-number {&#13;
-  font-size: 32px;&#13;
-  font-weight: 700;&#13;
-  color: #FF5A1F;&#13;
-}&#13;
-&#13;
-.wei-stat-label {&#13;
-  font-size: 13px;&#13;
-  color: #555;&#13;
-  margin-top: 4px;&#13;
-}&#13;
-&#13;
-/* Section 2 - Steps */&#13;
-.wei-steps-row {&#13;
-  display: flex;&#13;
-  gap: 24px;&#13;
-  flex-wrap: wrap;&#13;
-  justify-content: center;&#13;
-}&#13;
-&#13;
-.wei-step-card {&#13;
-  flex: 1;&#13;
-  min-width: 220px;&#13;
-  max-width: 260px;&#13;
-  text-align: center;&#13;
-  padding: 24px 16px;&#13;
-  border-radius: 12px;&#13;
-  background: #FAFAFA;&#13;
-  border: 1px solid #EEE;&#13;
-}&#13;
-&#13;
-.wei-step-number {&#13;
-  width: 36px;&#13;
-  height: 36px;&#13;
-  line-height: 36px;&#13;
-  border-radius: 50%;&#13;
-  background: #FF5A1F;&#13;
-  color: #fff;&#13;
-  font-weight: 700;&#13;
-  margin: 0 auto 14px;&#13;
-}&#13;
-&#13;
-.wei-step-title {&#13;
-  font-weight: 600;&#13;
-  font-size: 15px;&#13;
-  margin-bottom: 6px;&#13;
-}&#13;
-&#13;
-.wei-step-desc {&#13;
-  font-size: 13px;&#13;
-  color: #666;&#13;
-  line-height: 1.5;&#13;
-}&#13;
-&#13;
-/* Section 3 - Features */&#13;
-.wei-features-grid {&#13;
-  display: grid;&#13;
-  grid-template-columns: repeat(4, minmax(0, 1fr));&#13;
-  gap: 20px;&#13;
-}&#13;
-&#13;
-.wei-feature-card {&#13;
-  background: #fff;&#13;
-  border: 1px solid #EEE;&#13;
-  border-radius: 12px;&#13;
-  padding: 20px 16px;&#13;
-  text-align: center;&#13;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);&#13;
-}&#13;
-&#13;
-.wei-feature-icon {&#13;
-  font-size: 24px;&#13;
-  margin-bottom: 10px;&#13;
-}&#13;
-&#13;
-.wei-feature-title {&#13;
-  font-weight: 600;&#13;
-  font-size: 14px;&#13;
-  margin-bottom: 6px;&#13;
-}&#13;
-&#13;
-.wei-feature-desc {&#13;
-  font-size: 12px;&#13;
-  color: #666;&#13;
-  line-height: 1.5;&#13;
-}&#13;
-&#13;
-/* Footer */&#13;
-.wei-footer {&#13;
-  background: #1A1A1A;&#13;
-  color: #ccc;&#13;
-  padding: 48px 24px 24px;&#13;
-}&#13;
-&#13;
-.wei-footer-columns {&#13;
-  display: flex;&#13;
-  justify-content: center;&#13;
-  gap: 64px;&#13;
-  flex-wrap: wrap;&#13;
-  margin-bottom: 32px;&#13;
-}&#13;
-&#13;
-.wei-footer-col {&#13;
-  min-width: 140px;&#13;
-}&#13;
-&#13;
-.wei-footer-heading {&#13;
-  color: #fff;&#13;
-  font-weight: 600;&#13;
-  font-size: 13px;&#13;
-  margin-bottom: 12px;&#13;
-}&#13;
-&#13;
-.wei-footer-col a {&#13;
-  display: block;&#13;
-  color: #999;&#13;
-  font-size: 13px;&#13;
-  text-decoration: none;&#13;
-  margin-bottom: 8px;&#13;
-}&#13;
-&#13;
-.wei-footer-col a:hover {&#13;
-  color: #FF5A1F;&#13;
-}&#13;
-&#13;
-.wei-footer-bottom {&#13;
-  text-align: center;&#13;
-  font-size: 12px;&#13;
-  color: #777;&#13;
-  border-top: 1px solid #333;&#13;
-  padding-top: 20px;&#13;
-}&#13;
-&#13;
-/* Service Portal responsive layout */&#13;
-@media (max-width: 700px) {&#13;
-&#13;
-  .wei-nav {&#13;
-    flex-wrap: wrap;&#13;
-    padding: 14px 20px;&#13;
-    gap: 12px;&#13;
-  }&#13;
-&#13;
-  .wei-nav-links {&#13;
-    order: 3;&#13;
-    width: 100%;&#13;
-    justify-content: center;&#13;
-  }&#13;
-&#13;
-  .wei-nav-links a {&#13;
-    margin: 0 8px;&#13;
-  }&#13;
-&#13;
-  .wei-features-grid {&#13;
-    grid-template-columns: repeat(2, minmax(0, 1fr));&#13;
-  }&#13;
-&#13;
-  .wei-hero {&#13;
-    padding: 56px 20px;&#13;
-  }&#13;
-&#13;
-  .wei-hero h1 {&#13;
-    font-size: 26px;&#13;
-  }&#13;
-&#13;
-  .wei-footer-columns {&#13;
-    gap: 32px;&#13;
-  }&#13;
-}&#13;
-&#13;
-@media (max-width: 450px) {&#13;
-&#13;
-  .wei-nav {&#13;
-    justify-content: center;&#13;
-  }&#13;
-&#13;
-  .wei-logo {&#13;
-    width: 100%;&#13;
-    text-align: center;&#13;
-  }&#13;
-&#13;
-  .wei-nav-links {&#13;
-    flex-wrap: wrap;&#13;
-  }&#13;
-&#13;
-  .wei-features-grid {&#13;
-    grid-template-columns: 1fr;&#13;
-  }&#13;
-&#13;
-  .wei-hero-actions {&#13;
-    flex-direction: column;&#13;
-    align-items: center;&#13;
-  }&#13;
-&#13;
-  .wei-btn {&#13;
-    width: 220px;&#13;
-  }&#13;
-&#13;
-  .wei-stats-section {&#13;
-    gap: 28px;&#13;
-  }&#13;
-}</css>
+        <css><![CDATA[
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
+
+.saas-landing {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: #0c0c0e;
+  color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* Banner */
+.saas-banner {
+  background: linear-gradient(90deg, #ff4b2b 0%, #ff416c 100%);
+  color: white;
+  text-align: center;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+}
+.saas-badge {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: bold;
+  margin-right: 8px;
+}
+.saas-banner a {
+  color: white;
+  text-decoration: underline;
+  font-weight: 600;
+  margin-left: 4px;
+}
+
+/* Navigation */
+.saas-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 40px;
+  background: rgba(12, 12, 14, 0.8);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.saas-nav-left, .saas-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.saas-logo {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+.saas-logo-dot {
+  color: #ff4b2b;
+}
+.saas-nav-links a {
+  color: #a1a1a6;
+  font-size: 14px;
+  font-weight: 500;
+  margin-left: 20px;
+  transition: color 0.2s;
+}
+.saas-nav-links a i {
+  font-size: 10px;
+  margin-left: 4px;
+}
+.saas-nav-links a:hover, .saas-icon-link:hover, .saas-link:hover {
+  color: #ffffff;
+}
+.saas-icon-link, .saas-link {
+  color: #a1a1a6;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.saas-btn-primary {
+  background: linear-gradient(90deg, #ff4b2b 0%, #ff416c 100%);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.saas-btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 75, 43, 0.3);
+  color: white;
+}
+
+/* Hero Section */
+.saas-hero {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80px 20px 40px;
+  overflow: hidden;
+}
+.saas-grid-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  z-index: 1;
+  -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+}
+.saas-hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 800px;
+  width: 100%;
+}
+
+.saas-pill {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #a1a1a6;
+  margin-bottom: 24px;
+}
+.saas-pill i {
+  color: #ff4b2b;
+  margin-right: 6px;
+}
+
+.saas-title {
+  font-size: 64px;
+  font-weight: 900;
+  margin: 0 0 20px;
+  line-height: 1.1;
+  letter-spacing: -1px;
+}
+.saas-gradient-text {
+  background: linear-gradient(90deg, #ff4b2b 0%, #ff416c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.saas-subtitle {
+  font-size: 18px;
+  color: #a1a1a6;
+  line-height: 1.5;
+  margin: 0 auto 40px;
+  max-width: 600px;
+}
+
+.saas-hero-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 50px;
+}
+
+.saas-btn-gradient {
+  background: linear-gradient(90deg, #ff4b2b 0%, #ff416c 100%);
+  color: white;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  box-shadow: 0 0 20px rgba(255, 75, 43, 0.4);
+  transition: all 0.3s;
+}
+.saas-btn-gradient:hover {
+  box-shadow: 0 0 30px rgba(255, 75, 43, 0.6);
+  transform: translateY(-2px);
+  color: white;
+}
+
+.saas-btn-outline {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+.saas-btn-outline:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+/* AI Search Bar */
+.saas-search-container {
+  padding: 2px;
+  background: linear-gradient(90deg, rgba(255, 75, 43, 0.5) 0%, rgba(255, 65, 108, 0.5) 100%);
+  border-radius: 12px;
+  margin: 0 auto 30px;
+  max-width: 650px;
+}
+.saas-search-box {
+  background: #151518;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+}
+.saas-search-icon {
+  color: #ff4b2b;
+  font-size: 18px;
+  margin-right: 12px;
+}
+.saas-search-box input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+  padding: 10px 0;
+  outline: none;
+}
+.saas-search-box input::placeholder {
+  color: #666;
+}
+.saas-search-submit {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #a1a1a6;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.saas-search-submit:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+/* Tags */
+.saas-tags {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+.saas-tag {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #a1a1a6;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+.saas-tag:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.saas-trust {
+  color: #666;
+  font-size: 14px;
+}
+.saas-highlight {
+  color: #ff4b2b;
+  font-weight: 600;
+}
+
+/* Standard Home */
+.saas-standard-home {
+  text-align: center;
+  margin: 40px 0 80px;
+  position: relative;
+  z-index: 2;
+}
+.saas-btn-standard {
+  background: transparent;
+  border: 1px solid #333;
+  color: #a1a1a6;
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+.saas-btn-standard i {
+  margin-right: 6px;
+}
+.saas-btn-standard:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+  border-color: #555;
+}
+
+/* Footer */
+.saas-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 40px;
+  position: relative;
+  z-index: 2;
+  background: #09090b;
+}
+.saas-footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1000px;
+  margin: 0 auto 30px;
+}
+.saas-footer-left p {
+  color: #666;
+  font-size: 12px;
+  margin-top: 4px;
+}
+.saas-footer-links {
+  display: flex;
+  gap: 24px;
+}
+.saas-footer-links a {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+}
+.saas-footer-links a:hover {
+  color: #ff4b2b;
+}
+.saas-footer-socials {
+  display: flex;
+  gap: 16px;
+}
+.saas-footer-socials a {
+  background: rgba(255, 255, 255, 0.05);
+  color: #a1a1a6;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.saas-footer-socials a:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.saas-footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1000px;
+  margin: 0 auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 20px;
+  color: #666;
+  font-size: 12px;
+}
+]]></css>
         <data_table>sp_instance</data_table>
         <demo_data/>
         <description/>
@@ -501,11 +498,12 @@
         <sys_update_name>sp_widget_2455f39b93eb07908cf3f2375d03d625</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
         <sys_updated_on>2026-10-01 09:20:01</sys_updated_on>
-        <template><![CDATA[<div class="saas-landing">
+        <template><![CDATA[
+<div class="saas-landing">
   <!-- Top Banner -->
   <div class="saas-banner">
     <span class="saas-badge">NEW</span> 
-    Power your warehouse operations with Generative AI - 
+    Power your warehouse operations with Generative AI &mdash; 
     <a href="?id=wei_report">Explore WEI Capabilities &gt;</a>
   </div>
 
@@ -608,7 +606,8 @@
       <p>&copy; 2026 WEI Intelligence. All rights reserved.</p>
     </div>
   </footer>
-</div>]]></template>
+</div>
+]]></template>
     </sp_widget>
 </record_update>
 
