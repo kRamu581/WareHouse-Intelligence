@@ -1,0 +1,739 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller=function() {  /* widget controller */  var c = this;};]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.wei-landing {&#13;
+  font-family: Arial, sans-serif;&#13;
+  color: #1A1A1A;&#13;
+}&#13;
+&#13;
+/* Navigation */&#13;
+.wei-nav {&#13;
+  display: flex;&#13;
+  justify-content: space-between;&#13;
+  align-items: center;&#13;
+  padding: 16px 32px;&#13;
+  background: #fff;&#13;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);&#13;
+  position: sticky;&#13;
+  top: 0;&#13;
+  z-index: 10;&#13;
+}&#13;
+&#13;
+.wei-logo {&#13;
+  font-weight: 700;&#13;
+  font-size: 18px;&#13;
+  white-space: nowrap;&#13;
+}&#13;
+&#13;
+.wei-logo-accent {&#13;
+  color: #FF5A1F;&#13;
+}&#13;
+&#13;
+.wei-nav-links {&#13;
+  display: flex;&#13;
+  align-items: center;&#13;
+}&#13;
+&#13;
+.wei-nav-links a {&#13;
+  margin: 0 14px;&#13;
+  text-decoration: none;&#13;
+  color: #333;&#13;
+  font-size: 14px;&#13;
+  font-weight: 500;&#13;
+}&#13;
+&#13;
+.wei-nav-links a:hover {&#13;
+  color: #FF5A1F;&#13;
+}&#13;
+&#13;
+.wei-nav-auth {&#13;
+  display: flex;&#13;
+  align-items: center;&#13;
+  font-size: 13px;&#13;
+}&#13;
+&#13;
+/* Buttons */&#13;
+.wei-btn {&#13;
+  display: inline-block;&#13;
+  border-radius: 24px;&#13;
+  padding: 8px 20px;&#13;
+  font-size: 13px;&#13;
+  font-weight: 600;&#13;
+  cursor: pointer;&#13;
+  border: none;&#13;
+  text-decoration: none;&#13;
+}&#13;
+&#13;
+.wei-btn-primary {&#13;
+  background: #FF5A1F;&#13;
+  color: #fff;&#13;
+}&#13;
+&#13;
+.wei-btn-primary:hover {&#13;
+  background: #E94E17;&#13;
+  color: #fff;&#13;
+}&#13;
+&#13;
+.wei-btn-outline {&#13;
+  border: 1.5px solid #FF5A1F;&#13;
+  color: #FF5A1F;&#13;
+  background: transparent;&#13;
+}&#13;
+&#13;
+.wei-btn-outline:hover {&#13;
+  background: #FF5A1F;&#13;
+  color: #fff;&#13;
+}&#13;
+&#13;
+.wei-btn-ghost {&#13;
+  background: #F3F3F3;&#13;
+  color: #1A1A1A;&#13;
+}&#13;
+&#13;
+.wei-btn-ghost:hover {&#13;
+  background: #E8E8E8;&#13;
+}&#13;
+&#13;
+/* Hero */&#13;
+.wei-hero {&#13;
+  text-align: center;&#13;
+  padding: 72px 24px;&#13;
+  color: #fff;&#13;
+  background: linear-gradient(&#13;
+    135deg,&#13;
+    #1A1A1A 0%,&#13;
+    #3A2416 60%,&#13;
+    #FF5A1F 140%&#13;
+  );&#13;
+}&#13;
+&#13;
+.wei-hero-badge {&#13;
+  display: inline-block;&#13;
+  background: rgba(255, 255, 255, 0.12);&#13;
+  border-radius: 20px;&#13;
+  padding: 6px 16px;&#13;
+  font-size: 12px;&#13;
+  margin-bottom: 16px;&#13;
+}&#13;
+&#13;
+.wei-hero h1 {&#13;
+  font-size: 34px;&#13;
+  font-weight: 700;&#13;
+  max-width: 680px;&#13;
+  margin: 0 auto 16px;&#13;
+  line-height: 1.25;&#13;
+}&#13;
+&#13;
+.wei-hero p {&#13;
+  font-size: 15px;&#13;
+  opacity: 0.85;&#13;
+  max-width: 560px;&#13;
+  margin: 0 auto 28px;&#13;
+  line-height: 1.6;&#13;
+}&#13;
+&#13;
+.wei-hero-actions {&#13;
+  display: flex;&#13;
+  justify-content: center;&#13;
+  gap: 12px;&#13;
+  margin-bottom: 24px;&#13;
+  flex-wrap: wrap;&#13;
+}&#13;
+&#13;
+.wei-hero-trust {&#13;
+  display: flex;&#13;
+  justify-content: center;&#13;
+  gap: 20px;&#13;
+  font-size: 12px;&#13;
+  opacity: 0.8;&#13;
+  flex-wrap: wrap;&#13;
+}&#13;
+&#13;
+/* Sections */&#13;
+.wei-section {&#13;
+  padding: 56px 24px;&#13;
+  max-width: 1040px;&#13;
+  margin: 0 auto;&#13;
+}&#13;
+&#13;
+.wei-section h2 {&#13;
+  font-size: 26px;&#13;
+  font-weight: 700;&#13;
+  text-align: center;&#13;
+  margin: 0 0 8px;&#13;
+}&#13;
+&#13;
+.wei-section-sub {&#13;
+  text-align: center;&#13;
+  color: #666;&#13;
+  font-size: 14px;&#13;
+  margin-bottom: 36px;&#13;
+}&#13;
+&#13;
+/* Section 1 - Stats */&#13;
+.wei-stats-section {&#13;
+  display: flex;&#13;
+  justify-content: center;&#13;
+  gap: 48px;&#13;
+  flex-wrap: wrap;&#13;
+}&#13;
+&#13;
+.wei-stat-card {&#13;
+  text-align: center;&#13;
+  min-width: 120px;&#13;
+}&#13;
+&#13;
+.wei-stat-number {&#13;
+  font-size: 32px;&#13;
+  font-weight: 700;&#13;
+  color: #FF5A1F;&#13;
+}&#13;
+&#13;
+.wei-stat-label {&#13;
+  font-size: 13px;&#13;
+  color: #555;&#13;
+  margin-top: 4px;&#13;
+}&#13;
+&#13;
+/* Section 2 - Steps */&#13;
+.wei-steps-row {&#13;
+  display: flex;&#13;
+  gap: 24px;&#13;
+  flex-wrap: wrap;&#13;
+  justify-content: center;&#13;
+}&#13;
+&#13;
+.wei-step-card {&#13;
+  flex: 1;&#13;
+  min-width: 220px;&#13;
+  max-width: 260px;&#13;
+  text-align: center;&#13;
+  padding: 24px 16px;&#13;
+  border-radius: 12px;&#13;
+  background: #FAFAFA;&#13;
+  border: 1px solid #EEE;&#13;
+}&#13;
+&#13;
+.wei-step-number {&#13;
+  width: 36px;&#13;
+  height: 36px;&#13;
+  line-height: 36px;&#13;
+  border-radius: 50%;&#13;
+  background: #FF5A1F;&#13;
+  color: #fff;&#13;
+  font-weight: 700;&#13;
+  margin: 0 auto 14px;&#13;
+}&#13;
+&#13;
+.wei-step-title {&#13;
+  font-weight: 600;&#13;
+  font-size: 15px;&#13;
+  margin-bottom: 6px;&#13;
+}&#13;
+&#13;
+.wei-step-desc {&#13;
+  font-size: 13px;&#13;
+  color: #666;&#13;
+  line-height: 1.5;&#13;
+}&#13;
+&#13;
+/* Section 3 - Features */&#13;
+.wei-features-grid {&#13;
+  display: grid;&#13;
+  grid-template-columns: repeat(4, minmax(0, 1fr));&#13;
+  gap: 20px;&#13;
+}&#13;
+&#13;
+.wei-feature-card {&#13;
+  background: #fff;&#13;
+  border: 1px solid #EEE;&#13;
+  border-radius: 12px;&#13;
+  padding: 20px 16px;&#13;
+  text-align: center;&#13;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);&#13;
+}&#13;
+&#13;
+.wei-feature-icon {&#13;
+  font-size: 24px;&#13;
+  margin-bottom: 10px;&#13;
+}&#13;
+&#13;
+.wei-feature-title {&#13;
+  font-weight: 600;&#13;
+  font-size: 14px;&#13;
+  margin-bottom: 6px;&#13;
+}&#13;
+&#13;
+.wei-feature-desc {&#13;
+  font-size: 12px;&#13;
+  color: #666;&#13;
+  line-height: 1.5;&#13;
+}&#13;
+&#13;
+/* Footer */&#13;
+.wei-footer {&#13;
+  background: #1A1A1A;&#13;
+  color: #ccc;&#13;
+  padding: 48px 24px 24px;&#13;
+}&#13;
+&#13;
+.wei-footer-columns {&#13;
+  display: flex;&#13;
+  justify-content: center;&#13;
+  gap: 64px;&#13;
+  flex-wrap: wrap;&#13;
+  margin-bottom: 32px;&#13;
+}&#13;
+&#13;
+.wei-footer-col {&#13;
+  min-width: 140px;&#13;
+}&#13;
+&#13;
+.wei-footer-heading {&#13;
+  color: #fff;&#13;
+  font-weight: 600;&#13;
+  font-size: 13px;&#13;
+  margin-bottom: 12px;&#13;
+}&#13;
+&#13;
+.wei-footer-col a {&#13;
+  display: block;&#13;
+  color: #999;&#13;
+  font-size: 13px;&#13;
+  text-decoration: none;&#13;
+  margin-bottom: 8px;&#13;
+}&#13;
+&#13;
+.wei-footer-col a:hover {&#13;
+  color: #FF5A1F;&#13;
+}&#13;
+&#13;
+.wei-footer-bottom {&#13;
+  text-align: center;&#13;
+  font-size: 12px;&#13;
+  color: #777;&#13;
+  border-top: 1px solid #333;&#13;
+  padding-top: 20px;&#13;
+}&#13;
+&#13;
+/* Service Portal responsive layout */&#13;
+@media (max-width: 700px) {&#13;
+&#13;
+  .wei-nav {&#13;
+    flex-wrap: wrap;&#13;
+    padding: 14px 20px;&#13;
+    gap: 12px;&#13;
+  }&#13;
+&#13;
+  .wei-nav-links {&#13;
+    order: 3;&#13;
+    width: 100%;&#13;
+    justify-content: center;&#13;
+  }&#13;
+&#13;
+  .wei-nav-links a {&#13;
+    margin: 0 8px;&#13;
+  }&#13;
+&#13;
+  .wei-features-grid {&#13;
+    grid-template-columns: repeat(2, minmax(0, 1fr));&#13;
+  }&#13;
+&#13;
+  .wei-hero {&#13;
+    padding: 56px 20px;&#13;
+  }&#13;
+&#13;
+  .wei-hero h1 {&#13;
+    font-size: 26px;&#13;
+  }&#13;
+&#13;
+  .wei-footer-columns {&#13;
+    gap: 32px;&#13;
+  }&#13;
+}&#13;
+&#13;
+@media (max-width: 450px) {&#13;
+&#13;
+  .wei-nav {&#13;
+    justify-content: center;&#13;
+  }&#13;
+&#13;
+  .wei-logo {&#13;
+    width: 100%;&#13;
+    text-align: center;&#13;
+  }&#13;
+&#13;
+  .wei-nav-links {&#13;
+    flex-wrap: wrap;&#13;
+  }&#13;
+&#13;
+  .wei-features-grid {&#13;
+    grid-template-columns: 1fr;&#13;
+  }&#13;
+&#13;
+  .wei-hero-actions {&#13;
+    flex-direction: column;&#13;
+    align-items: center;&#13;
+  }&#13;
+&#13;
+  .wei-btn {&#13;
+    width: 220px;&#13;
+  }&#13;
+&#13;
+  .wei-stats-section {&#13;
+    gap: 28px;&#13;
+  }&#13;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>wei_landing_page</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {
+  
+}]]></link>
+        <name>wei Landing Page</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+
+    // Impact statistics
+    data.impactStats = [
+        {
+            value: '55%+',
+            label: 'Faster exception detection'
+        },
+        {
+            value: '50%+',
+            label: 'Faster resolution time'
+        },
+        {
+            value: '95%+',
+            label: 'Resolution rate'
+        }
+    ];
+
+
+    // How it works
+    data.howItWorks = [
+        {
+            title: 'Report',
+            desc: 'Staff log the issue with type, location, and evidence in seconds.'
+        },
+        {
+            title: 'Classify & route',
+            desc: 'AI sets severity and sends it straight to the right owner.'
+        },
+        {
+            title: 'Resolve',
+            desc: 'Technicians act, verify, and close with a full audit trail.'
+        }
+    ];
+
+
+    // Features
+    data.features = [
+        {
+            icon: '⚡',
+            title: 'Faster response',
+            desc: 'Automated routing reaches the right owner without delay.'
+        },
+        {
+            icon: ']]>🎯<![CDATA[',
+            title: 'Increased accountability',
+            desc: 'Clear ownership and status tracking, nothing dropped.'
+        },
+        {
+            icon: ']]>🧠<![CDATA[',
+            title: 'Smarter classification',
+            desc: 'AI-based categorization reduces manual triage errors.'
+        },
+        {
+            icon: ']]>📊<![CDATA[',
+            title: 'Real-time visibility',
+            desc: 'Supervisors see open, in-progress, and resolved at a glance.'
+        }
+    ];
+
+
+    // Login information
+    data.isLoggedIn = !gs.isGuestUser();
+
+    if (data.isLoggedIn) {
+        data.userName = gs.getUserDisplayName();
+
+        // Determine user role
+        if (gs.hasRole('wei_supervisor')) {
+            data.userRole = 'Supervisor';
+
+        } else if (gs.hasRole('wei_technician')) {
+            data.userRole = 'Technician';
+
+        } else if (gs.hasRole('wei_admin')) {
+            data.userRole = 'Admin';
+
+        } else {
+            data.userRole = 'Staff';
+        }
+
+    } else {
+        data.userName = '';
+        data.userRole = '';
+    }
+
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-10-01 09:20:01</sys_created_on>
+        <sys_id>2455f39b93eb07908cf3f2375d03d625</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>wei Landing Page</sys_name>
+        <sys_package display_value="Warehouse Exception Intelligence" source="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Warehouse Exception Intelligence">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
+        <sys_update_name>sp_widget_2455f39b93eb07908cf3f2375d03d625</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-01 09:20:01</sys_updated_on>
+        <template><![CDATA[<div class="wei-landing">
+
+  <!-- NAV -->
+  <div class="wei-nav">
+    <span class="wei-logo">
+      Warehouse <span class="wei-logo-accent">Exception</span> Intelligence
+    </span>
+
+    <div class="wei-nav-links">
+      <a ng-href="?id=wei_home">Home</a>
+      <a ng-href="?id=wei_report">Report</a>
+      <a ng-href="?id=wei_my_exceptions">My exceptions</a>
+    </div>
+
+    <div class="wei-nav-auth">
+      <a ng-if="!data.isLoggedIn"
+         href="javascript:void(0)"
+         class="wei-btn wei-btn-outline"
+         ng-click="c.goToLogin()">
+        Login
+      </a>
+
+      <span ng-if="data.isLoggedIn">
+        {{data.userName}}
+        <small>({{data.userRole}})</small>
+      </span>
+    </div>
+  </div>
+
+
+  <!-- HERO -->
+  <div class="wei-hero">
+
+    <div class="wei-hero-badge">
+      Home away from downtime
+    </div>
+
+    <h1>
+      Detect, route, and resolve warehouse exceptions — without the chaos
+    </h1>
+
+    <p>
+      One platform for reporting, classifying, routing, and tracking every
+      warehouse issue, start to finish.
+    </p>
+
+    <div class="wei-hero-actions">
+
+      <button class="wei-btn wei-btn-primary"
+              type="button"
+              ng-click="c.goToReport()">
+        Report an exception
+      </button>
+
+      <button class="wei-btn wei-btn-ghost"
+              type="button"
+              ng-click="c.goToDashboard()">
+        View dashboard
+      </button>
+
+    </div>
+
+    <div class="wei-hero-trust">
+      <span>&#10003; AI-based classification</span>
+      <span>&#10003; Real-time tracking</span>
+      <span>&#10003; Automated routing</span>
+    </div>
+
+  </div>
+
+
+  <!-- SECTION 1: IMPACT STATS -->
+  <div class="wei-section wei-stats-section">
+
+    <div class="wei-stat-card"
+         ng-repeat="stat in data.impactStats">
+
+      <div class="wei-stat-number">
+        {{stat.value}}
+      </div>
+
+      <div class="wei-stat-label">
+        {{stat.label}}
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- SECTION 2: HOW IT WORKS -->
+  <div class="wei-section wei-steps-section">
+
+    <h2>
+      Resolve exceptions in 3 easy steps
+    </h2>
+
+    <p class="wei-section-sub">
+      From report to resolution, every exception follows the same clear path.
+    </p>
+
+    <div class="wei-steps-row">
+
+      <div class="wei-step-card"
+           ng-repeat="step in data.howItWorks">
+
+        <div class="wei-step-number">
+          {{$index + 1}}
+        </div>
+
+        <div class="wei-step-title">
+          {{step.title}}
+        </div>
+
+        <div class="wei-step-desc">
+          {{step.desc}}
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- SECTION 3: WHY IT MATTERS -->
+  <div class="wei-section wei-features-section">
+
+    <h2>
+      Why teams choose Warehouse Exception Intelligence
+    </h2>
+
+    <div class="wei-features-grid">
+
+      <div class="wei-feature-card"
+           ng-repeat="f in data.features">
+
+        <div class="wei-feature-icon">
+          {{f.icon}}
+        </div>
+
+        <div class="wei-feature-title">
+          {{f.title}}
+        </div>
+
+        <div class="wei-feature-desc">
+          {{f.desc}}
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- FOOTER -->
+  <div class="wei-footer">
+
+    <div class="wei-footer-columns">
+
+      <!-- PLATFORM -->
+      <div class="wei-footer-col">
+
+        <div class="wei-footer-heading">
+          Platform
+        </div>
+
+        <a ng-href="?id=wei_report">
+          Report exception
+        </a>
+
+        <a ng-href="?id=wei_my_exceptions">
+          My exceptions
+        </a>
+
+        <a ng-href="?id=wei_supervisor">
+          Supervisor dashboard
+        </a>
+
+      </div>
+
+
+      <!-- COMPANY -->
+      <div class="wei-footer-col">
+
+        <div class="wei-footer-heading">
+          Company
+        </div>
+
+        <a href="javascript:void(0)">
+          About
+        </a>
+
+        <a href="javascript:void(0)">
+          Team Elite
+        </a>
+
+      </div>
+
+
+      <!-- SUPPORT -->
+      <div class="wei-footer-col">
+
+        <div class="wei-footer-heading">
+          Support
+        </div>
+
+        <a href="javascript:void(0)">
+          Help center
+        </a>
+
+        <a href="javascript:void(0)">
+          Contact
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <!-- FOOTER BOTTOM -->
+    <div class="wei-footer-bottom">
+
+      <span>
+        Warehouse Exception Intelligence &copy; 2026.
+        All rights reserved.
+      </span>
+
+    </div>
+
+  </div>
+
+</div>]]></template>
+    </sp_widget>
+</record_update>
