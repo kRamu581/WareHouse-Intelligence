@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
         <client_script><![CDATA[api.controller=function() {  /* widget controller */  var c = this;};]]></client_script>
         <controller_as>c</controller_as>
-        <css><![CDATA[
+        <css>
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
 
 .saas-landing {
@@ -382,7 +382,7 @@ a {
   color: #666;
   font-size: 12px;
 }
-]]></css>
+</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
         <description/>
@@ -442,17 +442,17 @@ a {
             desc: 'Automated routing reaches the right owner without delay.'
         },
         {
-            icon: ']]>ðŸŽ¯<![CDATA[',
+            icon: 'ðŸŽ¯',
             title: 'Increased accountability',
             desc: 'Clear ownership and status tracking, nothing dropped.'
         },
         {
-            icon: ']]>ðŸ§ <![CDATA[',
+            icon: 'ðŸ§ ',
             title: 'Smarter classification',
             desc: 'AI-based categorization reduces manual triage errors.'
         },
         {
-            icon: ']]>ðŸ“Š<![CDATA[',
+            icon: 'ðŸ“Š',
             title: 'Real-time visibility',
             desc: 'Supervisors see open, in-progress, and resolved at a glance.'
         }
@@ -610,4 +610,3 @@ a {
 ]]></template>
     </sp_widget>
 </record_update>
-

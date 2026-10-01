@@ -6,6 +6,7 @@
             <sys_class_name>sys_choice_set</sys_class_name>
             <sys_created_by>admin</sys_created_by>
             <sys_created_on>2026-09-23 09:58:13</sys_created_on>
+            <sys_id>d77821fe21104553b4fb816ac9d3dd53</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_name>status</sys_name>
             <sys_package display_value="Warehouse Exception Intelligence" source="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_package>
@@ -26,12 +27,13 @@
             <sequence>1</sequence>
             <synonyms/>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2026-09-26 04:57:06</sys_created_on>
+            <sys_created_on>2026-09-29 06:13:18</sys_created_on>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
+            <sys_id>4501ee4cb8314a09b644fadffd163a3b</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2026-09-26 04:57:06</sys_updated_on>
+            <sys_updated_on>2026-09-29 06:13:18</sys_updated_on>
             <value>new</value>
         </sys_choice>
         <sys_choice action="INSERT_OR_UPDATE">
@@ -45,12 +47,13 @@
             <sequence>2</sequence>
             <synonyms/>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2026-09-26 04:57:06</sys_created_on>
+            <sys_created_on>2026-09-29 06:13:18</sys_created_on>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
+            <sys_id>893d8f6175a04759ab340c79ab375f1c</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2026-09-26 04:57:06</sys_updated_on>
+            <sys_updated_on>2026-09-29 06:13:18</sys_updated_on>
             <value>assigned</value>
         </sys_choice>
         <sys_choice action="INSERT_OR_UPDATE">
@@ -64,12 +67,13 @@
             <sequence>3</sequence>
             <synonyms/>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2026-09-26 04:57:06</sys_created_on>
+            <sys_created_on>2026-09-29 06:13:19</sys_created_on>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
+            <sys_id>8e3d089c6c8d444f8d4401efd6c7979a</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2026-09-26 04:57:06</sys_updated_on>
+            <sys_updated_on>2026-09-29 06:13:19</sys_updated_on>
             <value>in_progress</value>
         </sys_choice>
         <sys_choice action="INSERT_OR_UPDATE">
@@ -83,12 +87,13 @@
             <sequence>4</sequence>
             <synonyms/>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2026-09-26 04:57:06</sys_created_on>
+            <sys_created_on>2026-09-29 06:13:19</sys_created_on>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
+            <sys_id>b47d0d1ed43b409b8ab9e6dfc78c5fad</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2026-09-26 04:57:06</sys_updated_on>
+            <sys_updated_on>2026-09-29 06:13:19</sys_updated_on>
             <value>pending</value>
         </sys_choice>
         <sys_choice action="INSERT_OR_UPDATE">
@@ -102,12 +107,13 @@
             <sequence>5</sequence>
             <synonyms/>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2026-09-26 04:57:06</sys_created_on>
+            <sys_created_on>2026-09-29 06:13:19</sys_created_on>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
+            <sys_id>0a432626136e490fabc0563a203aea78</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2026-09-26 04:57:06</sys_updated_on>
+            <sys_updated_on>2026-09-29 06:13:19</sys_updated_on>
             <value>resolved</value>
         </sys_choice>
         <sys_choice action="INSERT_OR_UPDATE">
@@ -121,12 +127,13 @@
             <sequence>6</sequence>
             <synonyms/>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2026-09-26 04:57:06</sys_created_on>
+            <sys_created_on>2026-09-29 06:13:19</sys_created_on>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
+            <sys_id>e1431e401ef14cc29905c12c83ea1e95</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2026-09-26 04:57:06</sys_updated_on>
+            <sys_updated_on>2026-09-29 06:13:19</sys_updated_on>
             <value>closed</value>
         </sys_choice>
     </sys_choice>

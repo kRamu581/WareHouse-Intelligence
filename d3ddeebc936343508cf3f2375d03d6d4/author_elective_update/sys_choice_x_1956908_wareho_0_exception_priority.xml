@@ -6,6 +6,7 @@
             <sys_class_name>sys_choice_set</sys_class_name>
             <sys_created_by>admin</sys_created_by>
             <sys_created_on>2026-09-23 09:58:11</sys_created_on>
+            <sys_id>683eeed228784e7d863fd3fb83bf5e28</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_name>priority</sys_name>
             <sys_package display_value="Warehouse Exception Intelligence" source="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_package>
@@ -26,12 +27,13 @@
             <sequence>1</sequence>
             <synonyms/>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2026-09-26 04:57:04</sys_created_on>
+            <sys_created_on>2026-09-29 06:13:08</sys_created_on>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
+            <sys_id>d6df101c30094470b89a1be1a771703f</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2026-09-26 04:57:04</sys_updated_on>
+            <sys_updated_on>2026-09-29 06:13:08</sys_updated_on>
             <value>p1_critical</value>
         </sys_choice>
         <sys_choice action="INSERT_OR_UPDATE">
@@ -45,12 +47,13 @@
             <sequence>2</sequence>
             <synonyms/>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2026-09-26 04:57:04</sys_created_on>
+            <sys_created_on>2026-09-29 06:13:08</sys_created_on>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
+            <sys_id>2371bacd334041efada6939299bd5db9</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2026-09-26 04:57:04</sys_updated_on>
+            <sys_updated_on>2026-09-29 06:13:08</sys_updated_on>
             <value>p2_high</value>
         </sys_choice>
         <sys_choice action="INSERT_OR_UPDATE">
@@ -64,12 +67,13 @@
             <sequence>3</sequence>
             <synonyms/>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2026-09-26 04:57:04</sys_created_on>
+            <sys_created_on>2026-09-29 06:13:08</sys_created_on>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
+            <sys_id>c7965e5d02354dfdab9415a8c9d8f168</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2026-09-26 04:57:04</sys_updated_on>
+            <sys_updated_on>2026-09-29 06:13:08</sys_updated_on>
             <value>p3_medium</value>
         </sys_choice>
         <sys_choice action="INSERT_OR_UPDATE">
@@ -83,12 +87,13 @@
             <sequence>4</sequence>
             <synonyms/>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2026-09-26 04:57:04</sys_created_on>
+            <sys_created_on>2026-09-29 06:13:08</sys_created_on>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
+            <sys_id>c916a162aef64fe09b1e18ce9e0d5b15</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2026-09-26 04:57:04</sys_updated_on>
+            <sys_updated_on>2026-09-29 06:13:08</sys_updated_on>
             <value>p4_low</value>
         </sys_choice>
     </sys_choice>
