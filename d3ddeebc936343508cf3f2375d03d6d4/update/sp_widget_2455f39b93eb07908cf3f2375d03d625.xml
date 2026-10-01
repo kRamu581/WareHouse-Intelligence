@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+﻿<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
         <client_script><![CDATA[api.controller=function() {  /* widget controller */  var c = this;};]]></client_script>
@@ -440,22 +440,22 @@
     // Features
     data.features = [
         {
-            icon: '⚡',
+            icon: 'âš¡',
             title: 'Faster response',
             desc: 'Automated routing reaches the right owner without delay.'
         },
         {
-            icon: ']]>🎯<![CDATA[',
+            icon: ']]>ðŸŽ¯<![CDATA[',
             title: 'Increased accountability',
             desc: 'Clear ownership and status tracking, nothing dropped.'
         },
         {
-            icon: ']]>🧠<![CDATA[',
+            icon: ']]>ðŸ§ <![CDATA[',
             title: 'Smarter classification',
             desc: 'AI-based categorization reduces manual triage errors.'
         },
         {
-            icon: ']]>📊<![CDATA[',
+            icon: ']]>ðŸ“Š<![CDATA[',
             title: 'Real-time visibility',
             desc: 'Supervisors see open, in-progress, and resolved at a glance.'
         }
@@ -501,239 +501,114 @@
         <sys_update_name>sp_widget_2455f39b93eb07908cf3f2375d03d625</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
         <sys_updated_on>2026-10-01 09:20:01</sys_updated_on>
-        <template><![CDATA[<div class="wei-landing">
+        <template><![CDATA[<div class="saas-landing">
+  <!-- Top Banner -->
+  <div class="saas-banner">
+    <span class="saas-badge">NEW</span> 
+    Power your warehouse operations with Generative AI - 
+    <a href="?id=wei_report">Explore WEI Capabilities &gt;</a>
+  </div>
 
-  <!-- NAV -->
-  <div class="wei-nav">
-    <span class="wei-logo">
-      Warehouse <span class="wei-logo-accent">Exception</span> Intelligence
-    </span>
-
-    <div class="wei-nav-links">
-      <a ng-href="?id=wei_home">Home</a>
-      <a ng-href="?id=wei_report">Report</a>
-      <a ng-href="?id=wei_my_exceptions">My exceptions</a>
+  <!-- Navigation -->
+  <nav class="saas-nav">
+    <div class="saas-nav-left">
+      <div class="saas-logo">wei<span class="saas-logo-dot">.</span></div>
+      <div class="saas-nav-links">
+        <a href="?id=wei_supervisor">Dashboard <i class="fa fa-chevron-down"></i></a>
+        <a href="?id=wei_my_exceptions">Exceptions <i class="fa fa-chevron-down"></i></a>
+        <a href="?id=wei_report">Reports <i class="fa fa-chevron-down"></i></a>
+        <a href="#">Resources <i class="fa fa-chevron-down"></i></a>
+      </div>
     </div>
+    <div class="saas-nav-right">
+      <a href="#" class="saas-icon-link"><i class="fa fa-search"></i></a>
+      <a href="#" class="saas-icon-link"><i class="fa fa-globe"></i> Eng <i class="fa fa-chevron-down"></i></a>
+      <a href="#" class="saas-link">Support</a>
+      <a href="?id=wei_report" class="saas-btn-primary">Report Issue</a>
+      <a href="#" class="saas-link">{{data.userName || 'Sign In'}}</a>
+    </div>
+  </nav>
 
-    <div class="wei-nav-auth">
-      <a ng-if="!data.isLoggedIn"
-         href="javascript:void(0)"
-         class="wei-btn wei-btn-outline"
-         ng-click="c.goToLogin()">
-        Login
-      </a>
+  <!-- Hero Section -->
+  <div class="saas-hero">
+    <!-- Grid Overlay -->
+    <div class="saas-grid-bg"></div>
 
-      <span ng-if="data.isLoggedIn">
-        {{data.userName}}
-        <small>({{data.userRole}})</small>
-      </span>
+    <div class="saas-hero-content">
+      <div class="saas-pill">
+        <i class="fa fa-bolt"></i> DETECT &bull; CLASSIFY &bull; RESOLVE &bull; AUTOMATE
+      </div>
+
+      <h1 class="saas-title">
+        WAREHOUSE <span class="saas-gradient-text">INTELLIGENCE</span>
+      </h1>
+
+      <p class="saas-subtitle">
+        Detect, classify, and resolve warehouse exceptions faster with generative AI, 
+        automated workflows, and real-time operational insights.
+      </p>
+
+      <div class="saas-hero-actions">
+        <a href="?id=wei_my_exceptions" class="saas-btn-gradient">Get Started</a>
+        <a href="?id=wei_supervisor" class="saas-btn-outline">Explore Dashboard</a>
+      </div>
+
+      <!-- AI Search Bar -->
+      <div class="saas-search-container">
+        <div class="saas-search-box">
+          <i class="fa fa-magic saas-search-icon"></i>
+          <input type="text" placeholder="Describe a warehouse exception to the WEI AI Assistant..." />
+          <button class="saas-search-submit"><i class="fa fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- Quick Tags -->
+      <div class="saas-tags">
+        <a href="?id=wei_report&sys_id=-1&type=damaged_goods" class="saas-tag">Damaged Goods</a>
+        <a href="?id=wei_report&sys_id=-1&type=inventory_mismatch" class="saas-tag">Inventory Mismatch</a>
+        <a href="?id=wei_report&sys_id=-1&type=equipment_malfunction" class="saas-tag">Equipment Alert</a>
+        <a href="?id=wei_report&sys_id=-1&type=process_error" class="saas-tag">Process Error</a>
+      </div>
+
+      <div class="saas-trust">
+        Trusted by <span class="saas-highlight">1000+ facilities</span> to master Warehouse Management
+      </div>
     </div>
   </div>
 
-
-  <!-- HERO -->
-  <div class="wei-hero">
-
-    <div class="wei-hero-badge">
-      Home away from downtime
-    </div>
-
-    <h1>
-      Detect, route, and resolve warehouse exceptions — without the chaos
-    </h1>
-
-    <p>
-      One platform for reporting, classifying, routing, and tracking every
-      warehouse issue, start to finish.
-    </p>
-
-    <div class="wei-hero-actions">
-
-      <button class="wei-btn wei-btn-primary"
-              type="button"
-              ng-click="c.goToReport()">
-        Report an exception
-      </button>
-
-      <button class="wei-btn wei-btn-ghost"
-              type="button"
-              ng-click="c.goToDashboard()">
-        View dashboard
-      </button>
-
-    </div>
-
-    <div class="wei-hero-trust">
-      <span>&#10003; AI-based classification</span>
-      <span>&#10003; Real-time tracking</span>
-      <span>&#10003; Automated routing</span>
-    </div>
-
+  <div class="saas-standard-home">
+    <a href="?id=index" class="saas-btn-standard"><i class="fa fa-external-link"></i> Go to Standard Homepage</a>
   </div>
 
-
-  <!-- SECTION 1: IMPACT STATS -->
-  <div class="wei-section wei-stats-section">
-
-    <div class="wei-stat-card"
-         ng-repeat="stat in data.impactStats">
-
-      <div class="wei-stat-number">
-        {{stat.value}}
+  <!-- Footer -->
+  <footer class="saas-footer">
+    <div class="saas-footer-content">
+      <div class="saas-footer-left">
+        <div class="saas-logo">wei<span class="saas-logo-dot">.</span></div>
+        <p>Where Warehouse Operations Connect</p>
       </div>
-
-      <div class="wei-stat-label">
-        {{stat.label}}
+      <div class="saas-footer-links">
+        <a href="#">About</a>
+        <a href="#">Careers</a>
+        <a href="#">Blog</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Contact</a>
+        <a href="#">Community</a>
       </div>
-
+      <div class="saas-footer-socials">
+        <a href="#"><i class="fa fa-linkedin"></i></a>
+        <a href="#"><i class="fa fa-github"></i></a>
+        <a href="#"><i class="fa fa-youtube-play"></i></a>
+        <a href="#"><i class="fa fa-twitter"></i></a>
+      </div>
     </div>
-
-  </div>
-
-
-  <!-- SECTION 2: HOW IT WORKS -->
-  <div class="wei-section wei-steps-section">
-
-    <h2>
-      Resolve exceptions in 3 easy steps
-    </h2>
-
-    <p class="wei-section-sub">
-      From report to resolution, every exception follows the same clear path.
-    </p>
-
-    <div class="wei-steps-row">
-
-      <div class="wei-step-card"
-           ng-repeat="step in data.howItWorks">
-
-        <div class="wei-step-number">
-          {{$index + 1}}
-        </div>
-
-        <div class="wei-step-title">
-          {{step.title}}
-        </div>
-
-        <div class="wei-step-desc">
-          {{step.desc}}
-        </div>
-
-      </div>
-
+    <div class="saas-footer-bottom">
+      <p>Resolve Today. Build Tomorrow.</p>
+      <p>&copy; 2026 WEI Intelligence. All rights reserved.</p>
     </div>
-
-  </div>
-
-
-  <!-- SECTION 3: WHY IT MATTERS -->
-  <div class="wei-section wei-features-section">
-
-    <h2>
-      Why teams choose Warehouse Exception Intelligence
-    </h2>
-
-    <div class="wei-features-grid">
-
-      <div class="wei-feature-card"
-           ng-repeat="f in data.features">
-
-        <div class="wei-feature-icon">
-          {{f.icon}}
-        </div>
-
-        <div class="wei-feature-title">
-          {{f.title}}
-        </div>
-
-        <div class="wei-feature-desc">
-          {{f.desc}}
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- FOOTER -->
-  <div class="wei-footer">
-
-    <div class="wei-footer-columns">
-
-      <!-- PLATFORM -->
-      <div class="wei-footer-col">
-
-        <div class="wei-footer-heading">
-          Platform
-        </div>
-
-        <a ng-href="?id=wei_report">
-          Report exception
-        </a>
-
-        <a ng-href="?id=wei_my_exceptions">
-          My exceptions
-        </a>
-
-        <a ng-href="?id=wei_supervisor">
-          Supervisor dashboard
-        </a>
-
-      </div>
-
-
-      <!-- COMPANY -->
-      <div class="wei-footer-col">
-
-        <div class="wei-footer-heading">
-          Company
-        </div>
-
-        <a href="javascript:void(0)">
-          About
-        </a>
-
-        <a href="javascript:void(0)">
-          Team Elite
-        </a>
-
-      </div>
-
-
-      <!-- SUPPORT -->
-      <div class="wei-footer-col">
-
-        <div class="wei-footer-heading">
-          Support
-        </div>
-
-        <a href="javascript:void(0)">
-          Help center
-        </a>
-
-        <a href="javascript:void(0)">
-          Contact
-        </a>
-
-      </div>
-
-    </div>
-
-
-    <!-- FOOTER BOTTOM -->
-    <div class="wei-footer-bottom">
-
-      <span>
-        Warehouse Exception Intelligence &copy; 2026.
-        All rights reserved.
-      </span>
-
-    </div>
-
-  </div>
-
+  </footer>
 </div>]]></template>
     </sp_widget>
 </record_update>
+
