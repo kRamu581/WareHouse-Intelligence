@@ -3,386 +3,225 @@
         <category>custom</category>
         <client_script><![CDATA[api.controller=function() {  /* widget controller */  var c = this;};]]></client_script>
         <controller_as>c</controller_as>
-        <css><![CDATA[
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
+        <css><![CDATA[@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
 
-.saas-landing {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background-color: #0c0c0e;
-  color: #ffffff;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+.wei-ecommerce-landing {
+  /* Colors */
+  --bg-cream: #fdfaf2;
+  --primary-olive: #9db02e;
+  --primary-olive-dark: #849622;
+  --heading-terracotta: #b65a36;
+  --text-dark: #2c2c2c;
+  --card-bg: #ffffff;
+  
+  --sev-critical: #d9381e;
+  --sev-high: #e67e22;
+  --sev-medium: #f1c40f;
+  --sev-low: #27ae60;
+
+  background-color: var(--bg-cream);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: var(--text-dark);
 }
 
-a {
-  text-decoration: none;
-}
+.wei-ecommerce-landing a { text-decoration: none; color: inherit; }
 
-/* Banner */
-.saas-banner {
-  background: linear-gradient(90deg, #ff4b2b 0%, #ff416c 100%);
-  color: white;
+/* 1. Announcement */
+.wei-announcement {
+  background-color: var(--primary-olive);
+  color: #fff;
   text-align: center;
   padding: 8px 16px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
 }
-.saas-badge {
-  background: rgba(255, 255, 255, 0.2);
-  padding: 2px 8px;
-  border-radius: 12px;
-  font-size: 11px;
-  font-weight: bold;
-  margin-right: 8px;
-}
-.saas-banner a {
-  color: white;
-  text-decoration: underline;
-  font-weight: 600;
-  margin-left: 4px;
-}
+.wei-announcement i { font-size: 10px; cursor: pointer; }
 
-/* Navigation */
-.saas-nav {
+/* 2. Header */
+.wei-header {
+  background: #fff;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 16px 40px;
-  background: rgba(12, 12, 14, 0.8);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
-.saas-nav-left, .saas-nav-right {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-}
-.saas-logo {
-  font-size: 22px;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-}
-.saas-logo-dot {
-  color: #ff4b2b;
-}
-.saas-nav-links a {
-  color: #a1a1a6;
-  font-size: 14px;
-  font-weight: 500;
-  margin-left: 20px;
-  transition: color 0.2s;
-}
-.saas-nav-links a i {
-  font-size: 10px;
-  margin-left: 4px;
-}
-.saas-nav-links a:hover, .saas-icon-link:hover, .saas-link:hover {
-  color: #ffffff;
-}
-.saas-icon-link, .saas-link {
-  color: #a1a1a6;
-  font-size: 14px;
-  font-weight: 500;
-  transition: color 0.2s;
-}
-.saas-btn-primary {
-  background: linear-gradient(90deg, #ff4b2b 0%, #ff416c 100%);
-  color: white;
-  padding: 8px 16px;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 600;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-.saas-btn-primary:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(255, 75, 43, 0.3);
-  color: white;
+.wei-logo-container { display: flex; align-items: center; gap: 12px; }
+.wei-logo { width: 40px; height: 40px; background: var(--heading-terracotta); border-radius: 8px; }
+.wei-wordmark { font-weight: 800; font-size: 14px; line-height: 1.1; color: var(--heading-terracotta); }
+.wei-nav-center { display: flex; gap: 24px; }
+.wei-nav-center a { font-weight: 600; font-size: 14px; color: var(--text-dark); transition: color 0.2s; }
+.wei-nav-center a.active { border-bottom: 2px solid var(--text-dark); padding-bottom: 4px; }
+.wei-nav-center a:hover { color: var(--heading-terracotta); }
+.wei-header-icons { display: flex; gap: 20px; align-items: center; font-size: 18px; }
+.wei-cart-icon { position: relative; }
+.wei-badge {
+  position: absolute; top: -8px; right: -8px; background: var(--primary-olive);
+  color: #fff; font-size: 10px; font-weight: bold; width: 16px; height: 16px;
+  display: flex; align-items: center; justify-content: center; border-radius: 50%;
 }
 
-/* Hero Section */
-.saas-hero {
+/* 3. Hero Banner */
+.wei-hero {
+  background: linear-gradient(135deg, #748c26 0%, #9db02e 100%);
+  padding: 80px 40px;
+  text-align: center;
   position: relative;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 80px 20px 40px;
   overflow: hidden;
 }
-.saas-grid-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: 
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
-  z-index: 1;
-  -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
-}
-.saas-hero-content {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  max-width: 800px;
-  width: 100%;
-}
-
-.saas-pill {
-  display: inline-block;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 6px 16px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  color: #a1a1a6;
-  margin-bottom: 24px;
-}
-.saas-pill i {
-  color: #ff4b2b;
-  margin-right: 6px;
-}
-
-.saas-title {
-  font-size: 64px;
-  font-weight: 900;
-  margin: 0 0 20px;
-  line-height: 1.1;
-  letter-spacing: -1px;
-}
-.saas-gradient-text {
-  background: linear-gradient(90deg, #ff4b2b 0%, #ff416c 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.saas-subtitle {
-  font-size: 18px;
-  color: #a1a1a6;
-  line-height: 1.5;
-  margin: 0 auto 40px;
-  max-width: 600px;
-}
-
-.saas-hero-actions {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 50px;
-}
-
-.saas-btn-gradient {
-  background: linear-gradient(90deg, #ff4b2b 0%, #ff416c 100%);
-  color: white;
-  padding: 12px 28px;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 600;
-  box-shadow: 0 0 20px rgba(255, 75, 43, 0.4);
-  transition: all 0.3s;
-}
-.saas-btn-gradient:hover {
-  box-shadow: 0 0 30px rgba(255, 75, 43, 0.6);
-  transform: translateY(-2px);
-  color: white;
-}
-
-.saas-btn-outline {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: white;
-  padding: 12px 28px;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 600;
-  transition: all 0.3s;
-}
-.saas-btn-outline:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.2);
-  color: white;
-}
-
-/* AI Search Bar */
-.saas-search-container {
-  padding: 2px;
-  background: linear-gradient(90deg, rgba(255, 75, 43, 0.5) 0%, rgba(255, 65, 108, 0.5) 100%);
-  border-radius: 12px;
-  margin: 0 auto 30px;
-  max-width: 650px;
-}
-.saas-search-box {
-  background: #151518;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  padding: 8px 16px;
-}
-.saas-search-icon {
-  color: #ff4b2b;
-  font-size: 18px;
-  margin-right: 12px;
-}
-.saas-search-box input {
-  flex: 1;
-  background: transparent;
-  border: none;
-  color: white;
-  font-size: 16px;
-  padding: 10px 0;
-  outline: none;
-}
-.saas-search-box input::placeholder {
-  color: #666;
-}
-.saas-search-submit {
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.1);
-  color: #a1a1a6;
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.saas-search-submit:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-}
-
-/* Tags */
-.saas-tags {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 40px;
-  flex-wrap: wrap;
-}
-.saas-tag {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #a1a1a6;
-  padding: 8px 20px;
-  border-radius: 20px;
-  font-size: 13px;
-  font-weight: 500;
-  transition: all 0.2s;
-}
-.saas-tag:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-}
-
-.saas-trust {
-  color: #666;
-  font-size: 14px;
-}
-.saas-highlight {
-  color: #ff4b2b;
-  font-weight: 600;
-}
-
-/* Standard Home */
-.saas-standard-home {
-  text-align: center;
-  margin: 40px 0 80px;
-  position: relative;
-  z-index: 2;
-}
-.saas-btn-standard {
-  background: transparent;
-  border: 1px solid #333;
-  color: #a1a1a6;
-  padding: 12px 24px;
-  border-radius: 30px;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.2s;
-}
-.saas-btn-standard i {
-  margin-right: 6px;
-}
-.saas-btn-standard:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: white;
-  border-color: #555;
-}
-
-/* Footer */
-.saas-footer {
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  padding: 40px;
-  position: relative;
-  z-index: 2;
-  background: #09090b;
-}
-.saas-footer-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1000px;
-  margin: 0 auto 30px;
-}
-.saas-footer-left p {
-  color: #666;
-  font-size: 12px;
-  margin-top: 4px;
-}
-.saas-footer-links {
-  display: flex;
-  gap: 24px;
-}
-.saas-footer-links a {
+.wei-hero-content { position: relative; z-index: 2; }
+.hero-headline {
   color: #ffffff;
+  font-size: 48px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+.wei-hero-label {
+  background: rgba(255,255,255,0.2);
+  display: inline-block;
+  padding: 6px 16px;
+  color: #fff;
+  font-weight: 700;
+  border-radius: 20px;
+  margin-bottom: 30px;
   font-size: 14px;
-  font-weight: 600;
 }
-.saas-footer-links a:hover {
-  color: #ff4b2b;
+.btn-wei-primary-hero {
+  background: #333;
+  color: #fff;
+  padding: 12px 32px;
+  border-radius: 24px;
+  font-weight: 700;
+  font-size: 16px;
+  display: inline-block;
+  transition: transform 0.2s;
 }
-.saas-footer-socials {
+.btn-wei-primary-hero:hover { transform: translateY(-2px); color: #fff;}
+.wei-hero-controls {
+  margin-top: 40px;
   display: flex;
-  gap: 16px;
-}
-.saas-footer-socials a {
-  background: rgba(255, 255, 255, 0.05);
-  color: #a1a1a6;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
   justify-content: center;
-  transition: all 0.2s;
+  align-items: center;
+  gap: 16px;
+  color: rgba(255,255,255,0.7);
 }
-.saas-footer-socials a:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
+.wei-dots .dot {
+  display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,0.4); margin: 0 4px;
 }
+.wei-dots .dot.active { background: #fff; }
 
-.saas-footer-bottom {
-  display: flex;
-  justify-content: space-between;
-  max-width: 1000px;
-  margin: 0 auto;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  padding-top: 20px;
-  color: #666;
-  font-size: 12px;
+/* General Sections */
+.wei-section { padding: 60px 20px; max-width: 1200px; margin: 0 auto; }
+.section-title { color: var(--heading-terracotta); font-weight: 800; font-size: 28px; margin-bottom: 30px; }
+
+/* Cards */
+.wei-card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+  padding: 20px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-]]></css>
+.wei-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+
+/* 4. Categories */
+.wei-grid-categories {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+}
+.wei-cat-card { text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; aspect-ratio: 1; }
+.wei-cat-card i { color: var(--primary-olive-dark); margin-bottom: 16px; }
+.wei-cat-card h3 { font-size: 15px; font-weight: 700; margin: 0; color: var(--heading-terracotta); }
+.wei-cat-card h3 i { font-size: 12px; margin-left: 4px; margin-bottom: 0; }
+
+/* Horizontal Scroll */
+.wei-h-scroll {
+  display: flex; overflow-x: auto; gap: 20px; padding-bottom: 10px; scrollbar-width: none;
+}
+.wei-h-scroll::-webkit-scrollbar { display: none; }
+.wei-carousel-pagination { text-align: center; margin-top: 20px; font-weight: 600; font-size: 14px; color: #888; }
+.wei-carousel-pagination i { margin: 0 10px; cursor: pointer; }
+
+/* 5 & 6. Product/Exception Cards */
+.wei-product-card {
+  min-width: 260px; max-width: 260px; position: relative; display: flex; flex-direction: column;
+}
+.card-img-placeholder {
+  background: #f5f5f5; border-radius: 8px; height: 160px; display: flex;
+  align-items: center; justify-content: center; font-size: 40px; color: #ddd; margin-bottom: 16px;
+}
+.wei-product-card h4 { font-size: 16px; font-weight: 700; margin: 0 0 8px; color: var(--heading-terracotta); }
+.wei-product-card p { font-size: 13px; color: #666; margin: 0 0 8px; }
+.bold-line { font-weight: 800; font-size: 14px; margin-bottom: 16px; flex-grow: 1; }
+
+.btn-wei-outline {
+  display: block; width: 100%; text-align: center; border: 1.5px solid var(--text-dark);
+  color: var(--text-dark); border-radius: 24px; padding: 10px 0; font-weight: 700; transition: all 0.2s;
+}
+.btn-wei-outline:hover { background: var(--text-dark); color: #fff; }
+
+.sev-badge {
+  position: absolute; top: 30px; left: 30px; padding: 4px 10px; border-radius: 4px;
+  font-size: 11px; font-weight: 800; color: #fff; text-transform: uppercase;
+}
+.sev-critical { background: var(--sev-critical); }
+.sev-high { background: var(--sev-high); }
+.sev-medium { background: var(--sev-medium); color: #333;}
+.sev-low { background: var(--sev-low); }
+
+/* 7. Video Card */
+.wei-video-card { padding: 0; overflow: hidden; }
+.video-thumbnail {
+  background: linear-gradient(45deg, #b65a36, #9db02e);
+  height: 400px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;
+}
+.video-play { font-size: 60px; color: #fff; margin-top: 20px; cursor: pointer; transition: transform 0.2s; drop-shadow(0 4px 8px rgba(0,0,0,0.3)); }
+.video-play:hover { transform: scale(1.1); }
+
+/* 8. Trust Badges */
+.wei-trust-row { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
+.trust-badge { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; width: 120px; }
+.badge-circle {
+  width: 70px; height: 70px; border-radius: 50%; background: #d4af37; /* Gold */
+  display: flex; align-items: center; justify-content: center; color: #fff; font-size: 28px;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.1), 0 4px 10px rgba(0,0,0,0.1);
+}
+.trust-badge span { font-size: 13px; font-weight: 700; color: var(--text-dark); }
+
+/* 9. Subscribe */
+.wei-subscribe-section { padding-bottom: 80px; }
+.subscribe-title { font-size: 24px; color: var(--text-dark); }
+.subscribe-form {
+  display: flex; align-items: center; justify-content: center; margin: 20px auto 0;
+  max-width: 400px; border-bottom: 1px solid #ccc; padding-bottom: 8px;
+}
+.subscribe-form input { border: none; background: transparent; flex-grow: 1; outline: none; font-size: 16px; padding: 4px; }
+.subscribe-form button { background: none; border: none; cursor: pointer; color: var(--text-dark); font-size: 18px; }
+
+/* 10. Footer */
+.wei-footer { background: var(--primary-olive); color: #fff; padding: 60px 20px 20px; }
+.footer-columns { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px; margin-bottom: 40px; }
+.footer-col h4 { font-size: 16px; font-weight: 700; margin-bottom: 20px; }
+.footer-col a { display: block; color: rgba(255,255,255,0.9); margin-bottom: 12px; font-size: 14px; }
+.footer-col p { color: rgba(255,255,255,0.9); font-size: 14px; line-height: 1.6; margin-bottom: 12px; }
+.footer-socials { font-size: 20px; display: flex; justify-content: center; gap: 20px; margin-bottom: 40px; }
+.footer-bottom { font-size: 12px; color: rgba(255,255,255,0.7); }
+
+/* Floating Chat */
+.wei-floating-chat {
+  position: fixed; bottom: 24px; right: 24px; background: #333; color: #fff;
+  border-radius: 24px; padding: 12px 24px; display: flex; align-items: center; gap: 8px;
+  z-index: 9999; cursor: pointer; font-weight: 600; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}]]></css>
         <data_table>sp_instance</data_table>
         <demo_data/>
         <description/>
@@ -497,118 +336,249 @@ a {
         <sys_scope display_value="Warehouse Exception Intelligence">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
         <sys_update_name>sp_widget_2455f39b93eb07908cf3f2375d03d625</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-10-01 10:26:27</sys_updated_on>
-        <template><![CDATA[
-<div class="saas-landing">
-  <!-- Top Banner -->
-  <div class="saas-banner">
-    <span class="saas-badge">NEW</span> 
-    Power your warehouse operations with Generative AI &mdash; 
-    <a href="?id=wei_report">Explore WEI Capabilities &gt;</a>
+        <sys_updated_on>2026-10-03 05:14:17</sys_updated_on>
+        <template><![CDATA[<div class="wei-ecommerce-landing">
+  <!-- 1. Announcement Bar -->
+  <div class="wei-announcement">
+    <i class="fa fa-chevron-left"></i>
+    <span>Report any warehouse exception in under 60 seconds</span>
+    <i class="fa fa-chevron-right"></i>
   </div>
 
-  <!-- Navigation -->
-  <nav class="saas-nav">
-    <div class="saas-nav-left">
-      <div class="saas-logo">wei<span class="saas-logo-dot">.</span></div>
-      <div class="saas-nav-links">
-        <a href="?id=wei_supervisor">Dashboard <i class="fa fa-chevron-down"></i></a>
-        <a href="?id=wei_my_exceptions">Exceptions <i class="fa fa-chevron-down"></i></a>
-        <a href="?id=wei_report">Reports <i class="fa fa-chevron-down"></i></a>
-        <a href="#">Resources <i class="fa fa-chevron-down"></i></a>
+  <!-- 2. Header -->
+  <header class="wei-header">
+    <div class="wei-logo-container">
+      <div class="wei-logo"></div>
+      <div class="wei-wordmark">WAREHOUSE EXCEPTION<br>INTELLIGENCE</div>
+    </div>
+    <nav class="wei-nav-center">
+      <a href="?id=wei_index" class="active">Home</a>
+      <a href="?id=wei_report">Report Exception</a>
+      <a href="?id=wei_my_exceptions" ng-if="data.isTech">My Exceptions</a>
+      <a href="?id=wei_supervisor" ng-if="data.isSupervisor">Supervisor Dashboard</a>
+      <a href="#">Analytics</a>
+      <a href="#">Help</a>
+    </nav>
+    <div class="wei-header-icons">
+      <i class="fa fa-search"></i>
+      <i class="fa fa-user-o"></i>
+      <div class="wei-cart-icon">
+        <i class="fa fa-bell-o"></i>
+        <span class="wei-badge">3</span>
       </div>
     </div>
-    <div class="saas-nav-right">
-      <a href="#" class="saas-icon-link"><i class="fa fa-search"></i></a>
-      <a href="#" class="saas-icon-link"><i class="fa fa-globe"></i> Eng <i class="fa fa-chevron-down"></i></a>
-      <a href="#" class="saas-link">Support</a>
-      <a href="?id=wei_report" class="saas-btn-primary">Report Issue</a>
-      <a href="#" class="saas-link">{{data.userName || 'Sign In'}}</a>
+  </header>
+
+  <!-- 3. Hero Banner -->
+  <div class="wei-hero">
+    <div class="wei-hero-content">
+      <h1 class="hero-headline">WELCOME TO WAREHOUSE<br>EXCEPTION INTELLIGENCE</h1>
+      <div class="wei-hero-label">REPORT. ROUTE. RESOLVE. IMPROVE.</div>
+      <a href="?id=wei_report" class="btn-wei-primary-hero">Report an Exception</a>
     </div>
-  </nav>
-
-  <!-- Hero Section -->
-  <div class="saas-hero">
-    <!-- Grid Overlay -->
-    <div class="saas-grid-bg"></div>
-
-    <div class="saas-hero-content">
-      <div class="saas-pill">
-        <i class="fa fa-bolt"></i> DETECT &bull; CLASSIFY &bull; RESOLVE &bull; AUTOMATE
+    <div class="wei-hero-controls">
+      <i class="fa fa-chevron-left"></i>
+      <div class="wei-dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
       </div>
-
-      <h1 class="saas-title">
-        WAREHOUSE <span class="saas-gradient-text">INTELLIGENCE</span>
-      </h1>
-
-      <p class="saas-subtitle">
-        Detect, classify, and resolve warehouse exceptions faster with generative AI, 
-        automated workflows, and real-time operational insights.
-      </p>
-
-      <div class="saas-hero-actions">
-        <a href="?id=wei_my_exceptions" class="saas-btn-gradient">Get Started</a>
-        <a href="?id=wei_supervisor" class="saas-btn-outline">Explore Dashboard</a>
-      </div>
-
-      <!-- AI Search Bar -->
-      <div class="saas-search-container">
-        <div class="saas-search-box">
-          <i class="fa fa-magic saas-search-icon"></i>
-          <input type="text" placeholder="Describe a warehouse exception to the WEI AI Assistant..." />
-          <button class="saas-search-submit"><i class="fa fa-arrow-right"></i></button>
-        </div>
-      </div>
-
-      <!-- Quick Tags -->
-      <div class="saas-tags">
-        <a href="?id=wei_report&sys_id=-1&type=damaged_goods" class="saas-tag">Damaged Goods</a>
-        <a href="?id=wei_report&sys_id=-1&type=inventory_mismatch" class="saas-tag">Inventory Mismatch</a>
-        <a href="?id=wei_report&sys_id=-1&type=equipment_malfunction" class="saas-tag">Equipment Alert</a>
-        <a href="?id=wei_report&sys_id=-1&type=process_error" class="saas-tag">Process Error</a>
-      </div>
-
-      <div class="saas-trust">
-        Trusted by <span class="saas-highlight">1000+ facilities</span> to master Warehouse Management
-      </div>
+      <i class="fa fa-chevron-right"></i>
     </div>
   </div>
 
-  <div class="saas-standard-home">
-    <a href="?id=index" class="saas-btn-standard"><i class="fa fa-external-link"></i> Go to Standard Homepage</a>
-  </div>
+  <!-- 4. Exception Categories -->
+  <section class="wei-section container">
+    <h2 class="section-title">Exception Categories</h2>
+    <div class="wei-grid-categories">
+      <a href="?id=wei_report&category=damaged_goods" class="wei-card wei-cat-card">
+        <i class="fa fa-box-open fa-3x"></i>
+        <h3>Damaged Goods <i class="fa fa-long-arrow-right"></i></h3>
+      </a>
+      <a href="?id=wei_report&category=inventory_mismatch" class="wei-card wei-cat-card">
+        <i class="fa fa-clipboard-list fa-3x"></i>
+        <h3>Inventory Mismatch <i class="fa fa-long-arrow-right"></i></h3>
+      </a>
+      <a href="?id=wei_report&category=equipment_malfunction" class="wei-card wei-cat-card">
+        <i class="fa fa-cogs fa-3x"></i>
+        <h3>Equipment Malfunction <i class="fa fa-long-arrow-right"></i></h3>
+      </a>
+      <a href="?id=wei_report&category=process_error" class="wei-card wei-cat-card">
+        <i class="fa fa-sitemap fa-3x"></i>
+        <h3>Process Error <i class="fa fa-long-arrow-right"></i></h3>
+      </a>
+      <a href="?id=wei_report&category=safety_incident" class="wei-card wei-cat-card">
+        <i class="fa fa-warning fa-3x"></i>
+        <h3>Safety Incident <i class="fa fa-long-arrow-right"></i></h3>
+      </a>
+      <a href="?id=wei_report&category=other" class="wei-card wei-cat-card">
+        <i class="fa fa-ellipsis-h fa-3x"></i>
+        <h3>Other <i class="fa fa-long-arrow-right"></i></h3>
+      </a>
+    </div>
+  </section>
 
-  <!-- Footer -->
-  <footer class="saas-footer">
-    <div class="saas-footer-content">
-      <div class="saas-footer-left">
-        <div class="saas-logo">wei<span class="saas-logo-dot">.</span></div>
-        <p>Where Warehouse Operations Connect</p>
+  <!-- 5. Most Common Exceptions -->
+  <section class="wei-section container">
+    <h2 class="section-title">Most Common Exceptions</h2>
+    <div class="wei-h-scroll">
+      <div class="wei-card wei-product-card">
+        <div class="card-img-placeholder"><i class="fa fa-barcode"></i></div>
+        <h4>Barcode Scanner Offline</h4>
+        <div class="bold-line">Avg. resolution time: 2 hrs</div>
+        <a href="?id=wei_report" class="btn-wei-outline">Report this issue</a>
       </div>
-      <div class="saas-footer-links">
-        <a href="#">About</a>
-        <a href="#">Careers</a>
-        <a href="#">Blog</a>
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
+      <div class="wei-card wei-product-card">
+        <div class="card-img-placeholder"><i class="fa fa-truck"></i></div>
+        <h4>Missing Customs Paperwork</h4>
+        <div class="bold-line">Avg. resolution time: 4 hrs</div>
+        <a href="?id=wei_report" class="btn-wei-outline">Report this issue</a>
+      </div>
+      <div class="wei-card wei-product-card">
+        <div class="card-img-placeholder"><i class="fa fa-tint"></i></div>
+        <h4>Water Leak in Staging</h4>
+        <div class="bold-line">Avg. resolution time: 12 hrs</div>
+        <a href="?id=wei_report" class="btn-wei-outline">Report this issue</a>
+      </div>
+      <div class="wei-card wei-product-card">
+        <div class="card-img-placeholder"><i class="fa fa-thermometer-empty"></i></div>
+        <h4>Cold Storage Temp Alert</h4>
+        <div class="bold-line">Avg. resolution time: 1 hr</div>
+        <a href="?id=wei_report" class="btn-wei-outline">Report this issue</a>
+      </div>
+    </div>
+    <div class="wei-carousel-pagination">
+      <i class="fa fa-angle-left"></i> 1 / 4 <i class="fa fa-angle-right"></i>
+    </div>
+  </section>
+
+  <!-- 6. Recently Reported Exceptions -->
+  <section class="wei-section container">
+    <h2 class="section-title">Recently Reported Exceptions</h2>
+    <div class="wei-h-scroll">
+      <div class="wei-card wei-product-card">
+        <span class="sev-badge sev-critical">Critical</span>
+        <div class="card-img-placeholder"><i class="fa fa-exclamation-triangle"></i></div>
+        <h4>Racking Collapsed (Zone A)</h4>
+        <p>Status: Open | Safety Team</p>
+        <div class="bold-line">Age: 15 mins</div>
+        <a href="#" class="btn-wei-outline">View details</a>
+      </div>
+      <div class="wei-card wei-product-card">
+        <span class="sev-badge sev-high">High</span>
+        <div class="card-img-placeholder"><i class="fa fa-wrench"></i></div>
+        <h4>Forklift Battery Dead</h4>
+        <p>Status: In Progress | Maintenance</p>
+        <div class="bold-line">Age: 2 hrs</div>
+        <a href="#" class="btn-wei-outline">View details</a>
+      </div>
+      <div class="wei-card wei-product-card">
+        <span class="sev-badge sev-medium">Medium</span>
+        <div class="card-img-placeholder"><i class="fa fa-cubes"></i></div>
+        <h4>Missing 50 Units SKU-8992</h4>
+        <p>Status: Resolved | Inventory Control</p>
+        <div class="bold-line">Age: 1 day</div>
+        <a href="#" class="btn-wei-outline">View details</a>
+      </div>
+    </div>
+    <div class="wei-carousel-pagination">
+      <i class="fa fa-angle-left"></i> 1 / 3 <i class="fa fa-angle-right"></i>
+    </div>
+  </section>
+
+  <!-- 7. How It Works -->
+  <section class="wei-section container text-center">
+    <h2 class="section-title">How It Works</h2>
+    <div class="wei-card wei-video-card">
+      <div class="video-thumbnail">
+        <h1 style="color:white; font-size: 50px; font-weight:900; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">DETECT &bull; ROUTE &bull; RESOLVE</h1>
+        <i class="fa fa-play-circle video-play"></i>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Impact Metrics -->
+  <section class="wei-section container wei-trust-row">
+    <div class="trust-badge">
+      <div class="badge-circle"><i class="fa fa-rocket"></i></div>
+      <span>55% Faster Detection</span>
+    </div>
+    <div class="trust-badge">
+      <div class="badge-circle"><i class="fa fa-hand-paper-o"></i></div>
+      <span>45% Less Manual Triage</span>
+    </div>
+    <div class="trust-badge">
+      <div class="badge-circle"><i class="fa fa-clock-o"></i></div>
+      <span>50% Faster Resolution</span>
+    </div>
+    <div class="trust-badge">
+      <div class="badge-circle"><i class="fa fa-bullseye"></i></div>
+      <span>90%+ AI Accuracy</span>
+    </div>
+    <div class="trust-badge">
+      <div class="badge-circle"><i class="fa fa-check-circle"></i></div>
+      <span>95%+ Resolution Rate</span>
+    </div>
+    <div class="trust-badge">
+      <div class="badge-circle"><i class="fa fa-database"></i></div>
+      <span>100% Digital Records</span>
+    </div>
+  </section>
+
+  <!-- 9. Stay Informed -->
+  <section class="wei-section container text-center wei-subscribe-section">
+    <h2 class="subscribe-title">Get exception alerts & weekly insights</h2>
+    <p>Be the first to know about escalations, SLA breaches and weekly performance summaries.</p>
+    <div class="subscribe-form">
+      <input type="email" placeholder="Email ">
+      <button><i class="fa fa-long-arrow-right"></i></button>
+    </div>
+  </section>
+
+  <!-- 10. Footer -->
+  <footer class="wei-footer">
+    <div class="footer-columns container">
+      <div class="footer-col">
+        <h4>Quick links</h4>
+        <a href="#">Home</a>
+        <a href="#">Report Exception</a>
+        <a href="#">My Exceptions</a>
+        <a href="#">Supervisor Dashboard</a>
+        <a href="#">Analytics</a>
         <a href="#">Contact</a>
-        <a href="#">Community</a>
       </div>
-      <div class="saas-footer-socials">
-        <a href="#"><i class="fa fa-linkedin"></i></a>
-        <a href="#"><i class="fa fa-github"></i></a>
-        <a href="#"><i class="fa fa-youtube-play"></i></a>
-        <a href="#"><i class="fa fa-twitter"></i></a>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <a href="#">Knowledge Base</a>
+        <a href="#">Escalation Policy</a>
+        <a href="#">SLA Policy</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact information</h4>
+        <p>Warehouse Operations Help Desk<br>
+        123 Logistics Way, Suite A<br>
+        Supply City, SC 90210</p>
+        <p>+1 (555) 019-2837<br>
+        support@wei-elite.com</p>
       </div>
     </div>
-    <div class="saas-footer-bottom">
-      <p>Resolve Today. Build Tomorrow.</p>
-      <p>&copy; 2026 WEI Intelligence. All rights reserved.</p>
+    <div class="footer-socials text-center">
+      <i class="fa fa-pinterest-p"></i>
+      <i class="fa fa-instagram"></i>
+      <i class="fa fa-youtube-play"></i>
+    </div>
+    <div class="footer-bottom text-center">
+      <p>&copy; 2026, Warehouse Exception Intelligence - Team Elite. All Rights Reserved.</p>
     </div>
   </footer>
-</div>
-]]></template>
+
+  <!-- Floating Chat -->
+  <div class="wei-floating-chat">
+    <i class="fa fa-commenting-o"></i> Chat
+  </div>
+</div>]]></template>
     </sp_widget>
 </record_update>
+
 
 
