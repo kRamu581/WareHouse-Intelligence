@@ -4,10 +4,10 @@
         <element label="Resolution Notes" max_length="0" name="resolution_notes" type="html"/>
         <element choice="1" label="Severity" max_length="0" name="severity" type="choice">
             <choice>
-                <element inactive_on_update="false" label="Medium" sequence="3" value="medium"/>
-                <element inactive_on_update="false" label="Critical" sequence="1" value="critical"/>
-                <element inactive_on_update="false" label="High" sequence="2" value="high"/>
                 <element inactive_on_update="false" label="Low" sequence="4" value="low"/>
+                <element inactive_on_update="false" label="Medium" sequence="3" value="medium"/>
+                <element inactive_on_update="false" label="High" sequence="2" value="high"/>
+                <element inactive_on_update="false" label="Critical" sequence="1" value="critical"/>
             </choice>
         </element>
         <element label="AI Insights" max_length="4000" name="ai_insights" read_only="true" read_only_option="instance_configured" type="string"/>
@@ -19,9 +19,9 @@
         <element choice="1" label="Priority" max_length="0" name="priority" type="choice">
             <choice>
                 <element inactive_on_update="false" label="P2 - High" sequence="2" value="p2_high"/>
-                <element inactive_on_update="false" label="P3 - Medium" sequence="3" value="p3_medium"/>
-                <element inactive_on_update="false" label="P4 - Low" sequence="4" value="p4_low"/>
                 <element inactive_on_update="false" label="P1 - Critical" sequence="1" value="p1_critical"/>
+                <element inactive_on_update="false" label="P4 - Low" sequence="4" value="p4_low"/>
+                <element inactive_on_update="false" label="P3 - Medium" sequence="3" value="p3_medium"/>
             </choice>
         </element>
         <element label="AI Routing Suggestion" max_length="500" name="ai_routing_suggestion" read_only="true" read_only_option="instance_configured" type="string"/>
@@ -31,21 +31,21 @@
         <element label="Assigned To" max_length="0" name="assigned_to" reference="sys_user" type="reference"/>
         <element choice="1" label="Exception Type" max_length="0" name="exception_type" type="choice">
             <choice>
-                <element inactive_on_update="false" label="Equipment Malfunction" sequence="3" value="equipment_malfunction"/>
-                <element inactive_on_update="false" label="Process Error" sequence="4" value="process_error"/>
                 <element inactive_on_update="false" label="Inventory Mismatch" sequence="2" value="inventory_mismatch"/>
                 <element inactive_on_update="false" label="Damaged Goods" sequence="1" value="damaged_goods"/>
+                <element inactive_on_update="false" label="Equipment Malfunction" sequence="3" value="equipment_malfunction"/>
+                <element inactive_on_update="false" label="Process Error" sequence="4" value="process_error"/>
             </choice>
         </element>
         <element label="Assignment Group" max_length="0" name="assignment_group" reference="sys_user_group" type="reference"/>
         <element choice="3" default="new" label="Status" max_length="0" name="status" type="choice">
             <choice>
-                <element inactive_on_update="false" label="Resolved" sequence="5" value="resolved"/>
-                <element inactive_on_update="false" label="New" sequence="1" value="new"/>
-                <element inactive_on_update="false" label="Assigned" sequence="2" value="assigned"/>
-                <element inactive_on_update="false" label="In Progress" sequence="3" value="in_progress"/>
                 <element inactive_on_update="false" label="Pending" sequence="4" value="pending"/>
+                <element inactive_on_update="false" label="In Progress" sequence="3" value="in_progress"/>
+                <element inactive_on_update="false" label="Assigned" sequence="2" value="assigned"/>
                 <element inactive_on_update="false" label="Closed" sequence="6" value="closed"/>
+                <element inactive_on_update="false" label="New" sequence="1" value="new"/>
+                <element inactive_on_update="false" label="Resolved" sequence="5" value="resolved"/>
             </choice>
         </element>
         <element label="Location" max_length="255" name="location" type="string"/>

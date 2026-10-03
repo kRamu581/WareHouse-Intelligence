@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
         <client_script><![CDATA[api.controller=function() {  /* widget controller */  var c = this;};]]></client_script>
         <controller_as>c</controller_as>
-        <css><![CDATA[@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
+        <css>@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
 
 .wei-ecommerce-landing {
   /* Colors */
@@ -151,7 +151,7 @@
 .wei-carousel-pagination { text-align: center; margin-top: 20px; font-weight: 600; font-size: 14px; color: #888; }
 .wei-carousel-pagination i { margin: 0 10px; cursor: pointer; }
 
-/* 5 & 6. Product/Exception Cards */
+/* 5 &amp; 6. Product/Exception Cards */
 .wei-product-card {
   min-width: 260px; max-width: 260px; position: relative; display: flex; flex-direction: column;
 }
@@ -221,7 +221,7 @@
   position: fixed; bottom: 24px; right: 24px; background: #333; color: #fff;
   border-radius: 24px; padding: 12px 24px; display: flex; align-items: center; gap: 8px;
   z-index: 9999; cursor: pointer; font-weight: 600; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-}]]></css>
+}</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
         <description/>
@@ -281,17 +281,17 @@
             desc: 'Automated routing reaches the right owner without delay.'
         },
         {
-            icon: ']]>ðŸŽ¯<![CDATA[',
+            icon: 'ðŸŽ¯',
             title: 'Increased accountability',
             desc: 'Clear ownership and status tracking, nothing dropped.'
         },
         {
-            icon: ']]>ðŸ§ <![CDATA[',
+            icon: 'ðŸ§ ',
             title: 'Smarter classification',
             desc: 'AI-based categorization reduces manual triage errors.'
         },
         {
-            icon: ']]>ðŸ“Š<![CDATA[',
+            icon: 'ðŸ“Š',
             title: 'Real-time visibility',
             desc: 'Supervisors see open, in-progress, and resolved at a glance.'
         }
@@ -579,6 +579,3 @@
 </div>]]></template>
     </sp_widget>
 </record_update>
-
-
-

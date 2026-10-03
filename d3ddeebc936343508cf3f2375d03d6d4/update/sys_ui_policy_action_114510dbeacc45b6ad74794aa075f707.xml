@@ -3,6 +3,8 @@
         <cleared>false</cleared>
         <disabled>true</disabled>
         <field>resolution_notes</field>
+        <field_message/>
+        <field_message_type/>
         <mandatory>ignore</mandatory>
         <sys_class_name>sys_ui_policy_action</sys_class_name>
         <sys_created_by>admin</sys_created_by>
@@ -18,6 +20,9 @@
         <sys_updated_on>2026-09-29 10:25:00</sys_updated_on>
         <table>x_1956908_wareho_0_exception</table>
         <ui_policy display_value="Make Fields Read-Only When Exception Closed">f239316d7fc146428024da7127eadea4</ui_policy>
+        <value/>
+        <value_action/>
         <visible>ignore</visible>
     </sys_ui_policy_action>
+    <sys_translated_text action="delete_multiple" query="documentkey=114510dbeacc45b6ad74794aa075f707"/>
 </record_update>

@@ -8,6 +8,7 @@
         <condition>current.status == 'resolved'</condition>
         <form_action>true</form_action>
         <form_button>true</form_button>
+        <form_button_icon/>
         <form_button_v2>false</form_button_v2>
         <form_context_menu>true</form_context_menu>
         <form_link>false</form_link>
@@ -19,6 +20,7 @@
         <list_action>false</list_action>
         <list_banner_button>false</list_banner_button>
         <list_button>false</list_button>
+        <list_button_icon/>
         <list_choice>false</list_choice>
         <list_context_menu>false</list_context_menu>
         <list_link>false</list_link>
@@ -33,7 +35,9 @@ current.update();
 gs.addInfoMessage('Exception ' + current.number + ' has been permanently closed.');
 action.setRedirectURL(current);
 ]]></script>
+        <show_form_icon_only>false</show_form_icon_only>
         <show_insert>false</show_insert>
+        <show_list_icon_only>false</show_list_icon_only>
         <show_multiple_update>false</show_multiple_update>
         <show_query>false</show_query>
         <show_update>true</show_update>
@@ -53,7 +57,7 @@ action.setRedirectURL(current);
         <sys_updated_by>admin</sys_updated_by>
         <sys_updated_on>2026-09-29 10:28:00</sys_updated_on>
         <table>x_1956908_wareho_0_exception</table>
-        <ui_type>0</ui_type>
-        <view/>
+        <ui11_compatible>false</ui11_compatible>
+        <ui16_compatible>false</ui16_compatible>
     </sys_ui_action>
 </record_update>
