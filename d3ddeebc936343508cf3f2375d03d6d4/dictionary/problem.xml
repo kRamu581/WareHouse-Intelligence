@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element attributes="live_feed=true" audit="true" db_object_id="fae16180a56503108bb220b7a4d212f8" defaultsort="-1" extends="task" label="Problem" max_length="40" name="problem" text_index="true" type="collection"/>
+</database>

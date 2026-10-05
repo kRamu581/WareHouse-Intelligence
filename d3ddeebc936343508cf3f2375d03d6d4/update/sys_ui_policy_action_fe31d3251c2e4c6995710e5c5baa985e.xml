@@ -3,6 +3,8 @@
         <cleared>false</cleared>
         <disabled>ignore</disabled>
         <field>resolution_notes</field>
+        <field_message/>
+        <field_message_type/>
         <mandatory>true</mandatory>
         <sys_class_name>sys_ui_policy_action</sys_class_name>
         <sys_created_by>admin</sys_created_by>
@@ -18,6 +20,9 @@
         <sys_updated_on>2026-09-29 10:25:00</sys_updated_on>
         <table>x_1956908_wareho_0_exception</table>
         <ui_policy display_value="Make Resolution Notes Mandatory when Resolved or Closed">d74bb54d96ab45f2b81c6f36c6f53f1d</ui_policy>
+        <value/>
+        <value_action/>
         <visible>true</visible>
     </sys_ui_policy_action>
+    <sys_translated_text action="delete_multiple" query="documentkey=fe31d3251c2e4c6995710e5c5baa985e"/>
 </record_update>
