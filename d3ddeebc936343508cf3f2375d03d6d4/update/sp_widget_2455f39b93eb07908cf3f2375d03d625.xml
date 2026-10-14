@@ -126,846 +126,785 @@ api.controller = function($scope, $rootScope, $timeout) {
 ]]></client_script>
         <controller_as>c</controller_as>
         <css><![CDATA[
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
 
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --wei-bg:         #EEECEA;
+  --wei-primary:    #5B4BF5;
+  --wei-primary-dk: #4438D6;
+  --wei-primary-lt: #EAE8FE;
+  --wei-text:       #0F0F0F;
+  --wei-muted:      #6B6B6B;
+  --wei-border:     #D8D4D0;
+  --wei-card:       #FFFFFF;
+  --wei-radius:     12px;
+  --wei-shadow:     0 2px 12px rgba(91,75,245,0.08);
+  --wei-success:    #22C55E;
+  --wei-warning:    #F59E0B;
+  --wei-danger:     #EF4444;
+  --wei-info:       #3B82F6;
+  --ff-head:        'Playfair Display', Georgia, serif;
+  --ff-body:        'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body, .sp-widget, .portal-page {
+  font-family: var(--ff-body) !important;
+  background-color: var(--wei-bg) !important;
+  color: var(--wei-text) !important;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: var(--ff-head) !important;
+}
+
+
+/* ═══ LANDING PAGE WRAPPER ═══ */
 .wei-ecommerce-landing {
-  --bg-cream: #fcfaf3;
-  --primary-olive: #8a9c27;
-  --primary-olive-dark: #6e7c1f;
-  --heading-terracotta: #c15738;
-  --text-dark: #222222;
-  --text-muted: #666666;
-  --card-bg: #ffffff;
-  --card-radius: 14px;
-  --card-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-
-  --sev-critical: #d9381e;
-  --sev-high: #e67e22;
-  --sev-medium: #f1c40f;
-  --sev-low: #27ae60;
+  --bg-cream:           var(--wei-bg);
+  --primary-olive:      var(--wei-primary);
+  --primary-olive-dark: var(--wei-primary-dk);
+  --heading-terracotta: var(--wei-primary);
+  --text-dark:          var(--wei-text);
+  --text-muted:         var(--wei-muted);
+  --card-bg:            var(--wei-card);
+  --card-radius:        var(--wei-radius);
+  --card-shadow:        var(--wei-shadow);
+  --sev-critical:       var(--wei-danger);
+  --sev-high:           var(--wei-warning);
+  --sev-medium:         #FBBF24;
+  --sev-low:            var(--wei-success);
 
   background-color: var(--bg-cream);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  min-height: 100vh;
+  font-family: var(--ff-body);
   color: var(--text-dark);
-  margin: 0;
-  padding: 0;
 }
 
-.wei-ecommerce-landing a {
-  text-decoration: none;
-  color: inherit;
-}
-
-/* 1. Announcement */
-.wei-announcement {
-  background-color: var(--primary-olive);
-  color: #ffffff;
-  padding: 9px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* ═══ ANNOUNCEMENT BAR ═══ */
+.wei-announce-bar {
+  background: var(--wei-primary);
+  color: #fff;
   font-size: 13px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 9px 0;
+  text-align: center;
   font-weight: 600;
-  letter-spacing: 0.3px;
+  font-family: var(--ff-body);
 }
-.announcement-nav-btn {
+.wei-announce-bar .announce-arrow {
+  cursor: pointer;
+  opacity: 0.75;
+  transition: opacity .2s;
   background: none;
   border: none;
-  color: #ffffff;
-  cursor: pointer;
-  padding: 0 16px;
-  opacity: 0.8;
-  font-size: 12px;
+  color: #fff;
+  font-size: 14px;
+  padding: 0 12px;
 }
-.announcement-nav-btn:hover { opacity: 1; }
-.announcement-text { text-align: center; }
+.wei-announce-bar .announce-arrow:hover { opacity: 1; }
 
-/* 2. Header */
+/* ═══ HEADER / NAV ═══ */
 .wei-header {
-  background: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 40px;
-  border-bottom: 1px solid rgba(0,0,0,0.06);
+  background: #fff;
+  border-bottom: 1.5px solid var(--wei-border);
+  padding: 0 24px;
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 999;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
-.wei-logo-container .logo-link {
+.wei-header-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  height: 60px;
+  gap: 24px;
+}
+.wei-logo-text {
+  font-family: var(--ff-head);
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--wei-primary);
+  white-space: nowrap;
+  letter-spacing: -0.5px;
+}
+.wei-nav {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+  justify-content: center;
+  list-style: none;
+  margin: 0; padding: 0;
+}
+.wei-nav li a {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--wei-text);
+  padding: 6px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background .2s, color .2s;
+  font-family: var(--ff-body);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.wei-nav li a:hover,
+.wei-nav li.active a {
+  background: var(--wei-primary-lt);
+  color: var(--wei-primary);
+}
+.wei-nav li.active a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.wei-header-icons {
   display: flex;
   align-items: center;
   gap: 12px;
 }
-.wei-logo-mark {
-  width: 40px;
-  height: 40px;
-  background: var(--heading-terracotta);
-  color: #fff;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-}
-.wei-wordmark {
-  display: flex;
-  flex-direction: column;
-  font-weight: 900;
-  line-height: 1.1;
-  font-size: 13px;
-  letter-spacing: 0.5px;
-  color: var(--heading-terracotta);
-}
-.wordmark-bottom { color: var(--primary-olive-dark); font-size: 12px; }
-
-.wei-nav-center {
-  display: flex;
-  gap: 24px;
-  align-items: center;
-}
-.wei-nav-center a {
-  font-size: 14px;
-  font-weight: 600;
-  color: #333333;
-  padding-bottom: 4px;
-  transition: color 0.2s, border-color 0.2s;
-}
-.wei-nav-center a:hover {
-  color: var(--heading-terracotta);
-}
-.wei-nav-center a.active {
-  color: var(--heading-terracotta);
-  border-bottom: 2px solid var(--heading-terracotta);
-}
-
-.wei-header-icons {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-.header-icon-btn {
-  font-size: 18px;
-  color: #444444;
-  position: relative;
-  transition: color 0.2s;
-}
-.header-icon-btn:hover { color: var(--heading-terracotta); }
-.user-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 14px;
-  font-weight: 600;
-}
-.user-btn i { font-size: 18px; }
-.cart-style-icon .wei-badge {
-  position: absolute;
-  top: -8px;
-  right: -10px;
-  background: var(--heading-terracotta);
-  color: #fff;
-  font-size: 10px;
-  font-weight: bold;
+.wei-icon-btn {
+  width: 36px; height: 36px;
   border-radius: 50%;
-  width: 17px;
-  height: 17px;
+  border: 1.5px solid var(--wei-border);
+  background: #fff;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  color: var(--wei-text);
+  transition: border-color .2s, background .2s;
+  font-size: 14px;
+  text-decoration: none;
+}
+.wei-icon-btn:hover {
+  background: var(--wei-primary-lt);
+  border-color: var(--wei-primary);
+  color: var(--wei-primary);
+}
+.badge-count {
+  background: var(--wei-primary);
+  color: #fff;
+  border-radius: 999px;
+  font-size: 10px;
+  padding: 1px 5px;
+  margin-left: -6px;
+  margin-top: -12px;
+  font-weight: 700;
+  font-family: var(--ff-body);
+}
+.btn-login-header {
+  background: var(--wei-primary) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 7px 18px !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  font-family: var(--ff-body) !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase !important;
+  transition: background .2s !important;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btn-login-header:hover { background: var(--wei-primary-dk) !important; }
+
+/* ═══ HERO BANNER ═══ */
+.wei-hero {
+  background: linear-gradient(135deg, #0F0F0F 0%, #1a1464 60%, var(--wei-primary) 100%);
+  min-height: 480px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 60px 40px;
 }
-
-/* 3. Hero Banner */
-.wei-hero {
-  background: linear-gradient(135deg, #7a8b22 0%, #9cb02a 100%);
-  color: #ffffff;
-  padding: 60px 20px 40px;
+.wei-hero-content {
+  max-width: 640px;
+  z-index: 2;
   position: relative;
 }
-.wei-hero-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 40px;
-  min-height: 280px;
-}
-.wei-hero-text {
-  flex: 1;
-  max-width: 650px;
-}
-.hero-headline {
-  color: #ffffff !important;
-  font-size: 38px;
-  font-weight: 900;
-  line-height: 1.15;
-  margin: 0 0 14px;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.15);
-}
-.wei-hero-label {
-  background: rgba(255,255,255,0.22);
+.wei-hero-eyebrow {
+  font-family: var(--ff-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--wei-primary);
+  background: rgba(255,255,255,0.1);
+  padding: 4px 12px;
+  border-radius: 999px;
   display: inline-block;
-  padding: 5px 14px;
-  border-radius: 20px;
-  font-size: 12px;
+  margin-bottom: 18px;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.wei-hero-title {
+  font-family: var(--ff-head);
+  font-size: clamp(36px, 5vw, 60px);
   font-weight: 800;
-  letter-spacing: 1px;
-  margin-bottom: 16px;
+  color: #fff;
+  line-height: 1.1;
+  margin: 0 0 18px 0;
 }
-.hero-subtext {
+.wei-hero-title em {
+  font-style: italic;
+  color: #A89DFF;
+}
+.wei-hero-tagline {
+  font-family: var(--ff-body);
   font-size: 15px;
-  line-height: 1.5;
-  opacity: 0.95;
-  margin-bottom: 24px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+  margin: 0 0 32px 0;
+  font-weight: 500;
 }
-.hero-btn-row {
+.wei-hero-btns {
   display: flex;
   gap: 14px;
+  flex-wrap: wrap;
 }
-.btn-wei-hero {
-  background: #222222;
-  color: #ffffff;
-  padding: 12px 28px;
-  border-radius: 24px;
+.btn-hero-primary {
+  background: var(--wei-primary);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 28px;
   font-weight: 700;
   font-size: 14px;
-  transition: transform 0.2s, background 0.2s;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  font-family: var(--ff-body);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex; align-items: center; gap: 8px;
+  transition: background .2s, transform .2s;
 }
-.btn-wei-hero:hover {
-  background: #000000;
+.btn-hero-primary:hover {
+  background: var(--wei-primary-dk);
   transform: translateY(-2px);
-  color: #ffffff;
+  color: #fff;
+  text-decoration: none;
 }
-.btn-wei-hero-ghost {
-  background: rgba(255,255,255,0.2);
-  border: 1.5px solid #ffffff;
-  color: #ffffff;
-  padding: 12px 24px;
-  border-radius: 24px;
+.btn-hero-secondary {
+  background: transparent;
+  color: #fff;
+  border: 1.5px solid rgba(255,255,255,0.45);
+  border-radius: 8px;
+  padding: 13px 24px;
+  font-weight: 600;
+  font-size: 13px;
+  font-family: var(--ff-body);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex; align-items: center; gap: 8px;
+  transition: border-color .2s, background .2s;
+}
+.btn-hero-secondary:hover {
+  border-color: #fff;
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  text-decoration: none;
+}
+.wei-hero-image {
+  position: absolute;
+  right: 0; top: 0; bottom: 0;
+  width: 45%;
+  background: linear-gradient(to left, rgba(0,0,0,0) 0%, transparent 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 100px;
+  opacity: 0.12;
+}
+.wei-hero-dots {
+  display: flex; gap: 8px; margin-top: 32px;
+}
+.wei-hero-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  cursor: pointer; border: none;
+  transition: background .2s;
+}
+.wei-hero-dot.active { background: var(--wei-primary); width: 24px; border-radius: 4px; }
+
+/* ═══ SECTION WRAPPER ═══ */
+.wei-section {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 56px 24px;
+}
+.wei-section-eyebrow {
+  font-family: var(--ff-body);
+  font-size: 11px;
   font-weight: 700;
-  font-size: 14px;
-  transition: all 0.2s;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--wei-primary);
+  margin-bottom: 8px;
 }
-.btn-wei-hero-ghost:hover {
-  background: #ffffff;
-  color: var(--primary-olive-dark);
+.wei-section-title {
+  font-family: var(--ff-head);
+  font-size: clamp(26px, 3vw, 38px);
+  font-weight: 800;
+  color: var(--wei-text);
+  margin: 0 0 40px 0;
+  line-height: 1.2;
+}
+.wei-section-title em {
+  font-style: italic;
+  color: var(--wei-primary);
 }
 
-.hero-card-preview {
-  background: rgba(255,255,255,0.18);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.3);
-  padding: 24px;
-  border-radius: 18px;
-  width: 280px;
-  text-align: center;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+/* ═══ CATEGORY CARDS ═══ */
+.wei-category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+  margin-bottom: 0;
 }
-.preview-badge {
-  font-size: 11px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
+.wei-cat-card {
+  background: var(--wei-card);
+  border-radius: var(--wei-radius);
+  padding: 28px 20px 22px;
+  text-align: center;
+  box-shadow: var(--wei-shadow);
+  border: 1.5px solid var(--wei-border);
+  cursor: pointer;
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+  text-decoration: none;
+  display: block;
+}
+.wei-cat-card:hover {
+  border-color: var(--wei-primary);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(91,75,245,0.15);
+  text-decoration: none;
+}
+.wei-cat-icon {
+  font-size: 32px;
+  color: var(--wei-primary);
   margin-bottom: 12px;
 }
-.preview-stat {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 14px;
+.wei-cat-label {
+  font-family: var(--ff-body);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--wei-text);
+  margin: 0 0 10px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
-.stat-number { font-size: 42px; font-weight: 900; line-height: 1; }
-.stat-desc { font-size: 12px; opacity: 0.9; margin-top: 4px; }
-.preview-chart-bar {
-  background: rgba(0,0,0,0.15);
-  height: 8px;
-  border-radius: 4px;
-  overflow: hidden;
-  margin-bottom: 10px;
+.wei-cat-link {
+  font-size: 12px;
+  color: var(--wei-primary);
+  font-weight: 600;
+  text-decoration: none;
 }
-.chart-fill {
-  background: #ffffff;
-  height: 100%;
-}
-.preview-foot { font-size: 11px; opacity: 0.85; }
+.wei-cat-link:hover { text-decoration: underline; }
 
-.wei-hero-controls {
+/* ═══ HORIZONTAL SCROLL CARDS ═══ */
+.wei-scroll-track {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 12px;
+  -webkit-overflow-scrolling: touch;
+}
+.wei-scroll-track::-webkit-scrollbar { height: 4px; }
+.wei-scroll-track::-webkit-scrollbar-thumb { background: var(--wei-border); border-radius: 2px; }
+
+.wei-exc-card {
+  min-width: 240px;
+  max-width: 260px;
+  background: var(--wei-card);
+  border-radius: var(--wei-radius);
+  border: 1.5px solid var(--wei-border);
+  box-shadow: var(--wei-shadow);
+  scroll-snap-align: start;
+  flex-shrink: 0;
+  overflow: hidden;
+  transition: box-shadow .2s, transform .2s;
+}
+.wei-exc-card:hover {
+  box-shadow: 0 8px 24px rgba(91,75,245,0.15);
+  transform: translateY(-3px);
+}
+.wei-exc-card-img {
+  height: 130px;
+  background: linear-gradient(135deg, var(--wei-primary-lt) 0%, #f0effe 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 48px;
+  color: var(--wei-primary);
+  position: relative;
+}
+.wei-sev-badge {
+  position: absolute;
+  top: 10px; left: 10px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-family: var(--ff-body);
+}
+.wei-sev-badge.critical { background: var(--wei-danger); color: #fff; }
+.wei-sev-badge.high     { background: var(--wei-warning); color: #fff; }
+.wei-sev-badge.medium   { background: #FBBF24; color: #000; }
+.wei-sev-badge.low      { background: var(--wei-success); color: #fff; }
+
+.wei-exc-card-body {
+  padding: 16px 16px 14px;
+}
+.wei-exc-card-type {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--wei-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+  font-family: var(--ff-body);
+}
+.wei-exc-card-title {
+  font-family: var(--ff-body);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--wei-text);
+  margin: 0 0 6px 0;
+  line-height: 1.4;
+}
+.wei-exc-card-meta {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--wei-primary);
+  margin: 0 0 14px 0;
+}
+.btn-card {
+  display: block;
+  width: 100%;
+  text-align: center;
+  border: 1.5px solid var(--wei-text);
+  border-radius: 8px;
+  padding: 9px 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--wei-text);
+  background: transparent;
+  font-family: var(--ff-body);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .2s, color .2s, border-color .2s;
+}
+.btn-card:hover {
+  background: var(--wei-primary);
+  color: #fff;
+  border-color: var(--wei-primary);
+  text-decoration: none;
+}
+
+/* ═══ CAROUSEL CONTROLS ═══ */
+.wei-carousel-controls {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 16px;
   margin-top: 24px;
 }
-.hero-nav-arrow {
-  background: none;
-  border: none;
-  color: #ffffff;
-  opacity: 0.75;
-  cursor: pointer;
-  font-size: 14px;
-}
-.hero-nav-arrow:hover { opacity: 1; }
-.wei-dots .dot {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
+.wei-carousel-btn {
+  width: 36px; height: 36px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.4);
-  margin: 0 4px;
+  border: 1.5px solid var(--wei-border);
+  background: var(--wei-card);
+  color: var(--wei-text);
+  display: flex; align-items: center; justify-content: center;
   cursor: pointer;
-}
-.wei-dots .dot.active { background: #ffffff; width: 20px; border-radius: 6px; }
-
-/* General Sections */
-.wei-section {
-  padding: 50px 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-.section-title {
-  color: var(--heading-terracotta);
-  font-weight: 800;
-  font-size: 26px;
-  margin: 0 0 24px;
-  letter-spacing: -0.3px;
-}
-.section-header-flex {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
-}
-.carousel-arrows .btn-scroll {
-  background: #ffffff;
-  border: 1px solid #e0ded5;
-  border-radius: 50%;
-  width: 34px;
-  height: 34px;
-  font-size: 18px;
-  color: #555;
-  cursor: pointer;
-  margin-left: 8px;
-  transition: all 0.2s;
-}
-.carousel-arrows .btn-scroll:hover {
-  background: var(--heading-terracotta);
-  color: #fff;
-  border-color: var(--heading-terracotta);
-}
-
-/* Cards */
-.wei-card {
-  background: var(--card-bg);
-  border-radius: var(--card-radius);
-  box-shadow: var(--card-shadow);
-  border: 1px solid rgba(0,0,0,0.03);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.wei-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 24px rgba(0,0,0,0.08);
-}
-
-/* 4. Categories Grid (Collections) */
-.wei-grid-categories {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 20px;
-}
-.wei-cat-card {
-  padding: 28px 16px;
-  text-align: center;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.cat-icon-wrap {
-  width: 64px;
-  height: 64px;
-  background: var(--bg-cream);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 16px;
-  color: var(--primary-olive-dark);
-  font-size: 26px;
-}
-.cat-link-title {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--heading-terracotta);
-}
-.cat-link-title i { font-size: 12px; transition: transform 0.2s; }
-.wei-cat-card:hover .cat-link-title i { transform: translateX(4px); }
-
-/* Horizontal Scroll Containers */
-.wei-h-scroll {
-  display: flex;
-  overflow-x: auto;
-  gap: 20px;
-  padding: 8px 4px 16px;
-  scrollbar-width: none;
-}
-.wei-h-scroll::-webkit-scrollbar { display: none; }
-
-/* Product/Exception Cards */
-.wei-product-card {
-  min-width: 260px;
-  max-width: 260px;
-  padding: 16px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-.card-img-placeholder {
-  background: #f7f6f1;
-  border-radius: 10px;
-  height: 140px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 42px;
-  color: #c9c7be;
-  margin-bottom: 14px;
-}
-.product-title {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--heading-terracotta);
-  margin: 0 0 6px;
-  line-height: 1.3;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  height: 40px;
-}
-.product-desc {
-  font-size: 12px;
-  color: var(--text-muted);
-  margin: 0 0 8px;
-  line-height: 1.4;
-  height: 34px;
-  overflow: hidden;
-}
-.exc-meta {
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-bottom: 8px;
-}
-.exc-meta p { margin: 0 0 4px; }
-.status-pill {
-  background: #ededed;
-  color: #333;
-  font-size: 10px;
-  font-weight: bold;
-}
-.bold-line {
-  font-weight: 800;
+  transition: border-color .2s, background .2s;
   font-size: 13px;
-  color: var(--text-dark);
-  margin: 8px 0 14px;
-  flex-grow: 1;
 }
-
-/* Outlined Buttons */
-.btn-wei-outline {
-  display: block;
-  width: 100%;
-  text-align: center;
-  border: 1.5px solid var(--text-dark);
-  background: transparent;
-  color: var(--text-dark);
-  border-radius: 24px;
-  padding: 9px 0;
+.wei-carousel-btn:hover {
+  border-color: var(--wei-primary);
+  background: var(--wei-primary-lt);
+  color: var(--wei-primary);
+}
+.wei-carousel-page {
+  font-family: var(--ff-body);
   font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.btn-wei-outline:hover {
-  background: var(--text-dark);
-  color: #ffffff;
+  font-weight: 600;
+  color: var(--wei-muted);
 }
 
-/* Severity Badges (Replacing 'Sale') */
-.sev-badge {
-  position: absolute;
-  top: 24px;
-  left: 24px;
-  padding: 3px 8px;
-  border-radius: 4px;
-  font-size: 10px;
-  font-weight: 800;
-  text-transform: uppercase;
-  color: #ffffff;
-  z-index: 2;
-}
-.sev-critical { background: var(--sev-critical); }
-.sev-high { background: var(--sev-high); }
-.sev-medium { background: var(--sev-medium); color: #222; }
-.sev-low { background: var(--sev-low); }
-
-.wei-carousel-pagination {
-  margin-top: 14px;
-  font-size: 13px;
-  font-weight: 700;
-  color: #888888;
-}
-
-/* 7. How It Works (Video Card) */
-.wei-video-card {
-  padding: 0;
-  overflow: hidden;
-  cursor: pointer;
-  max-width: 960px;
-  margin: 0 auto;
-}
-.video-thumbnail {
-  background: linear-gradient(135deg, var(--heading-terracotta) 0%, var(--primary-olive) 100%);
-  min-height: 340px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  padding: 40px 20px;
-}
-.video-content {
-  position: relative;
-  z-index: 2;
-  color: #ffffff;
-}
-.video-tag {
-  background: rgba(255,255,255,0.22);
-  padding: 4px 14px;
+/* ═══ HOW IT WORKS ═══ */
+.wei-howit-card {
+  background: var(--wei-card);
   border-radius: 16px;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 1px;
+  padding: 48px;
+  box-shadow: var(--wei-shadow);
+  border: 1.5px solid var(--wei-border);
 }
-.video-title {
-  color: #ffffff !important;
-  font-size: 34px;
-  font-weight: 900;
-  margin: 14px 0 8px;
-  letter-spacing: 0.5px;
+.wei-step-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 24px;
+  margin-top: 32px;
 }
-.video-sub { font-size: 15px; opacity: 0.9; margin-bottom: 24px; }
-.play-btn-circle {
-  width: 64px;
-  height: 64px;
-  background: #ffffff;
-  color: var(--heading-terracotta);
-  border-radius: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-  transition: transform 0.2s;
-}
-.wei-video-card:hover .play-btn-circle { transform: scale(1.12); }
-
-/* 8. Trust Badge Row */
-.wei-trust-row {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  flex-wrap: wrap;
-  padding: 30px 20px 50px;
-}
-.trust-badge {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  width: 130px;
-}
-.badge-circle {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: #d4af37;
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  margin-bottom: 10px;
-  box-shadow: inset 0 0 10px rgba(0,0,0,0.1), 0 4px 12px rgba(0,0,0,0.08);
-}
-.badge-val { font-size: 16px; font-weight: 900; color: var(--text-dark); }
-.badge-lbl { font-size: 12px; font-weight: 600; color: var(--text-muted); }
-
-/* 9. Subscribe */
-.wei-subscribe-section {
-  padding-bottom: 60px;
-}
-.subscribe-title {
-  font-size: 24px;
-  font-weight: 800;
-  color: var(--text-dark);
-  margin-bottom: 8px;
-}
-.subscribe-sub {
-  font-size: 14px;
-  color: var(--text-muted);
-  margin-bottom: 24px;
-}
-.subscribe-box {
-  max-width: 440px;
-  margin: 0 auto;
-}
-.subscribe-form {
-  display: flex;
-  border-bottom: 1.5px solid #222222;
-  padding-bottom: 6px;
-}
-.subscribe-form input {
-  flex: 1;
-  border: none;
-  background: transparent;
-  outline: none;
-  font-size: 15px;
-  padding: 6px;
-}
-.subscribe-form button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 18px;
-  color: var(--text-dark);
-}
-.subscribe-alert {
-  max-width: 500px;
-  margin: 0 auto;
-  border-radius: 12px;
-}
-
-/* 10. Footer */
-.wei-footer {
-  background: var(--primary-olive);
-  color: #ffffff;
-  padding: 50px 20px 24px;
-}
-.footer-columns {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 30px;
-  margin-bottom: 30px;
-}
-.footer-col { flex: 1; min-width: 220px; }
-.footer-col h4 {
-  font-size: 15px;
-  font-weight: 800;
-  margin-bottom: 16px;
-  color: #ffffff;
-}
-.footer-col a {
-  display: block;
-  font-size: 13px;
-  color: rgba(255,255,255,0.85);
-  margin-bottom: 10px;
-  transition: color 0.2s;
-}
-.footer-col a:hover { color: #ffffff; }
-.footer-col p {
-  font-size: 13px;
-  line-height: 1.6;
-  color: rgba(255,255,255,0.85);
-}
-.footer-socials {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 24px;
-}
-.social-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.15);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 15px;
-  color: #ffffff;
-  transition: background 0.2s;
-}
-.social-icon:hover { background: rgba(255,255,255,0.3); color: #fff; }
-.footer-bottom {
-  font-size: 12px;
-  color: rgba(255,255,255,0.7);
-  border-top: 1px solid rgba(255,255,255,0.15);
-  padding-top: 16px;
-}
-
-/* 11. Floating Chat */
-.wei-floating-chat {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  background: #222222;
-  color: #ffffff;
-  border-radius: 24px;
-  padding: 10px 20px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  z-index: 9999;
-  cursor: pointer;
-  font-weight: 700;
-  font-size: 14px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.35);
-  transition: transform 0.2s, background 0.2s;
-}
-.wei-floating-chat:hover {
-  background: #000000;
-  transform: scale(1.05);
-}
-
-/* Modals */
-.wei-modal-backdrop {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.5);
-  z-index: 10000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-.wei-modal-card {
-  background: #ffffff;
-  border-radius: 18px;
-  max-width: 650px;
-  width: 100%;
-  max-height: 85vh;
-  overflow-y: auto;
-  box-shadow: 0 12px 36px rgba(0,0,0,0.3);
-}
-.modal-card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px 24px;
-  border-bottom: 1px solid #f0f0f0;
-}
-.modal-card-header h3 { margin: 0; font-size: 18px; font-weight: 800; color: var(--heading-terracotta); }
-.close-btn { background: none; border: none; font-size: 24px; cursor: pointer; color: #888; }
-.modal-card-body { padding: 24px; }
-
-.timeline-journey {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-.timeline-step {
+.wei-step {
   display: flex;
   gap: 14px;
   align-items: flex-start;
 }
-.step-num {
-  width: 32px;
-  height: 32px;
+.wei-step-num {
+  width: 36px; height: 36px;
   border-radius: 50%;
-  background: var(--heading-terracotta);
+  background: var(--wei-primary);
   color: #fff;
   font-weight: 800;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 13px;
+  font-size: 14px;
+  font-family: var(--ff-body);
+  display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
-.step-content h4 { margin: 0 0 4px; font-size: 14px; font-weight: 700; color: var(--text-dark); }
-.step-content p { margin: 0; font-size: 12px; color: var(--text-muted); }
+.wei-step-label {
+  font-family: var(--ff-body);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--wei-text);
+  padding-top: 7px;
+}
 
-/* Chat Dialog */
-.wei-chat-dialog {
-  position: fixed;
-  bottom: 80px;
-  right: 24px;
-  width: 340px;
-  height: 440px;
-  background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 12px 36px rgba(0,0,0,0.25);
+/* ═══ KPI STATS BAR ═══ */
+.wei-stats-bar {
+  background: var(--wei-primary);
+  padding: 24px 40px;
   display: flex;
-  flex-direction: column;
-  z-index: 10000;
-  overflow: hidden;
-  border: 1px solid rgba(0,0,0,0.08);
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 0;
 }
-.chat-dialog-header {
-  background: var(--heading-terracotta);
-  color: #ffffff;
-  padding: 14px 18px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-weight: 700;
-}
-.chat-close-btn { background: none; border: none; color: #fff; font-size: 20px; cursor: pointer; }
-.chat-dialog-body {
-  flex: 1;
-  padding: 14px;
-  overflow-y: auto;
-  background: #fdfaf5;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.chat-msg { display: flex; }
-.chat-msg.user { justify-content: flex-end; }
-.chat-msg.ai { justify-content: flex-start; }
-.msg-bubble {
-  max-width: 80%;
-  padding: 9px 13px;
-  border-radius: 14px;
-  font-size: 13px;
-  line-height: 1.35;
-}
-.chat-msg.ai .msg-bubble { background: #ffffff; border: 1px solid #e8e5dc; color: #222; }
-.chat-msg.user .msg-bubble { background: var(--heading-terracotta); color: #fff; }
-.chat-dialog-footer {
-  display: flex;
-  padding: 10px;
-  border-top: 1px solid #eee;
-  background: #fff;
-}
-.chat-dialog-footer input {
-  flex: 1;
-  border: 1px solid #ddd;
-  border-radius: 20px;
-  padding: 8px 14px;
-  font-size: 13px;
-  outline: none;
-}
-.chat-send-btn {
-  background: var(--heading-terracotta);
-  border: none;
+.wei-stat-item {
+  text-align: center;
   color: #fff;
-  border-radius: 50%;
-  width: 34px;
-  height: 34px;
-  margin-left: 8px;
-  cursor: pointer;
+}
+.wei-stat-num {
+  font-family: var(--ff-head);
+  font-size: 40px;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.wei-stat-label {
+  font-family: var(--ff-body);
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.85;
 }
 
-@media (max-width: 768px) {
-  .wei-header { padding: 12px 16px; }
-  .wei-nav-center { display: none; }
-  .hero-headline { font-size: 26px; }
-  .wei-hero { padding: 40px 16px; }
-  .footer-columns { flex-direction: column; }
+/* ═══ DIVIDER ═══ */
+.wei-divider {
+  border: none;
+  border-top: 1.5px solid var(--wei-border);
+  margin: 0;
 }
+
+/* ═══ FOOTER ═══ */
+.wei-footer {
+  background: var(--wei-text);
+  color: rgba(255,255,255,0.8);
+  padding: 40px 24px 24px;
+}
+.wei-footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.wei-footer-brand {
+  font-family: var(--ff-head);
+  font-size: 20px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 6px;
+}
+.wei-footer-tagline {
+  font-size: 12px;
+  opacity: 0.6;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-family: var(--ff-body);
+}
+.wei-footer-links a {
+  color: rgba(255,255,255,0.7);
+  font-size: 13px;
+  text-decoration: none;
+  margin-right: 20px;
+  font-family: var(--ff-body);
+  transition: color .2s;
+}
+.wei-footer-links a:hover { color: #fff; }
+.wei-footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  margin-top: 24px;
+  padding-top: 16px;
+  font-size: 12px;
+  opacity: 0.5;
+  font-family: var(--ff-body);
+}
+
+/* ═══ CHAT BUTTON ═══ */
+.wei-chat-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--wei-text);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: var(--ff-body);
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+  display: flex; align-items: center; gap: 8px;
+  transition: background .2s, transform .2s;
+  z-index: 9999;
+}
+.wei-chat-fab:hover {
+  background: var(--wei-primary);
+  transform: translateY(-2px);
+}
+
+/* ═══ LOGIN MODAL ═══ */
+.wei-login-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(4px);
+  z-index: 10000;
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+}
+.wei-login-box {
+  background: #fff;
+  border-radius: 16px;
+  padding: 40px 36px;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.18);
+}
+.wei-login-logo {
+  font-family: var(--ff-head);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--wei-primary);
+  margin-bottom: 6px;
+}
+.wei-login-subtitle {
+  font-size: 13px;
+  color: var(--wei-muted);
+  margin-bottom: 28px;
+  font-family: var(--ff-body);
+}
+.wei-login-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--wei-text);
+  margin-bottom: 6px;
+  display: block;
+  font-family: var(--ff-body);
+}
+.wei-login-input {
+  width: 100%;
+  border: 1.5px solid var(--wei-border);
+  border-radius: 8px;
+  padding: 11px 14px;
+  font-size: 14px;
+  font-family: var(--ff-body);
+  color: var(--wei-text);
+  background: #fff;
+  transition: border-color .2s;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+}
+.wei-login-input:focus {
+  outline: none;
+  border-color: var(--wei-primary);
+  box-shadow: 0 0 0 3px var(--wei-primary-lt);
+}
+.wei-login-btn {
+  width: 100%;
+  background: var(--wei-primary);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 13px 0;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: var(--ff-body);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-top: 4px;
+  transition: background .2s;
+}
+.wei-login-btn:hover { background: var(--wei-primary-dk); }
+.wei-login-error {
+  background: #FEF2F2;
+  border: 1px solid #FECACA;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--wei-danger);
+  margin-bottom: 16px;
+  font-family: var(--ff-body);
+}
+.wei-login-roles {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--wei-border);
+}
+.wei-login-roles-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--wei-muted);
+  margin-bottom: 10px;
+  font-family: var(--ff-body);
+}
+.wei-role-pill {
+  display: inline-block;
+  background: var(--wei-primary-lt);
+  color: var(--wei-primary);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  margin: 3px 4px 3px 0;
+  font-family: var(--ff-body);
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: border-color .2s;
+}
+.wei-role-pill:hover { border-color: var(--wei-primary); }
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 768px) {
+  .wei-nav { display: none; }
+  .wei-hero { padding: 40px 20px; min-height: 340px; }
+  .wei-hero-image { display: none; }
+  .wei-section { padding: 36px 16px; }
+  .wei-howit-card { padding: 24px 16px; }
+  .wei-stats-bar { padding: 20px 16px; }
+  .wei-login-box { padding: 28px 20px; }
+}
+
 ]]></css>
         <data_table>sp_instance</data_table>
         <demo_data/>
@@ -1226,18 +1165,18 @@ api.controller = function($scope, $rootScope, $timeout) {
         <sys_scope display_value="Warehouse Exception Intelligence">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
         <sys_update_name>sp_widget_2455f39b93eb07908cf3f2375d03d625</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-10-14 06:14:44</sys_updated_on>
+        <sys_updated_on>2026-10-14 06:43:15</sys_updated_on>
         <template><![CDATA[
 <div class="wei-ecommerce-landing">
   <!-- 1. ANNOUNCEMENT BAR (Olive Green, centered with rotating text) -->
-  <div class="wei-announcement">
-    <button class="announcement-nav-btn" type="button" ng-click="c.prevAnnouncement()" aria-label="Previous">
+  <div class="wei-announce-bar">
+    <button class="announce-arrow" type="button" type="button" ng-click="c.prevAnnouncement()" aria-label="Previous">
       <i class="fa fa-chevron-left"></i>
     </button>
-    <div class="announcement-text">
+    <div class="announce-text">
       <span>{{c.data.announcements[c.announcementIndex]}}</span>
     </div>
-    <button class="announcement-nav-btn" type="button" ng-click="c.nextAnnouncement()" aria-label="Next">
+    <button class="announce-arrow" type="button" type="button" ng-click="c.nextAnnouncement()" aria-label="Next">
       <i class="fa fa-chevron-right"></i>
     </button>
   </div>
@@ -1267,16 +1206,36 @@ api.controller = function($scope, $rootScope, $timeout) {
     </nav>
 
     <div class="wei-header-icons">
-      <a href="?id=x_1956908_wareho_0_create" title="Search / Create" class="header-icon-btn">
+      <a href="?id=x_1956908_wareho_0_create" title="Report Exception" class="wei-icon-btn">
         <i class="fa fa-search"></i>
       </a>
-      <a href="?id=x_1956908_wareho_0_staff_dashboard" title="{{c.data.userName}} ({{c.data.userRole}})" class="header-icon-btn user-btn">
+      <a href="?id=x_1956908_wareho_0_staff_dashboard" title="{{c.data.userName}} ({{c.data.userRole}})" class="wei-icon-btn">
         <i class="fa fa-user-circle-o"></i>
-        <span class="user-greeting hidden-xs">{{c.data.userName}}</span>
       </a>
-      <a href="?id=x_1956908_wareho_0_staff_dashboard" title="Open Exceptions" class="header-icon-btn cart-style-icon">
+      <a href="?id=x_1956908_wareho_0_staff_dashboard" title="Open Exceptions" class="wei-icon-btn" style="position:relative">
         <i class="fa fa-bell-o"></i>
-        <span class="wei-badge" ng-if="c.data.openCount > 0">{{c.data.openCount}}</span>
+        <span class="badge-count" ng-if="c.data.openCount > 0">{{c.data.openCount}}</span>
+      </a>
+      <!-- LOGIN / DASHBOARD button -->
+      <a ng-if="!c.data.isLoggedIn"
+         href="/login.do?redirect=%2Fwei%3Fid%3Dx_1956908_wareho_0_home"
+         class="btn-login-header">
+        <i class="fa fa-sign-in"></i> Login
+      </a>
+      <a ng-if="c.data.isLoggedIn && c.data.isSupervisor"
+         href="?id=x_1956908_wareho_0_sup_dashboard"
+         class="btn-login-header" style="background:#22C55E!important">
+        <i class="fa fa-tachometer"></i> Dashboard
+      </a>
+      <a ng-if="c.data.isLoggedIn && c.data.isTech"
+         href="?id=x_1956908_wareho_0_tech_dashboard"
+         class="btn-login-header" style="background:#F59E0B!important">
+        <i class="fa fa-wrench"></i> My Work
+      </a>
+      <a ng-if="c.data.isLoggedIn && !c.data.isSupervisor && !c.data.isTech"
+         href="?id=x_1956908_wareho_0_staff_dashboard"
+         class="btn-login-header">
+        <i class="fa fa-list"></i> My Reports
       </a>
     </div>
   </header>
@@ -1287,8 +1246,8 @@ api.controller = function($scope, $rootScope, $timeout) {
     <div class="wei-hero-slide" ng-show="c.heroSlide === 0">
       <div class="wei-hero-inner container">
         <div class="wei-hero-text">
-          <h1 class="hero-headline">WELCOME TO WAREHOUSE<br>EXCEPTION INTELLIGENCE</h1>
-          <div class="wei-hero-label">DETECT &bull; ROUTE &bull; RESOLVE &bull; IMPROVE</div>
+          <h1 class="wei-hero-title">WELCOME TO WAREHOUSE<br>EXCEPTION INTELLIGENCE</h1>
+          <div class="wei-hero-tagline">DETECT &bull; ROUTE &bull; RESOLVE &bull; IMPROVE</div>
           <p class="hero-subtext">The enterprise generative AI platform for autonomous exception handling, predictive routing, and resolution acceleration.</p>
           <div class="hero-btn-row">
             <a href="?id=x_1956908_wareho_0_create" class="btn-wei-hero">Report an Exception</a>
@@ -1315,8 +1274,8 @@ api.controller = function($scope, $rootScope, $timeout) {
     <div class="wei-hero-slide" ng-show="c.heroSlide === 1">
       <div class="wei-hero-inner container">
         <div class="wei-hero-text">
-          <h1 class="hero-headline">REAL-TIME VISIBILITY<br>FOR SUPERVISORS</h1>
-          <div class="wei-hero-label">LIVE METRICS &bull; AI ROOT-CAUSE &bull; BOTTLENECK REMOVAL</div>
+          <h1 class="wei-hero-title">REAL-TIME VISIBILITY<br>FOR SUPERVISORS</h1>
+          <div class="wei-hero-tagline">LIVE METRICS &bull; AI ROOT-CAUSE &bull; BOTTLENECK REMOVAL</div>
           <p class="hero-subtext">Track every exception across cold storage, dock bays, and inventory aisles with automated generative AI root-cause diagnostics.</p>
           <div class="hero-btn-row">
             <a href="?id=x_1956908_wareho_0_sup_dashboard" class="btn-wei-hero">Explore Dashboard</a>
@@ -1352,7 +1311,7 @@ api.controller = function($scope, $rootScope, $timeout) {
 
   <!-- 4. EXCEPTION CATEGORIES ("Collections" style square white cards) -->
   <section class="wei-section container">
-    <h2 class="section-title">Exception Categories</h2>
+    <h2 class="wei-section-title">Exception Categories</h2>
     <div class="wei-grid-categories">
       <div class="wei-card wei-cat-card" ng-repeat="cat in c.data.categories track by cat.id" ng-click="c.goToReport(cat.id)">
         <div class="cat-icon-wrap">
@@ -1369,7 +1328,7 @@ api.controller = function($scope, $rootScope, $timeout) {
   <!-- 5. MOST COMMON EXCEPTIONS ("Our Best Sellers" product-style cards) -->
   <section class="wei-section container">
     <div class="section-header-flex">
-      <h2 class="section-title">Most Common Exceptions</h2>
+      <h2 class="wei-section-title">Most Common Exceptions</h2>
       <div class="carousel-arrows hidden-xs">
         <button type="button" class="btn-scroll" ng-click="c.scrollRow('commonScrollRow', -280)"><i class="fa fa-angle-left"></i></button>
         <button type="button" class="btn-scroll" ng-click="c.scrollRow('commonScrollRow', 280)"><i class="fa fa-angle-right"></i></button>
@@ -1396,7 +1355,7 @@ api.controller = function($scope, $rootScope, $timeout) {
   <!-- 6. RECENTLY REPORTED EXCEPTIONS ("New Arrivals" cards with severity badge) -->
   <section class="wei-section container">
     <div class="section-header-flex">
-      <h2 class="section-title">Recently Reported Exceptions</h2>
+      <h2 class="wei-section-title">Recently Reported Exceptions</h2>
       <div class="carousel-arrows hidden-xs">
         <button type="button" class="btn-scroll" ng-click="c.scrollRow('recentScrollRow', -280)"><i class="fa fa-angle-left"></i></button>
         <button type="button" class="btn-scroll" ng-click="c.scrollRow('recentScrollRow', 280)"><i class="fa fa-angle-right"></i></button>
@@ -1429,7 +1388,7 @@ api.controller = function($scope, $rootScope, $timeout) {
 
   <!-- 7. HOW IT WORKS ("Our Journey" style card with video thumbnail and play button) -->
   <section class="wei-section container text-center">
-    <h2 class="section-title">How It Works</h2>
+    <h2 class="wei-section-title">How It Works</h2>
     <div class="wei-card wei-video-card" ng-click="c.openJourney()">
       <div class="video-thumbnail">
         <div class="video-overlay"></div>
@@ -1514,7 +1473,7 @@ api.controller = function($scope, $rootScope, $timeout) {
   </footer>
 
   <!-- 11. FLOATING CHAT BUTTON (Now Assist / VA Launcher) -->
-  <div class="wei-floating-chat" ng-click="c.openChat()" title="Open Now Assist Assistant">
+  <div class="wei-chat-fab" ng-click="c.openChat()" title="Open Now Assist Assistant">
     <i class="fa fa-commenting"></i>
     <span>Chat</span>
   </div>

@@ -78,41 +78,102 @@ api.controller = function() {
 };
 ]]></client_script>
         <controller_as>c</controller_as>
-        <css>.create-exc-widget {
-  max-width: 800px;
+        <css><![CDATA[
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --wei-bg:         #EEECEA;
+  --wei-primary:    #5B4BF5;
+  --wei-primary-dk: #4438D6;
+  --wei-primary-lt: #EAE8FE;
+  --wei-text:       #0F0F0F;
+  --wei-muted:      #6B6B6B;
+  --wei-border:     #D8D4D0;
+  --wei-card:       #FFFFFF;
+  --wei-radius:     12px;
+  --wei-shadow:     0 2px 12px rgba(91,75,245,0.08);
+  --wei-success:    #22C55E;
+  --wei-warning:    #F59E0B;
+  --wei-danger:     #EF4444;
+  --wei-info:       #3B82F6;
+  --ff-head:        'Playfair Display', Georgia, serif;
+  --ff-body:        'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body, .sp-widget, .portal-page {
+  font-family: var(--ff-body) !important;
+  background-color: var(--wei-bg) !important;
+  color: var(--wei-text) !important;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: var(--ff-head) !important;
+}
+
+.create-exc-widget {
+  max-width: 820px;
   margin: 0 auto;
 }
-
 .create-header {
-  background-color: $brand-primary;
+  background: var(--wei-primary) !important;
   color: #fff;
   border: none;
+  border-radius: var(--wei-radius) var(--wei-radius) 0 0 !important;
 }
-
 .create-header .panel-title {
-  font-weight: 600;
+  font-family: var(--ff-head) !important;
+  font-weight: 800 !important;
   color: #fff;
+  font-size: 18px;
 }
-
+.panel {
+  border-radius: var(--wei-radius) !important;
+  box-shadow: var(--wei-shadow) !important;
+  border-color: var(--wei-border) !important;
+}
+.form-group label {
+  font-family: var(--ff-body) !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.07em !important;
+  color: var(--wei-text) !important;
+}
+.form-control {
+  border-radius: 8px !important;
+  border-color: var(--wei-border) !important;
+  font-family: var(--ff-body) !important;
+  font-size: 14px !important;
+}
+.form-control:focus {
+  border-color: var(--wei-primary) !important;
+  box-shadow: 0 0 0 3px var(--wei-primary-lt) !important;
+}
+.btn-primary {
+  background: var(--wei-primary) !important;
+  border-color: var(--wei-primary) !important;
+  color: #fff !important;
+  border-radius: 8px !important;
+  font-family: var(--ff-body) !important;
+  font-weight: 700 !important;
+  padding: 10px 28px !important;
+  letter-spacing: 0.05em !important;
+}
+.btn-primary:hover { background: var(--wei-primary-dk) !important; border-color: var(--wei-primary-dk) !important; }
+.btn-default {
+  border-radius: 8px !important;
+  font-family: var(--ff-body) !important;
+}
 .form-actions {
-  padding-top: 15px;
-  border-top: 1px solid #eee;
-  margin-top: 10px;
+  padding-top: 16px;
+  border-top: 1.5px solid var(--wei-border);
 }
+.success-view { padding: 48px 20px; text-align: center; }
+.success-view .fa-check-circle { color: var(--wei-success) !important; font-size: 56px !important; margin-bottom: 18px !important; }
+.exc-number { color: var(--wei-primary) !important; font-weight: 800 !important; font-family: var(--ff-head) !important; }
 
-.success-view {
-  padding: 40px 20px;
-}
-
-.success-view .fa-check-circle {
-  margin-bottom: 15px;
-}
-
-.exc-number {
-  color: $brand-primary;
-  font-weight: 700;
-}
-</css>
+]]></css>
         <data_table>sp_instance</data_table>
         <demo_data/>
         <description/>
@@ -211,7 +272,7 @@ api.controller = function() {
         <sys_scope display_value="Warehouse Exception Intelligence">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
         <sys_update_name>sp_widget_d3280087eda84b1bb91357cb7eaae0c7</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-10-14 05:04:32</sys_updated_on>
+        <sys_updated_on>2026-10-14 06:38:09</sys_updated_on>
         <template><![CDATA[
 <div class="create-exc-widget container">
   <!-- Breadcrumb -->
