@@ -54,7 +54,7 @@
   };
 };]]></client_script>
         <controller_as>c</controller_as>
-        <css><![CDATA[
+        <css>
 .wei-approvals-wrapper {
   max-width: 1000px;
   margin: 30px auto 60px;
@@ -147,7 +147,7 @@
   font-weight: 600;
 }
 .btn-action-escalate:hover { background: #6B21A8; }
-]]></css>
+</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
         <description/>
@@ -159,7 +159,7 @@
         <link><![CDATA[function link(scope, element, attrs, controller) {
 }]]></link>
         <name>Warehouse Pending Approvals</name>
-        <option_schema></option_schema>
+        <option_schema/>
         <public>false</public>
         <roles/>
         <script><![CDATA[(function() {

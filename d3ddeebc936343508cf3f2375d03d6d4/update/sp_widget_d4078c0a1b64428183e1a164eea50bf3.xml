@@ -25,7 +25,7 @@
   };
 };]]></client_script>
         <controller_as>c</controller_as>
-        <css><![CDATA[
+        <css>
 .wei-detail-wrapper {
   max-width: 860px;
   margin: 30px auto 60px;
@@ -145,7 +145,7 @@
   border: 1px solid #CBD5E1;
   color: #475569;
 }
-]]></css>
+</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
         <description/>
@@ -157,7 +157,7 @@
         <link><![CDATA[function link(scope, element, attrs, controller) {
 }]]></link>
         <name>Warehouse Exception Detail</name>
-        <option_schema></option_schema>
+        <option_schema/>
         <public>false</public>
         <roles/>
         <script><![CDATA[(function() {

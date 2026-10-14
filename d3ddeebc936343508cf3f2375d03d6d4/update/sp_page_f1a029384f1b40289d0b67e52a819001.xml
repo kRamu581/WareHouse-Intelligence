@@ -4,12 +4,13 @@
         <css/>
         <draft>false</draft>
         <dynamic_title_structure/>
+        <human_readable_url_structure/>
         <id>wei_redirect</id>
         <internal>false</internal>
         <omit_watcher>false</omit_watcher>
         <public>false</public>
         <roles/>
-        <root_component/>
+        <seo_script/>
         <short_description/>
         <sys_class_name>sp_page</sys_class_name>
         <sys_created_by>admin</sys_created_by>

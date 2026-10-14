@@ -6,7 +6,7 @@
   // NO automatic redirect on landing page
 };]]></client_script>
         <controller_as>c</controller_as>
-        <css><![CDATA[
+        <css>
 .wei-landing-wrapper {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   background-color: #F8FAFC;
@@ -321,7 +321,7 @@
   background: #E2E8F0;
   flex-shrink: 0;
 }
-]]></css>
+</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
         <description/>
@@ -333,7 +333,7 @@
         <link><![CDATA[function link(scope, element, attrs, controller) {
 }]]></link>
         <name>wei Landing Page</name>
-        <option_schema></option_schema>
+        <option_schema/>
         <public>false</public>
         <roles/>
         <script><![CDATA[(function() {

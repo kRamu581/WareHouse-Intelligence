@@ -10,7 +10,7 @@
   }
 };]]></client_script>
         <controller_as>c</controller_as>
-        <css><![CDATA[
+        <css>
 .wei-redirect-wrapper {
   min-height: 100vh;
   background-color: #F8FAFC;
@@ -87,7 +87,7 @@
   padding-top: 20px;
   border-top: 1px solid #F1F5F9;
 }
-]]></css>
+</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
         <description/>
@@ -99,7 +99,7 @@
         <link><![CDATA[function link(scope, element, attrs, controller) {
 }]]></link>
         <name>Warehouse Role Redirect</name>
-        <option_schema></option_schema>
+        <option_schema/>
         <public>false</public>
         <roles/>
         <script><![CDATA[(function() {

@@ -21,7 +21,7 @@
   };
 };]]></client_script>
         <controller_as>c</controller_as>
-        <css><![CDATA[
+        <css>
 .wei-insights-wrapper {
   max-width: 1100px;
   margin: 20px auto 60px;
@@ -230,7 +230,7 @@
   margin: 0;
   line-height: 1.5;
 }
-]]></css>
+</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
         <description/>
@@ -242,7 +242,7 @@
         <link><![CDATA[function link(scope, element, attrs, controller) {
 }]]></link>
         <name>Warehouse Exception Insights</name>
-        <option_schema></option_schema>
+        <option_schema/>
         <public>false</public>
         <roles/>
         <script><![CDATA[(function() {

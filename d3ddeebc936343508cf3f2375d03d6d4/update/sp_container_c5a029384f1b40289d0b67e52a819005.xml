@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_container">
     <sp_container action="INSERT_OR_UPDATE">
+        <aria_label/>
         <background_color/>
         <background_image/>
         <background_style>default</background_style>
@@ -8,6 +9,7 @@
         <container_class_name/>
         <name>Exception Insights - Container</name>
         <order>1</order>
+        <semantic_tag/>
         <sp_page display_value="exception_insights">f5a029384f1b40289d0b67e52a819005</sp_page>
         <subheader>false</subheader>
         <sys_class_name>sp_container</sys_class_name>
@@ -25,5 +27,4 @@
         <title/>
         <width>container</width>
     </sp_container>
-    <sys_translated_text action="delete_multiple" query="documentkey=c5a029384f1b40289d0b67e52a819005"/>
 </record_update>

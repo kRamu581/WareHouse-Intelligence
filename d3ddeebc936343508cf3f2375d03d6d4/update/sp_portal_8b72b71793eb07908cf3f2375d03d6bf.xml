@@ -2,8 +2,8 @@
     <sp_portal action="INSERT_OR_UPDATE">
         <alternate_portal/>
         <communication_channels/>
-        <css_variables><![CDATA[
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+        <css_variables>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&amp;family=DM+Sans:wght@300;400;500;600;700&amp;display=swap');
 :root{
   --wei-bg:#EEECEA;
   --wei-primary:#5B4BF5;
@@ -37,7 +37,7 @@ body,.sp-container,.portal-page{
   font-family:var(--ff-head)!important;
   font-weight:800!important;
 }
-.navbar-nav>li>a{
+.navbar-nav&gt;li&gt;a{
   color:var(--wei-text)!important;
   font-family:var(--ff-body)!important;
   font-weight:600!important;
@@ -45,7 +45,7 @@ body,.sp-container,.portal-page{
   text-transform:uppercase!important;
   letter-spacing:0.04em!important;
 }
-.navbar-nav>li>a:hover,.navbar-nav>li.active>a{
+.navbar-nav&gt;li&gt;a:hover,.navbar-nav&gt;li.active&gt;a{
   color:var(--wei-primary)!important;
   background:var(--wei-primary-lt)!important;
 }
@@ -62,7 +62,7 @@ body,.sp-container,.portal-page{
 }
 .panel{border-radius:12px!important;box-shadow:0 2px 12px rgba(91,75,245,0.08)!important;}
 h1,h2,h3,h4,h5,h6{font-family:var(--ff-head)!important;}
-]]></css_variables>
+</css_variables>
         <dark_theme/>
         <default>false</default>
         <embeddable_macroponents/>

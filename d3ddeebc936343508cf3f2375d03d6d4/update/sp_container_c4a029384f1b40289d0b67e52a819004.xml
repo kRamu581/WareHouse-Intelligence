@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_container">
     <sp_container action="INSERT_OR_UPDATE">
+        <aria_label/>
         <background_color/>
         <background_image/>
         <background_style>default</background_style>
@@ -8,7 +9,8 @@
         <container_class_name/>
         <name>Pending Approvals - Container</name>
         <order>1</order>
-        <sp_page display_value="approvals">f4a029384f1b40289d0b67e52a819004</sp_page>
+        <semantic_tag/>
+        <sp_page display_value="">f4a029384f1b40289d0b67e52a819004</sp_page>
         <subheader>false</subheader>
         <sys_class_name>sp_container</sys_class_name>
         <sys_created_by>admin</sys_created_by>
@@ -25,5 +27,4 @@
         <title/>
         <width>container</width>
     </sp_container>
-    <sys_translated_text action="delete_multiple" query="documentkey=c4a029384f1b40289d0b67e52a819004"/>
 </record_update>
