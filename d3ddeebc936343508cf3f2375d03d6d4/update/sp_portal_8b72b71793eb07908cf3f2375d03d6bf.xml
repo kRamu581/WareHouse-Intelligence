@@ -2,7 +2,67 @@
     <sp_portal action="INSERT_OR_UPDATE">
         <alternate_portal/>
         <communication_channels/>
-        <css_variables/>
+        <css_variables><![CDATA[
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+:root{
+  --wei-bg:#EEECEA;
+  --wei-primary:#5B4BF5;
+  --wei-primary-dk:#4438D6;
+  --wei-primary-lt:#EAE8FE;
+  --wei-text:#0F0F0F;
+  --wei-muted:#6B6B6B;
+  --wei-border:#D8D4D0;
+  --wei-card:#FFFFFF;
+  --wei-radius:12px;
+  --wei-shadow:0 2px 12px rgba(91,75,245,0.08);
+  --wei-success:#22C55E;
+  --wei-warning:#F59E0B;
+  --wei-danger:#EF4444;
+  --ff-head:'Playfair Display',Georgia,serif;
+  --ff-body:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+}
+body,.sp-container,.portal-page{
+  font-family:var(--ff-body)!important;
+  background-color:var(--wei-bg)!important;
+  color:var(--wei-text)!important;
+}
+.navbar,.sp-header-nav{
+  background:#fff!important;
+  border-bottom:1.5px solid var(--wei-border)!important;
+  font-family:var(--ff-body)!important;
+  box-shadow:0 2px 8px rgba(0,0,0,0.04)!important;
+}
+.navbar-brand,.sp-logo{
+  color:var(--wei-primary)!important;
+  font-family:var(--ff-head)!important;
+  font-weight:800!important;
+}
+.navbar-nav>li>a{
+  color:var(--wei-text)!important;
+  font-family:var(--ff-body)!important;
+  font-weight:600!important;
+  font-size:13px!important;
+  text-transform:uppercase!important;
+  letter-spacing:0.04em!important;
+}
+.navbar-nav>li>a:hover,.navbar-nav>li.active>a{
+  color:var(--wei-primary)!important;
+  background:var(--wei-primary-lt)!important;
+}
+.btn-primary{
+  background:var(--wei-primary)!important;
+  border-color:var(--wei-primary)!important;
+  border-radius:8px!important;
+  font-family:var(--ff-body)!important;
+  font-weight:700!important;
+}
+.btn-primary:hover{
+  background:var(--wei-primary-dk)!important;
+  border-color:var(--wei-primary-dk)!important;
+}
+.panel{border-radius:12px!important;box-shadow:0 2px 12px rgba(91,75,245,0.08)!important;}
+h1,h2,h3,h4,h5,h6{font-family:var(--ff-head)!important;}
+]]></css_variables>
         <dark_theme/>
         <default>false</default>
         <embeddable_macroponents/>
@@ -40,7 +100,7 @@
         <sys_scope display_value="Warehouse Exception Intelligence">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
         <sys_update_name>sp_portal_8b72b71793eb07908cf3f2375d03d6bf</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-10-01 09:02:53</sys_updated_on>
+        <sys_updated_on>2026-10-14 06:45:00</sys_updated_on>
         <theme/>
         <title>WareHouse Main</title>
         <ts_index_group/>

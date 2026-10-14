@@ -64,106 +64,151 @@ api.controller = function() {
 };
 ]]></client_script>
         <controller_as>c</controller_as>
-        <css>.exc-detail-widget {
-  padding: 10px 0;
+        <css><![CDATA[
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --wei-bg:         #EEECEA;
+  --wei-primary:    #5B4BF5;
+  --wei-primary-dk: #4438D6;
+  --wei-primary-lt: #EAE8FE;
+  --wei-text:       #0F0F0F;
+  --wei-muted:      #6B6B6B;
+  --wei-border:     #D8D4D0;
+  --wei-card:       #FFFFFF;
+  --wei-radius:     12px;
+  --wei-shadow:     0 2px 12px rgba(91,75,245,0.08);
+  --wei-success:    #22C55E;
+  --wei-warning:    #F59E0B;
+  --wei-danger:     #EF4444;
+  --wei-info:       #3B82F6;
+  --ff-head:        'Playfair Display', Georgia, serif;
+  --ff-body:        'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 }
+
+body, .sp-widget, .portal-page {
+  font-family: var(--ff-body) !important;
+  background-color: var(--wei-bg) !important;
+  color: var(--wei-text) !important;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: var(--ff-head) !important;
+}
+
+.exc-detail-widget { padding: 10px 0; }
 
 .detail-header {
-  background-color: $brand-primary;
+  background: var(--wei-primary) !important;
   color: #fff;
-  padding: 20px;
-  border-radius: 6px;
-  margin-bottom: 20px;
+  padding: 24px;
+  border-radius: var(--wei-radius);
+  margin-bottom: 24px;
 }
-
 .detail-title {
-  margin: 5px 0 0 0;
-  font-weight: 700;
+  font-family: var(--ff-head) !important;
+  margin: 5px 0 0;
+  font-weight: 800;
   color: #fff;
+  font-size: 22px;
 }
-
 .detail-subtitle {
-  margin: 5px 0 0 0;
-  opacity: 0.9;
-  font-size: 16px;
+  margin: 6px 0 0;
+  opacity: 0.88;
+  font-size: 15px;
   color: #fff;
+  font-family: var(--ff-body);
 }
-
 .detail-header .label-lg {
-  font-size: 13px;
+  font-size: 12px;
   padding: 5px 12px;
   margin-left: 5px;
+  border-radius: 6px;
+  font-family: var(--ff-body);
+  font-weight: 700;
 }
 
+.panel {
+  border-radius: var(--wei-radius) !important;
+  border-color: var(--wei-border) !important;
+  box-shadow: var(--wei-shadow) !important;
+  margin-bottom: 20px;
+}
 .detail-panel-heading {
-  background-color: $brand-primary;
-  color: #fff;
-  border: none;
+  background: #F8F7FE !important;
+  border-bottom: 1.5px solid var(--wei-primary-lt) !important;
+  padding: 14px 18px !important;
+  border-radius: calc(var(--wei-radius) - 1px) calc(var(--wei-radius) - 1px) 0 0 !important;
+}
+.detail-panel-heading h4 {
+  font-family: var(--ff-body) !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  color: var(--wei-primary) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  margin: 0 !important;
 }
 
-.detail-panel-heading .panel-title {
-  font-weight: 600;
-  color: #fff;
+.detail-label {
+  font-family: var(--ff-body) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  color: var(--wei-muted) !important;
+}
+.detail-value {
+  font-family: var(--ff-body) !important;
+  font-size: 14px !important;
+  color: var(--wei-text) !important;
 }
 
-.ai-panel-heading {
-  background-color: #8E44AD;
-  color: #fff;
-  border: none;
+.btn-primary, .btn-assign, .btn-resolve, .btn-update {
+  background: var(--wei-primary) !important;
+  border-color: var(--wei-primary) !important;
+  color: #fff !important;
+  border-radius: 8px !important;
+  font-family: var(--ff-body) !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  letter-spacing: 0.04em !important;
+  transition: background .2s !important;
+}
+.btn-primary:hover, .btn-assign:hover, .btn-resolve:hover {
+  background: var(--wei-primary-dk) !important;
+  border-color: var(--wei-primary-dk) !important;
+}
+.btn-default {
+  border-radius: 8px !important;
+  font-family: var(--ff-body) !important;
+  font-size: 13px !important;
 }
 
-.ai-panel-heading .panel-title {
-  font-weight: 600;
-  color: #fff;
+.form-control {
+  border-radius: 8px !important;
+  border-color: var(--wei-border) !important;
+  font-family: var(--ff-body) !important;
+}
+.form-control:focus {
+  border-color: var(--wei-primary) !important;
+  box-shadow: 0 0 0 3px var(--wei-primary-lt) !important;
+}
+.ai-insights-panel {
+  background: var(--wei-primary-lt) !important;
+  border: 1.5px solid var(--wei-primary) !important;
+  border-radius: var(--wei-radius) !important;
+  padding: 20px !important;
 }
 
-.action-panel-heading {
-  background-color: #E67E22;
-  color: #fff;
-  border: none;
-}
+.badge { border-radius: 6px !important; font-family: var(--ff-body) !important; font-weight: 700 !important; }
+.label-critical, .badge-critical { background: var(--wei-danger) !important; color: #fff !important; }
+.label-high,     .badge-high     { background: var(--wei-warning) !important; color: #fff !important; }
+.label-medium,   .badge-medium   { background: #FBBF24 !important; color: #000 !important; }
+.label-low,      .badge-low      { background: var(--wei-success) !important; color: #fff !important; }
 
-.action-panel-heading .panel-title {
-  font-weight: 600;
-  color: #fff;
-}
-
-.dl-horizontal-custom dt {
-  font-weight: 600;
-  color: #666;
-  margin-bottom: 5px;
-  font-size: 12px;
-  text-transform: uppercase;
-}
-
-.dl-horizontal-custom dd {
-  margin-bottom: 12px;
-  margin-left: 0;
-}
-
-.detail-description {
-  margin-top: 15px;
-  padding-top: 15px;
-  border-top: 1px solid #eee;
-}
-
-.comment-item {
-  padding: 10px 0;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.comment-item:last-child {
-  border-bottom: none;
-}
-
-.comment-meta {
-  margin-bottom: 5px;
-}
-
-.comment-body {
-  color: #333;
-}
-</css>
+]]></css>
         <data_table>sp_instance</data_table>
         <demo_data/>
         <description/>
@@ -472,7 +517,7 @@ api.controller = function() {
         <sys_scope display_value="Warehouse Exception Intelligence">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
         <sys_update_name>sp_widget_d4078c0a1b64428183e1a164eea50bf3</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-10-14 06:01:50</sys_updated_on>
+        <sys_updated_on>2026-10-14 06:38:09</sys_updated_on>
         <template><![CDATA[
 <div class="exc-detail-widget container">
   <!-- Breadcrumb & Back -->

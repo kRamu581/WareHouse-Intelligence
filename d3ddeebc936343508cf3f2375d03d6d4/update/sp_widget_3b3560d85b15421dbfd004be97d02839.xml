@@ -77,35 +77,152 @@ api.controller = function($rootScope) {
 ]]></client_script>
         <controller_as>c</controller_as>
         <css><![CDATA[
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --wei-bg:         #EEECEA;
+  --wei-primary:    #5B4BF5;
+  --wei-primary-dk: #4438D6;
+  --wei-primary-lt: #EAE8FE;
+  --wei-text:       #0F0F0F;
+  --wei-muted:      #6B6B6B;
+  --wei-border:     #D8D4D0;
+  --wei-card:       #FFFFFF;
+  --wei-radius:     12px;
+  --wei-shadow:     0 2px 12px rgba(91,75,245,0.08);
+  --wei-success:    #22C55E;
+  --wei-warning:    #F59E0B;
+  --wei-danger:     #EF4444;
+  --wei-info:       #3B82F6;
+  --ff-head:        'Playfair Display', Georgia, serif;
+  --ff-body:        'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body, .sp-widget, .portal-page {
+  font-family: var(--ff-body) !important;
+  background-color: var(--wei-bg) !important;
+  color: var(--wei-text) !important;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: var(--ff-head) !important;
+}
+
 .exc-table-header {
-  background-color: #fff;
-  border-bottom: 2px solid #FF5A1F;
-  padding: 14px 18px;
+  background: #fff;
+  border-bottom: 2px solid var(--wei-primary);
+  padding: 16px 20px;
+  border-radius: var(--wei-radius) var(--wei-radius) 0 0;
+}
+.exc-table-title {
+  font-family: var(--ff-head) !important;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--wei-text);
+  margin: 0;
 }
 
 .filter-row {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.filter-row .form-control {
+  border-radius: 8px !important;
+  border-color: var(--wei-border) !important;
+  font-family: var(--ff-body) !important;
+  font-size: 13px !important;
+}
+.filter-row .form-control:focus {
+  border-color: var(--wei-primary) !important;
+  box-shadow: 0 0 0 3px var(--wei-primary-lt) !important;
+}
+.btn-filter {
+  background: var(--wei-primary) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 8px !important;
+  font-family: var(--ff-body) !important;
+  font-weight: 600 !important;
+  font-size: 12px !important;
+  padding: 7px 16px !important;
+}
+.btn-filter-clear {
+  background: transparent !important;
+  color: var(--wei-muted) !important;
+  border: 1px solid var(--wei-border) !important;
+  border-radius: 8px !important;
+  font-family: var(--ff-body) !important;
+  font-size: 12px !important;
+  padding: 7px 12px !important;
 }
 
 .table > thead > tr > th {
-  background-color: #f9f9f9;
+  background: #F8F7FE;
+  font-family: var(--ff-body) !important;
   font-weight: 700;
-  font-size: 12px;
+  font-size: 11px;
   text-transform: uppercase;
-  color: #555;
-  border-bottom: 1px solid #ddd;
+  letter-spacing: 0.08em;
+  color: var(--wei-primary);
+  border-bottom: 2px solid var(--wei-primary-lt);
 }
-
 .table > tbody > tr > td {
   vertical-align: middle;
   font-size: 13px;
+  font-family: var(--ff-body) !important;
+  border-bottom: 1px solid #F0EEF8;
+}
+.table > tbody > tr:hover > td {
+  background: #FAFAFE;
 }
 
-.font-12 { font-size: 12px; }
-.shadow-sm { box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-.shadow-xs { box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+.exc-number-link {
+  color: var(--wei-primary) !important;
+  font-weight: 700;
+  text-decoration: none !important;
+}
+.exc-number-link:hover { text-decoration: underline !important; }
+
+.badge {
+  border-radius: 6px !important;
+  font-family: var(--ff-body) !important;
+  font-weight: 700 !important;
+  font-size: 10px !important;
+  padding: 3px 8px !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+}
+.badge-critical { background: var(--wei-danger) !important; color: #fff !important; }
+.badge-high     { background: var(--wei-warning) !important; color: #fff !important; }
+.badge-medium   { background: #FBBF24 !important; color: #000 !important; }
+.badge-low      { background: var(--wei-success) !important; color: #fff !important; }
+.badge-new      { background: var(--wei-primary) !important; color: #fff !important; }
+.badge-assigned { background: var(--wei-info) !important; color: #fff !important; }
+.badge-in_progress { background: var(--wei-warning) !important; color: #fff !important; }
+.badge-resolved { background: var(--wei-success) !important; color: #fff !important; }
+.badge-closed   { background: #6B7280 !important; color: #fff !important; }
+.badge-pending  { background: #F97316 !important; color: #fff !important; }
+
+.pagination > li > a,
+.pagination > li > span {
+  color: var(--wei-primary) !important;
+  border-color: var(--wei-border) !important;
+  font-family: var(--ff-body) !important;
+  font-size: 13px !important;
+}
+.pagination > .active > a,
+.pagination > .active > span {
+  background: var(--wei-primary) !important;
+  border-color: var(--wei-primary) !important;
+  color: #fff !important;
+}
+.font-12 { font-size: 12px; font-family: var(--ff-body); }
+.shadow-sm { box-shadow: var(--wei-shadow); }
+
 ]]></css>
         <data_table>sp_instance</data_table>
         <demo_data/>
@@ -283,7 +400,7 @@ api.controller = function($rootScope) {
         <sys_scope display_value="Warehouse Exception Intelligence">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
         <sys_update_name>sp_widget_3b3560d85b15421dbfd004be97d02839</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-10-14 06:00:29</sys_updated_on>
+        <sys_updated_on>2026-10-14 06:38:09</sys_updated_on>
         <template><![CDATA[
 <div class="exc-table-widget">
   <div class="panel panel-default shadow-sm">
