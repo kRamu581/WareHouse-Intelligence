@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller = function() {
+    var c = this;
+};
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.kpi-dashboard {
+  padding: 15px 0;
+}
+
+.kpi-card {
+  border-radius: 6px;
+  padding: 20px 15px;
+  text-align: center;
+  margin-bottom: 15px;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  transition: transform 0.2s ease;
+}
+
+.kpi-card:hover {
+  transform: translateY(-3px);
+}
+
+.kpi-icon {
+  font-size: 28px;
+  margin-bottom: 8px;
+  opacity: 0.9;
+}
+
+.kpi-count {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.kpi-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 5px;
+  opacity: 0.9;
+}
+
+.kpi-total {
+  background-color: $brand-primary;
+}
+
+.kpi-open {
+  background-color: #E67E22;
+}
+
+.kpi-progress {
+  background-color: #3498DB;
+}
+
+.kpi-resolved {
+  background-color: #27AE60;
+}
+
+.kpi-critical {
+  background-color: #C0392B;
+}
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>x_1956908_wareho_0_kpi_dashboard</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {
+}]]></link>
+        <name>Warehouse KPI Dashboard</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+    data.kpis = [];
+    data.userRole = 'none';
+
+    // Determine user role
+    if (gs.hasRole('x_1956908_wareho_0.supervisor') || gs.hasRole('x_1956908_wareho_0.admin') || gs.hasRole('admin')) {
+        data.userRole = 'supervisor';
+    } else if (gs.hasRole('x_1956908_wareho_0.technician')) {
+        data.userRole = 'technician';
+    } else if (gs.hasRole('x_1956908_wareho_0.staff')) {
+        data.userRole = 'staff';
+    }
+
+    var userId = gs.getUserID();
+    var tableName = 'x_1956908_wareho_0_exception';
+
+    function getCount(additionalQuery) {
+        var ga = new GlideAggregate(tableName);
+        // Role-based base filter
+        if (data.userRole === 'staff') {
+            ga.addQuery('reported_by', userId);
+        } else if (data.userRole === 'technician') {
+            ga.addQuery('assigned_to', userId);
+        }
+        // Additional filter
+        if (additionalQuery) {
+            ga.addEncodedQuery(additionalQuery);
+        }
+        ga.addAggregate('COUNT');
+        ga.query();
+        if (ga.next()) {
+            return parseInt(ga.getAggregate('COUNT'), 10);
+        }
+        return 0;
+    }
+
+    var totalCount = getCount('');
+    var openCount = getCount('statusINnew,assigned');
+    var inProgressCount = getCount('status=in_progress');
+    var resolvedCount = getCount('statusINresolved,closed');
+    var criticalCount = getCount('severity=critical^statusNOT INresolved,closed');
+
+    data.kpis = [
+        { label: 'Total Exceptions', count: totalCount, icon: 'fa-database', bgClass: 'kpi-total' },
+        { label: 'Open', count: openCount, icon: 'fa-folder-open', bgClass: 'kpi-open' },
+        { label: 'In Progress', count: inProgressCount, icon: 'fa-cogs', bgClass: 'kpi-progress' },
+        { label: 'Resolved', count: resolvedCount, icon: 'fa-check-circle', bgClass: 'kpi-resolved' },
+        { label: 'Critical', count: criticalCount, icon: 'fa-exclamation-triangle', bgClass: 'kpi-critical' }
+    ];
+})();
+]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-10-05 06:59:34</sys_created_on>
+        <sys_id>401d0292feb3436ba480271a2d450373</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Warehouse KPI Dashboard</sys_name>
+        <sys_package display_value="Warehouse Exception Intelligence" source="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Warehouse Exception Intelligence">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
+        <sys_update_name>sp_widget_401d0292feb3436ba480271a2d450373</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-05 06:59:34</sys_updated_on>
+        <template><![CDATA[<div class="kpi-dashboard">
+  <div class="row">
+    <div class="col-md-2 col-sm-4 col-xs-6" ng-repeat="kpi in c.data.kpis track by $index">
+      <div class="kpi-card" ng-class="kpi.bgClass">
+        <div class="kpi-icon">
+          <i class="fa" ng-class="kpi.icon"></i>
+        </div>
+        <div class="kpi-count">{{kpi.count}}</div>
+        <div class="kpi-label">{{kpi.label}}</div>
+      </div>
+    </div>
+  </div>
+</div>
+]]></template>
+    </sp_widget>
+</record_update>

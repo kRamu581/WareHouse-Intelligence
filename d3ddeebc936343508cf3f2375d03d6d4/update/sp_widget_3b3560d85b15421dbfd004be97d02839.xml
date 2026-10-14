@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller = function($location) {
+    var c = this;
+    c.currentPage = c.data.currentPage || 1;
+
+    c.goToPage = function(page) {
+        if (page < 1 || page > c.data.totalPages) return;
+        c.currentPage = page;
+        c.server.get({ page: page }).then(function() {
+            c.currentPage = c.data.currentPage;
+        });
+    };
+
+    c.viewDetail = function(sysId) {
+        var url = '?id=x_1956908_wareho_0_detail&record_id=' + sysId;
+        window.location.href = url;
+    };
+};
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.exc-table-widget {
+  margin-bottom: 20px;
+}
+
+.exc-table-header {
+  background-color: $brand-primary;
+  color: #fff;
+  border: none;
+}
+
+.exc-table-header .panel-title {
+  font-weight: 600;
+}
+
+.exc-table-header .badge {
+  background-color: rgba(255,255,255,0.2);
+  color: #fff;
+}
+
+.exc-table-widget .table thead th {
+  border-bottom: 2px solid #ddd;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #666;
+}
+
+.exc-table-widget .table tbody td {
+  vertical-align: middle;
+}
+
+.exc-table-widget .label {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 3px;
+}
+
+.exc-table-widget .pagination {
+  margin: 10px 0 0 0;
+}
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>x_1956908_wareho_0_exc_table</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {
+}]]></link>
+        <name>Warehouse Exception Table</name>
+        <option_schema>[{"name":"role","label":"Role Filter","type":"string","section":"Data","default_value":""},{"name":"filter","label":"Encoded Query Filter","type":"string","section":"Data","default_value":""},{"name":"title","label":"Table Title","type":"string","section":"Presentation","default_value":"Exceptions"}]</option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+    var tableName = 'x_1956908_wareho_0_exception';
+    var userId = gs.getUserID();
+    var pageSize = 10;
+    var page = (input && input.page) ? parseInt(input.page, 10) : 1;
+    if (page < 1) page = 1;
+
+    data.records = [];
+    data.title = options.title || 'Exceptions';
+    data.currentPage = page;
+    data.totalPages = 1;
+
+    // Determine effective role
+    var role = options.role || 'staff';
+    if (gs.hasRole('x_1956908_wareho_0.supervisor') || gs.hasRole('x_1956908_wareho_0.admin') || gs.hasRole('admin')) {
+        if (!options.role) role = 'supervisor';
+    } else if (gs.hasRole('x_1956908_wareho_0.technician')) {
+        if (!options.role) role = 'technician';
+    }
+
+    // Build base query
+    var baseQuery = '';
+    if (role === 'staff') {
+        baseQuery = 'reported_by=' + userId;
+    } else if (role === 'technician') {
+        baseQuery = 'assigned_to=' + userId;
+    }
+
+    // Optional extra filter from widgetParameters
+    var extraFilter = options.filter || '';
+    if (extraFilter && baseQuery) {
+        baseQuery = baseQuery + '^' + extraFilter;
+    } else if (extraFilter) {
+        baseQuery = extraFilter;
+    }
+
+    // Count total records
+    var countGr = new GlideAggregate(tableName);
+    if (baseQuery) {
+        countGr.addEncodedQuery(baseQuery);
+    }
+    countGr.addAggregate('COUNT');
+    countGr.query();
+    var total = 0;
+    if (countGr.next()) {
+        total = parseInt(countGr.getAggregate('COUNT'), 10);
+    }
+    data.totalPages = Math.max(1, Math.ceil(total / pageSize));
+    data.totalRecords = total;
+
+    if (page > data.totalPages) page = data.totalPages;
+    data.currentPage = page;
+
+    // Status badge mapping
+    var STATUS_CLASS = {
+        'new': 'label-info',
+        'assigned': 'label-warning',
+        'in_progress': 'label-primary',
+        'pending': 'label-default',
+        'resolved': 'label-success',
+        'closed': 'label-default'
+    };
+
+    // Priority badge mapping
+    var PRIORITY_CLASS = {
+        'p1_critical': 'label-danger',
+        'p2_high': 'label-warning',
+        'p3_medium': 'label-info',
+        'p4_low': 'label-success'
+    };
+
+    // Query records
+    var gr = new GlideRecord(tableName);
+    if (baseQuery) {
+        gr.addEncodedQuery(baseQuery);
+    }
+    gr.orderByDesc('sys_created_on');
+    gr.chooseWindow((page - 1) * pageSize, page * pageSize);
+    gr.query();
+
+    while (gr.next()) {
+        data.records.push({
+            sys_id: gr.getUniqueValue(),
+            number: gr.getValue('number') || '',
+            exception_type: gr.getDisplayValue('exception_type'),
+            location: gr.getValue('location') || '',
+            priority: gr.getDisplayValue('priority'),
+            priorityVal: gr.getValue('priority') || '',
+            priorityClass: PRIORITY_CLASS[gr.getValue('priority')] || 'label-default',
+            status: gr.getDisplayValue('status'),
+            statusVal: gr.getValue('status') || '',
+            statusClass: STATUS_CLASS[gr.getValue('status')] || 'label-default',
+            created: gr.getDisplayValue('sys_created_on'),
+            updated: gr.getDisplayValue('sys_updated_on')
+        });
+    }
+
+    // Build page numbers array
+    data.pages = [];
+    for (var i = 1; i <= data.totalPages; i++) {
+        data.pages.push(i);
+    }
+})();
+]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-10-05 06:59:33</sys_created_on>
+        <sys_id>3b3560d85b15421dbfd004be97d02839</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Warehouse Exception Table</sys_name>
+        <sys_package display_value="Warehouse Exception Intelligence" source="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Warehouse Exception Intelligence">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
+        <sys_update_name>sp_widget_3b3560d85b15421dbfd004be97d02839</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-05 06:59:33</sys_updated_on>
+        <template><![CDATA[<div class="exc-table-widget">
+  <div class="panel panel-default">
+    <div class="panel-heading exc-table-header">
+      <h3 class="panel-title">
+        <i class="fa fa-list"></i> {{c.data.title}}
+        <span class="badge pull-right">{{c.data.totalRecords}} record(s)</span>
+      </h3>
+    </div>
+    <div class="panel-body" ng-if="c.data.records.length">
+      <div class="table-responsive">
+        <table class="table table-hover table-striped">
+          <thead>
+            <tr>
+              <th>Exception ID</th>
+              <th>Type</th>
+              <th>Location</th>
+              <th>Priority</th>
+              <th>Status</th>
+              <th>Created</th>
+              <th>Updated</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="rec in c.data.records track by rec.sys_id">
+              <td><strong>{{rec.number}}</strong></td>
+              <td>{{rec.exception_type}}</td>
+              <td>{{rec.location}}</td>
+              <td><span class="label" ng-class="rec.priorityClass">{{rec.priority}}</span></td>
+              <td><span class="label" ng-class="rec.statusClass">{{rec.status}}</span></td>
+              <td class="text-muted small">{{rec.created}}</td>
+              <td class="text-muted small">{{rec.updated}}</td>
+              <td>
+                <button type="button" class="btn btn-xs btn-primary" ng-click="c.viewDetail(rec.sys_id)">
+                  <i class="fa fa-eye"></i> View
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="text-center" ng-if="c.data.totalPages > 1">
+        <ul class="pagination pagination-sm">
+          <li ng-class="{disabled: c.currentPage === 1}">
+            <a href="javascript:void(0)" ng-click="c.goToPage(c.currentPage - 1)">&laquo;</a>
+          </li>
+          <li ng-repeat="p in c.data.pages track by $index" ng-class="{active: p === c.currentPage}">
+            <a href="javascript:void(0)" ng-click="c.goToPage(p)">{{p}}</a>
+          </li>
+          <li ng-class="{disabled: c.currentPage === c.data.totalPages}">
+            <a href="javascript:void(0)" ng-click="c.goToPage(c.currentPage + 1)">&raquo;</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Empty state -->
+    <div class="panel-body text-center text-muted" ng-if="!c.data.records.length">
+      <i class="fa fa-inbox fa-3x"></i>
+      <p class="m-t-sm">No exceptions found.</p>
+    </div>
+  </div>
+</div>
+]]></template>
+    </sp_widget>
+</record_update>

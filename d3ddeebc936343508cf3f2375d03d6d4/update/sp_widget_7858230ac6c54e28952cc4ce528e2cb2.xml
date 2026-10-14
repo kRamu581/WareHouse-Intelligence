@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller = function() {
+    var c = this;
+    c.activeIndex = -1;
+
+    c.toggle = function(index) {
+        c.activeIndex = c.activeIndex === index ? -1 : index;
+    };
+
+    c.isActive = function(index) {
+        return c.activeIndex === index;
+    };
+};
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.help-widget {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.help-header {
+  background-color: $brand-primary;
+  color: #fff;
+  border: none;
+}
+
+.help-header .panel-title {
+  font-weight: 600;
+  color: #fff;
+}
+
+.faq-panel {
+  border: 1px solid #e0e0e0;
+  margin-bottom: 5px;
+}
+
+.faq-heading {
+  cursor: pointer;
+  padding: 12px 15px;
+  transition: background-color 0.2s ease;
+}
+
+.faq-heading:hover {
+  background-color: #f5f5f5;
+}
+
+.faq-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.faq-title .fa {
+  margin-right: 8px;
+  color: #999;
+  width: 14px;
+}
+
+.faq-answer {
+  color: #555;
+  line-height: 1.6;
+  font-size: 14px;
+}
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>x_1956908_wareho_0_help</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {
+}]]></link>
+        <name>Warehouse Help FAQ</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+    data.faqs = [
+        {
+            question: 'How do I report a warehouse exception?',
+            answer: 'Click "Report Exception" in the navigation menu. Fill in the required fields: Short Description, Exception Type, and Severity. Optionally add a detailed description and location. Click Submit to create the exception record.'
+        },
+        {
+            question: 'How do I track my exceptions?',
+            answer: 'Your dashboard shows all exceptions you have reported (for staff) or been assigned (for technicians). Use the KPI cards at the top for a quick overview, and the table below for detailed records. Click "View" on any record to see its full details.'
+        },
+        {
+            question: 'What do the status values mean?',
+            answer: 'New: Just reported, awaiting assignment. Assigned: A technician has been assigned. In Progress: The technician is actively working on it. Pending: Waiting for additional information or action. Resolved: The issue has been fixed. Closed: The exception is finalized and closed.'
+        },
+        {
+            question: 'How do I add comments or work notes?',
+            answer: 'Open the exception detail page by clicking "View" on any record. Scroll down to the Work Notes section. Type your note and click "Add Note". All users with access can add work notes.'
+        },
+        {
+            question: 'Who handles my exception?',
+            answer: 'Exceptions are assigned to technicians by supervisors. Once assigned, the technician can update the status and add resolution notes. You will be notified when your exception status changes.'
+        },
+        {
+            question: 'What are AI Suggestions?',
+            answer: 'The system uses AI to automatically suggest the exception type, severity, and routing based on the description you provide. These suggestions appear on the detail page and help supervisors make faster assignment decisions.'
+        }
+    ];
+})();
+]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-10-05 06:59:38</sys_created_on>
+        <sys_id>7858230ac6c54e28952cc4ce528e2cb2</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Warehouse Help FAQ</sys_name>
+        <sys_package display_value="Warehouse Exception Intelligence" source="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Warehouse Exception Intelligence">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
+        <sys_update_name>sp_widget_7858230ac6c54e28952cc4ce528e2cb2</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-05 06:59:38</sys_updated_on>
+        <template><![CDATA[<div class="help-widget">
+  <div class="panel panel-default">
+    <div class="panel-heading help-header">
+      <h3 class="panel-title"><i class="fa fa-question-circle"></i> Help &amp; FAQ</h3>
+    </div>
+    <div class="panel-body">
+      <p class="text-muted m-b-lg">Find answers to common questions about the Warehouse Exception Intelligence system.</p>
+
+      <div class="panel-group" id="faqAccordion">
+        <div class="panel panel-default faq-panel" ng-repeat="faq in c.data.faqs track by $index">
+          <div class="panel-heading faq-heading" ng-click="c.toggle($index)">
+            <h4 class="panel-title faq-title">
+              <i class="fa" ng-class="c.isActive($index) ? 'fa-chevron-down' : 'fa-chevron-right'"></i>
+              {{faq.question}}
+            </h4>
+          </div>
+          <div class="panel-collapse" ng-show="c.isActive($index)">
+            <div class="panel-body faq-answer">
+              {{faq.answer}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+]]></template>
+    </sp_widget>
+</record_update>

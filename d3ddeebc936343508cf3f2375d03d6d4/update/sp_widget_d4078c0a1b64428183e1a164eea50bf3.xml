@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller = function() {
+    var c = this;
+    c.newStatus = '';
+    c.resolutionNotes = c.data.record ? c.data.record.resolution_notes : '';
+    c.assignTo = c.data.record ? c.data.record.assigned_to_id : '';
+    c.newComment = '';
+    c.updating = false;
+    c.successMsg = '';
+    c.errorMsg = '';
+
+    c.updateRecord = function() {
+        if (!c.newStatus && !c.assignTo && !c.resolutionNotes) return;
+        c.updating = true;
+        c.successMsg = '';
+        c.errorMsg = '';
+
+        c.data.action = 'update_status';
+        c.data.sys_id = c.data.record.sys_id;
+        c.data.new_status = c.newStatus;
+        c.data.resolution_notes = c.resolutionNotes;
+        c.data.assigned_to = c.assignTo;
+
+        c.server.update().then(function() {
+            c.updating = false;
+            if (c.data.updateResult && c.data.updateResult.success) {
+                c.successMsg = c.data.updateResult.message;
+                c.data.action = null;
+                c.server.refresh();
+            } else {
+                c.errorMsg = (c.data.updateResult && c.data.updateResult.message) || 'Update failed.';
+                c.data.action = null;
+            }
+        });
+    };
+
+    c.addComment = function() {
+        if (!c.newComment || !c.newComment.trim()) return;
+        c.updating = true;
+        c.data.action = 'add_comment';
+        c.data.sys_id = c.data.record.sys_id;
+        c.data.comment = c.newComment;
+
+        c.server.update().then(function() {
+            c.updating = false;
+            c.newComment = '';
+            c.data.action = null;
+            c.server.refresh();
+        });
+    };
+
+    c.goBack = function() {
+        window.history.back();
+    };
+};
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.exc-detail-widget {
+  padding: 10px 0;
+}
+
+.detail-header {
+  background-color: $brand-primary;
+  color: #fff;
+  padding: 20px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+.detail-title {
+  margin: 5px 0 0 0;
+  font-weight: 700;
+  color: #fff;
+}
+
+.detail-subtitle {
+  margin: 5px 0 0 0;
+  opacity: 0.9;
+  font-size: 16px;
+  color: #fff;
+}
+
+.detail-header .label-lg {
+  font-size: 13px;
+  padding: 5px 12px;
+  margin-left: 5px;
+}
+
+.detail-panel-heading {
+  background-color: $brand-primary;
+  color: #fff;
+  border: none;
+}
+
+.detail-panel-heading .panel-title {
+  font-weight: 600;
+  color: #fff;
+}
+
+.ai-panel-heading {
+  background-color: #8E44AD;
+  color: #fff;
+  border: none;
+}
+
+.ai-panel-heading .panel-title {
+  font-weight: 600;
+  color: #fff;
+}
+
+.action-panel-heading {
+  background-color: #E67E22;
+  color: #fff;
+  border: none;
+}
+
+.action-panel-heading .panel-title {
+  font-weight: 600;
+  color: #fff;
+}
+
+.dl-horizontal-custom dt {
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 5px;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.dl-horizontal-custom dd {
+  margin-bottom: 12px;
+  margin-left: 0;
+}
+
+.detail-description {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.comment-item {
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.comment-item:last-child {
+  border-bottom: none;
+}
+
+.comment-meta {
+  margin-bottom: 5px;
+}
+
+.comment-body {
+  color: #333;
+}
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>x_1956908_wareho_0_exc_detail</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {
+}]]></link>
+        <name>Warehouse Exception Detail</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+    var tableName = 'x_1956908_wareho_0_exception';
+    data.record = null;
+    data.canEdit = false;
+    data.canAssign = false;
+    data.isStaff = false;
+    data.isTechnician = false;
+    data.isSupervisor = false;
+    data.statusOptions = [];
+    data.technicians = [];
+    data.updateResult = null;
+
+    // Determine role
+    if (gs.hasRole('x_1956908_wareho_0.supervisor') || gs.hasRole('x_1956908_wareho_0.admin') || gs.hasRole('admin')) {
+        data.isSupervisor = true;
+        data.canEdit = true;
+        data.canAssign = true;
+    } else if (gs.hasRole('x_1956908_wareho_0.technician')) {
+        data.isTechnician = true;
+        data.canEdit = true;
+    } else if (gs.hasRole('x_1956908_wareho_0.staff')) {
+        data.isStaff = true;
+    }
+
+    // Handle update actions
+    if (input && input.action === 'update_status') {
+        var ugr = new GlideRecord(tableName);
+        if (ugr.get(input.sys_id)) {
+            if (input.new_status) {
+                ugr.setValue('status', input.new_status);
+            }
+            if (input.resolution_notes) {
+                ugr.setValue('resolution_notes', input.resolution_notes);
+            }
+            if (input.assigned_to && data.canAssign) {
+                ugr.setValue('assigned_to', input.assigned_to);
+                if (ugr.getValue('status') === 'new') {
+                    ugr.setValue('status', 'assigned');
+                }
+            }
+            ugr.update();
+            data.updateResult = { success: true, message: 'Record updated successfully.' };
+        } else {
+            data.updateResult = { success: false, message: 'Record not found.' };
+            return;
+        }
+    }
+
+    if (input && input.action === 'add_comment') {
+        var cgr = new GlideRecord(tableName);
+        if (cgr.get(input.sys_id)) {
+            cgr.work_notes = input.comment;
+            cgr.update();
+            data.updateResult = { success: true, message: 'Comment added.' };
+        }
+    }
+
+    // Read record
+    var recordId = $sp.getParameter('record_id') || (input && input.sys_id) || '';
+    if (!recordId) {
+        data.error = 'No record specified.';
+        return;
+    }
+
+    var STATUS_CLASS = {
+        'new': 'label-info',
+        'assigned': 'label-warning',
+        'in_progress': 'label-primary',
+        'pending': 'label-default',
+        'resolved': 'label-success',
+        'closed': 'label-default'
+    };
+
+    var PRIORITY_CLASS = {
+        'p1_critical': 'label-danger',
+        'p2_high': 'label-warning',
+        'p3_medium': 'label-info',
+        'p4_low': 'label-success'
+    };
+
+    var SEVERITY_CLASS = {
+        'critical': 'label-danger',
+        'high': 'label-warning',
+        'medium': 'label-info',
+        'low': 'label-success'
+    };
+
+    var gr = new GlideRecord(tableName);
+    if (gr.get(recordId)) {
+        data.record = {
+            sys_id: gr.getUniqueValue(),
+            number: gr.getValue('number') || '',
+            short_description: gr.getValue('short_description') || '',
+            description: gr.getValue('description') || '',
+            exception_type: gr.getDisplayValue('exception_type'),
+            exception_type_val: gr.getValue('exception_type') || '',
+            location: gr.getValue('location') || '',
+            severity: gr.getDisplayValue('severity'),
+            severity_val: gr.getValue('severity') || '',
+            severityClass: SEVERITY_CLASS[gr.getValue('severity')] || 'label-default',
+            priority: gr.getDisplayValue('priority'),
+            priority_val: gr.getValue('priority') || '',
+            priorityClass: PRIORITY_CLASS[gr.getValue('priority')] || 'label-default',
+            status: gr.getDisplayValue('status'),
+            status_val: gr.getValue('status') || '',
+            statusClass: STATUS_CLASS[gr.getValue('status')] || 'label-default',
+            reported_by: gr.getDisplayValue('reported_by'),
+            assigned_to: gr.getDisplayValue('assigned_to'),
+            assigned_to_id: gr.getValue('assigned_to') || '',
+            assignment_group: gr.getDisplayValue('assignment_group'),
+            resolution_notes: gr.getValue('resolution_notes') || '',
+            resolved_at: gr.getDisplayValue('resolved_at'),
+            created: gr.getDisplayValue('sys_created_on'),
+            updated: gr.getDisplayValue('sys_updated_on'),
+            ai_suggested_type: gr.getDisplayValue('ai_suggested_type'),
+            ai_suggested_severity: gr.getDisplayValue('ai_suggested_severity'),
+            ai_confidence: gr.getValue('ai_confidence') || '',
+            ai_reason: gr.getValue('ai_reason') || '',
+            ai_routing_suggestion: gr.getValue('ai_routing_suggestion') || '',
+            ai_insights: gr.getValue('ai_insights') || ''
+        };
+
+        data.hasAI = !!(data.record.ai_suggested_type || data.record.ai_suggested_severity || data.record.ai_insights);
+
+        // Technician status transitions
+        if (data.isTechnician) {
+            var currentStatus = gr.getValue('status');
+            if (currentStatus === 'assigned') {
+                data.statusOptions = [{ value: 'in_progress', label: 'In Progress' }];
+            } else if (currentStatus === 'in_progress') {
+                data.statusOptions = [{ value: 'resolved', label: 'Resolved' }];
+            }
+        }
+
+        // Supervisor can set any forward status
+        if (data.isSupervisor) {
+            data.statusOptions = [
+                { value: 'new', label: 'New' },
+                { value: 'assigned', label: 'Assigned' },
+                { value: 'in_progress', label: 'In Progress' },
+                { value: 'pending', label: 'Pending' },
+                { value: 'resolved', label: 'Resolved' },
+                { value: 'closed', label: 'Closed' }
+            ];
+        }
+    } else {
+        data.error = 'Exception record not found.';
+        return;
+    }
+
+    // Load technicians for supervisor assignment
+    if (data.canAssign) {
+        data.technicians = [];
+        var userGr = new GlideRecord('sys_user_has_role');
+        userGr.addQuery('role.name', 'x_1956908_wareho_0.technician');
+        userGr.addQuery('user.active', true);
+        userGr.setLimit(50);
+        userGr.query();
+        while (userGr.next()) {
+            data.technicians.push({
+                sys_id: userGr.getValue('user'),
+                name: userGr.getDisplayValue('user')
+            });
+        }
+    }
+
+    // Load work notes / comments
+    data.comments = [];
+    var jGr = new GlideRecord('sys_journal_field');
+    jGr.addQuery('element_id', recordId);
+    jGr.addQuery('name', tableName);
+    jGr.addQuery('element', 'work_notes');
+    jGr.orderByDesc('sys_created_on');
+    jGr.setLimit(20);
+    jGr.query();
+    while (jGr.next()) {
+        data.comments.push({
+            sys_id: jGr.getUniqueValue(),
+            value: jGr.getValue('value') || '',
+            created: jGr.getDisplayValue('sys_created_on'),
+            created_by: jGr.getDisplayValue('sys_created_by')
+        });
+    }
+})();
+]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-10-05 06:59:40</sys_created_on>
+        <sys_id>d4078c0a1b64428183e1a164eea50bf3</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Warehouse Exception Detail</sys_name>
+        <sys_package display_value="Warehouse Exception Intelligence" source="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Warehouse Exception Intelligence">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
+        <sys_update_name>sp_widget_d4078c0a1b64428183e1a164eea50bf3</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-05 06:59:40</sys_updated_on>
+        <template><![CDATA[<div class="exc-detail-widget">
+  <!-- Error state -->
+  <div class="alert alert-danger" ng-if="c.data.error">
+    <i class="fa fa-exclamation-circle"></i> {{c.data.error}}
+    <button type="button" class="btn btn-sm btn-default m-l-sm" ng-click="c.goBack()">Go Back</button>
+  </div>
+
+  <div ng-if="c.data.record">
+    <!-- Header -->
+    <div class="detail-header">
+      <div class="row">
+        <div class="col-md-8 col-xs-12">
+          <button type="button" class="btn btn-sm btn-default m-b-sm" ng-click="c.goBack()">
+            <i class="fa fa-arrow-left"></i> Back
+          </button>
+          <h2 class="detail-title">{{c.data.record.number}}</h2>
+          <p class="detail-subtitle">{{c.data.record.short_description}}</p>
+        </div>
+        <div class="col-md-4 col-xs-12 text-right">
+          <span class="label label-lg" ng-class="c.data.record.statusClass">{{c.data.record.status}}</span>
+          <span class="label label-lg" ng-class="c.data.record.priorityClass">{{c.data.record.priority}}</span>
+          <span class="label label-lg" ng-class="c.data.record.severityClass">{{c.data.record.severity}}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Success / Error messages -->
+    <div class="alert alert-success" ng-if="c.successMsg">
+      <i class="fa fa-check-circle"></i> {{c.successMsg}}
+    </div>
+    <div class="alert alert-danger" ng-if="c.errorMsg">
+      <i class="fa fa-times-circle"></i> {{c.errorMsg}}
+    </div>
+
+    <div class="row">
+      <!-- Left column: Record details -->
+      <div class="col-md-8 col-xs-12">
+        <!-- Details card -->
+        <div class="panel panel-default">
+          <div class="panel-heading detail-panel-heading">
+            <h4 class="panel-title"><i class="fa fa-info-circle"></i> Exception Details</h4>
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-sm-6">
+                <dl class="dl-horizontal-custom">
+                  <dt>Type</dt>
+                  <dd>{{c.data.record.exception_type}}</dd>
+                  <dt>Location</dt>
+                  <dd>{{c.data.record.location || 'N/A'}}</dd>
+                  <dt>Reported By</dt>
+                  <dd>{{c.data.record.reported_by}}</dd>
+                  <dt>Created</dt>
+                  <dd>{{c.data.record.created}}</dd>
+                </dl>
+              </div>
+              <div class="col-sm-6">
+                <dl class="dl-horizontal-custom">
+                  <dt>Assigned To</dt>
+                  <dd>{{c.data.record.assigned_to || 'Unassigned'}}</dd>
+                  <dt>Group</dt>
+                  <dd>{{c.data.record.assignment_group || 'N/A'}}</dd>
+                  <dt>Updated</dt>
+                  <dd>{{c.data.record.updated}}</dd>
+                  <dt>Resolved At</dt>
+                  <dd>{{c.data.record.resolved_at || 'N/A'}}</dd>
+                </dl>
+              </div>
+            </div>
+            <div class="detail-description" ng-if="c.data.record.description">
+              <strong>Description:</strong>
+              <p>{{c.data.record.description}}</p>
+            </div>
+            <div class="detail-description" ng-if="c.data.record.resolution_notes">
+              <strong>Resolution Notes:</strong>
+              <p>{{c.data.record.resolution_notes}}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Insights -->
+        <div class="panel panel-default" ng-if="c.data.hasAI">
+          <div class="panel-heading ai-panel-heading">
+            <h4 class="panel-title"><i class="fa fa-magic"></i> AI Suggestions</h4>
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-sm-6" ng-if="c.data.record.ai_suggested_type">
+                <p><strong>Suggested Type:</strong> {{c.data.record.ai_suggested_type}}</p>
+              </div>
+              <div class="col-sm-6" ng-if="c.data.record.ai_suggested_severity">
+                <p><strong>Suggested Severity:</strong> {{c.data.record.ai_suggested_severity}}</p>
+              </div>
+              <div class="col-sm-6" ng-if="c.data.record.ai_confidence">
+                <p><strong>Confidence:</strong> {{c.data.record.ai_confidence}}%</p>
+              </div>
+              <div class="col-sm-6" ng-if="c.data.record.ai_routing_suggestion">
+                <p><strong>Routing Suggestion:</strong> {{c.data.record.ai_routing_suggestion}}</p>
+              </div>
+            </div>
+            <div ng-if="c.data.record.ai_reason">
+              <p><strong>Reason:</strong> {{c.data.record.ai_reason}}</p>
+            </div>
+            <div ng-if="c.data.record.ai_insights">
+              <p><strong>Insights:</strong> {{c.data.record.ai_insights}}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Comments -->
+        <div class="panel panel-default">
+          <div class="panel-heading detail-panel-heading">
+            <h4 class="panel-title"><i class="fa fa-comments"></i> Work Notes</h4>
+          </div>
+          <div class="panel-body">
+            <div class="comment-form m-b-md">
+              <textarea class="form-control" rows="3" placeholder="Add a work note..."
+                        ng-model="c.newComment"></textarea>
+              <button type="button" class="btn btn-primary btn-sm m-t-sm"
+                      ng-click="c.addComment()"
+                      ng-disabled="c.updating || !c.newComment">
+                <i class="fa fa-paper-plane"></i> Add Note
+              </button>
+            </div>
+            <div class="comment-list">
+              <div class="comment-item" ng-repeat="comment in c.data.comments track by comment.sys_id">
+                <div class="comment-meta">
+                  <strong>{{comment.created_by}}</strong>
+                  <span class="text-muted small">{{comment.created}}</span>
+                </div>
+                <div class="comment-body" ng-bind-html="comment.value"></div>
+              </div>
+              <div class="text-center text-muted" ng-if="!c.data.comments.length">
+                <p>No work notes yet.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right column: Actions -->
+      <div class="col-md-4 col-xs-12">
+        <div class="panel panel-default" ng-if="c.data.canEdit">
+          <div class="panel-heading action-panel-heading">
+            <h4 class="panel-title"><i class="fa fa-wrench"></i> Actions</h4>
+          </div>
+          <div class="panel-body">
+            <!-- Status update -->
+            <div class="form-group" ng-if="c.data.statusOptions.length">
+              <label for="statusSelect">Update Status</label>
+              <select id="statusSelect" class="form-control" ng-model="c.newStatus">
+                <option value="">-- Select Status --</option>
+                <option ng-repeat="opt in c.data.statusOptions track by opt.value"
+                        value="{{opt.value}}">{{opt.label}}</option>
+              </select>
+            </div>
+
+            <!-- Assign technician (supervisor only) -->
+            <div class="form-group" ng-if="c.data.canAssign">
+              <label for="assignSelect">Assign Technician</label>
+              <select id="assignSelect" class="form-control" ng-model="c.assignTo">
+                <option value="">-- Select Technician --</option>
+                <option ng-repeat="tech in c.data.technicians track by tech.sys_id"
+                        value="{{tech.sys_id}}">{{tech.name}}</option>
+              </select>
+            </div>
+
+            <!-- Resolution notes -->
+            <div class="form-group">
+              <label for="resNotes">Resolution Notes</label>
+              <textarea id="resNotes" class="form-control" rows="3"
+                        ng-model="c.resolutionNotes"
+                        placeholder="Add resolution notes..."></textarea>
+            </div>
+
+            <button type="button" class="btn btn-warning btn-block"
+                    ng-click="c.updateRecord()"
+                    ng-disabled="c.updating">
+              <span ng-if="c.updating"><i class="fa fa-spinner fa-spin"></i> Updating...</span>
+              <span ng-if="!c.updating"><i class="fa fa-save"></i> Save Changes</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Quick Info card for staff (read only) -->
+        <div class="panel panel-default" ng-if="c.data.isStaff">
+          <div class="panel-heading detail-panel-heading">
+            <h4 class="panel-title"><i class="fa fa-info"></i> Info</h4>
+          </div>
+          <div class="panel-body">
+            <p class="text-muted">You can view this exception and add work notes. Status changes are handled by the assigned technician or supervisor.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+]]></template>
+    </sp_widget>
+</record_update>

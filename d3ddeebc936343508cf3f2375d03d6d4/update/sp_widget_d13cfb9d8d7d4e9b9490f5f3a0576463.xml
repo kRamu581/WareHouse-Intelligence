@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller = function() {
+    var c = this;
+    if (c.data.redirectPage) {
+        window.location.href = '?id=' + c.data.redirectPage;
+    }
+};
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>x_1956908_wareho_0_role_router</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {
+}]]></link>
+        <name>Warehouse Role Router</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+    data.redirectPage = '';
+    data.accessDenied = false;
+    data.userName = gs.getUserDisplayName();
+
+    if (gs.hasRole('x_1956908_wareho_0.supervisor') || gs.hasRole('x_1956908_wareho_0.admin') || gs.hasRole('admin')) {
+        data.redirectPage = 'x_1956908_wareho_0_sup_dashboard';
+    } else if (gs.hasRole('x_1956908_wareho_0.technician')) {
+        data.redirectPage = 'x_1956908_wareho_0_tech_dashboard';
+    } else if (gs.hasRole('x_1956908_wareho_0.staff')) {
+        data.redirectPage = 'x_1956908_wareho_0_staff_dashboard';
+    } else {
+        data.accessDenied = true;
+    }
+})();
+]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-10-05 06:59:39</sys_created_on>
+        <sys_id>d13cfb9d8d7d4e9b9490f5f3a0576463</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Warehouse Role Router</sys_name>
+        <sys_package display_value="Warehouse Exception Intelligence" source="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Warehouse Exception Intelligence">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
+        <sys_update_name>sp_widget_d13cfb9d8d7d4e9b9490f5f3a0576463</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-05 06:59:39</sys_updated_on>
+        <template><![CDATA[<div class="role-router-widget">
+  <!-- Loading redirect -->
+  <div ng-if="c.data.redirectPage" class="text-center" style="padding: 60px 20px;">
+    <i class="fa fa-spinner fa-spin fa-3x"></i>
+    <p class="m-t-sm text-muted">Redirecting to your dashboard...</p>
+  </div>
+
+  <!-- Access denied -->
+  <div ng-if="c.data.accessDenied" class="text-center" style="padding: 60px 20px;">
+    <i class="fa fa-lock fa-4x text-danger"></i>
+    <h3>Access Denied</h3>
+    <p class="text-muted">Hello {{c.data.userName}}, you do not have a recognized role for the Warehouse Exception Intelligence portal.</p>
+    <p class="text-muted">Please contact your administrator to request access.</p>
+  </div>
+</div>
+]]></template>
+    </sp_widget>
+</record_update>

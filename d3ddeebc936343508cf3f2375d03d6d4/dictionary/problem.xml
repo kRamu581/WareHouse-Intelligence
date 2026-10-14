@@ -1,3 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
-    <element attributes="live_feed=true" audit="true" db_object_id="fae16180a56503108bb220b7a4d212f8" defaultsort="-1" extends="task" label="Problem" max_length="40" name="problem" text_index="true" type="collection"/>
+    <element attributes="live_feed=true" audit="true" db_object_id="fae16180a56503108bb220b7a4d212f8" defaultsort="-1" extends="task" label="Problem" max_length="40" name="problem" text_index="true" type="collection">
+        <element attributes="edge_encryption_enabled=true" label="AI Workaround" max_length="40" name="x_1956908_wareho_0_u_ai_workaround" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="AI Permanent Fix" max_length="40" name="x_1956908_wareho_0_u_ai_permanent_fix" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="AI Root Cause" max_length="40" name="x_1956908_wareho_0_u_ai_root_cause" type="string"/>
+    </element>
 </database>

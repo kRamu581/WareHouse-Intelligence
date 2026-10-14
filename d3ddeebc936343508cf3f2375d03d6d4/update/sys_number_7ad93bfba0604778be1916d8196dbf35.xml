@@ -2,7 +2,7 @@
     <sys_number action="INSERT_OR_UPDATE">
         <category display_value="" name="x_1956908_wareho_0_exception">x_1956908_wareho_0_exception</category>
         <maximum_digits>7</maximum_digits>
-        <number>1055</number>
+        <number>1001</number>
         <prefix>EXC</prefix>
         <sys_class_name>sys_number</sys_class_name>
         <sys_created_by>admin</sys_created_by>

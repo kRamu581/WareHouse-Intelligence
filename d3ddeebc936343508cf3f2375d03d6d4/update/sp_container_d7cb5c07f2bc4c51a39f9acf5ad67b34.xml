@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_container">
+    <sp_container action="INSERT_OR_UPDATE">
+        <aria_label/>
+        <background_color/>
+        <background_image/>
+        <background_style>default</background_style>
+        <bootstrap_alt>false</bootstrap_alt>
+        <class_name/>
+        <container_class_name/>
+        <name>Tech Dashboard Content</name>
+        <order>100</order>
+        <semantic_tag/>
+        <sp_page display_value="x_1956908_wareho_0_tech_dashboard">08500016b78246d3819ace9d349cf2a8</sp_page>
+        <subheader>false</subheader>
+        <sys_class_name>sp_container</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-10-05 06:58:39</sys_created_on>
+        <sys_id>d7cb5c07f2bc4c51a39f9acf5ad67b34</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Tech Dashboard Content</sys_name>
+        <sys_package display_value="Warehouse Exception Intelligence" source="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Warehouse Exception Intelligence">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
+        <sys_update_name>sp_container_d7cb5c07f2bc4c51a39f9acf5ad67b34</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-05 06:58:39</sys_updated_on>
+        <title/>
+        <width>container</width>
+    </sp_container>
+</record_update>
