@@ -13,7 +13,7 @@ api.controller = function($rootScope) {
 };
 ]]></client_script>
         <controller_as>c</controller_as>
-        <css><![CDATA[
+        <css>
 .kpi-dashboard-wrapper {
   margin-bottom: 20px;
 }
@@ -105,7 +105,7 @@ api.controller = function($rootScope) {
 .bg-primary { background-color: #FF5A1F; }
 .bg-warning { background-color: #f39c12; }
 .bg-success { background-color: #27ae60; }
-]]></css>
+</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
         <description/>
