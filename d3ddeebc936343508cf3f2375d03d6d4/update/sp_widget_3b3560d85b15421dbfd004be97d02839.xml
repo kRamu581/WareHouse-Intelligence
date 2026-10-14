@@ -76,9 +76,9 @@ api.controller = function($rootScope) {
 };
 ]]></client_script>
         <controller_as>c</controller_as>
-        <css><![CDATA[
+        <css>
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&amp;family=DM+Sans:wght@300;400;500;600;700&amp;display=swap');
 
 :root {
   --wei-bg:         #EEECEA;
@@ -160,7 +160,7 @@ h1,h2,h3,h4,h5,h6 {
   padding: 7px 12px !important;
 }
 
-.table > thead > tr > th {
+.table &gt; thead &gt; tr &gt; th {
   background: #F8F7FE;
   font-family: var(--ff-body) !important;
   font-weight: 700;
@@ -170,13 +170,13 @@ h1,h2,h3,h4,h5,h6 {
   color: var(--wei-primary);
   border-bottom: 2px solid var(--wei-primary-lt);
 }
-.table > tbody > tr > td {
+.table &gt; tbody &gt; tr &gt; td {
   vertical-align: middle;
   font-size: 13px;
   font-family: var(--ff-body) !important;
   border-bottom: 1px solid #F0EEF8;
 }
-.table > tbody > tr:hover > td {
+.table &gt; tbody &gt; tr:hover &gt; td {
   background: #FAFAFE;
 }
 
@@ -207,15 +207,15 @@ h1,h2,h3,h4,h5,h6 {
 .badge-closed   { background: #6B7280 !important; color: #fff !important; }
 .badge-pending  { background: #F97316 !important; color: #fff !important; }
 
-.pagination > li > a,
-.pagination > li > span {
+.pagination &gt; li &gt; a,
+.pagination &gt; li &gt; span {
   color: var(--wei-primary) !important;
   border-color: var(--wei-border) !important;
   font-family: var(--ff-body) !important;
   font-size: 13px !important;
 }
-.pagination > .active > a,
-.pagination > .active > span {
+.pagination &gt; .active &gt; a,
+.pagination &gt; .active &gt; span {
   background: var(--wei-primary) !important;
   border-color: var(--wei-primary) !important;
   color: #fff !important;
@@ -223,7 +223,7 @@ h1,h2,h3,h4,h5,h6 {
 .font-12 { font-size: 12px; font-family: var(--ff-body); }
 .shadow-sm { box-shadow: var(--wei-shadow); }
 
-]]></css>
+</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
         <description/>
