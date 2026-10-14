@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller = function($timeout) {
+  var c = this;
+  if (c.data.allowed && c.data.targetPage) {
+    $timeout(function() {
+      window.location.href = '?id=' + c.data.targetPage;
+    }, 400);
+  }
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css><![CDATA[
+.wei-redirect-wrapper {
+  min-height: 100vh;
+  background-color: #F8FAFC;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+.wei-redirect-header {
+  background: #FFFFFF;
+  border-bottom: 1px solid #E2E8F0;
+  padding: 16px 32px;
+}
+.wei-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.wei-brand-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1E293B;
+}
+.wei-redirect-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+.wei-redirect-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  max-width: 500px;
+  width: 100%;
+  padding: 48px 36px;
+  text-align: center;
+}
+.wei-spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #E2E8F0;
+  border-top-color: #1976D2;
+  border-radius: 50%;
+  animation: wei-spin 0.9s linear infinite;
+  margin: 0 auto 24px;
+}
+@keyframes wei-spin {
+  to { transform: rotate(360deg); }
+}
+.wei-redirect-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0 0 10px;
+}
+.wei-redirect-desc {
+  font-size: 14px;
+  color: #64748B;
+  margin: 0 0 20px;
+  line-height: 1.5;
+}
+.wei-denied-icon {
+  font-size: 42px;
+  color: #EF4444;
+  margin-bottom: 16px;
+}
+.text-danger {
+  color: #EF4444 !important;
+}
+.wei-fallback-actions {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #F1F5F9;
+}
+]]></css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>wei-role-redirect</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {
+}]]></link>
+        <name>Warehouse Role Redirect</name>
+        <option_schema></option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  var roleParam = ($sp.getParameter('role') || '').toLowerCase().trim();
+  data.userName = gs.getUserDisplayName() || 'User';
+  data.allowed = false;
+  data.targetPage = '';
+  data.requestedRole = roleParam;
+
+  var roleTitles = {
+    'staff': 'Warehouse Staff',
+    'technician': 'Technician',
+    'supervisor': 'Supervisor'
+  };
+  data.requestedRoleTitle = roleTitles[roleParam] || roleParam;
+
+  // Determine user's roles
+  var isSup = gs.hasRole('x_1956908_wareho_0.supervisor') || gs.hasRole('x_1956908_wareho_0.admin') || gs.hasRole('admin');
+  var isTech = gs.hasRole('x_1956908_wareho_0.technician');
+  var isStaff = gs.hasRole('x_1956908_wareho_0.staff');
+
+  // Verify requested role specifically (Never choose dashboard by role priority alone!)
+  if (roleParam === 'staff') {
+    if (isStaff || isSup) {
+      data.allowed = true;
+      data.targetPage = 'x_1956908_wareho_0_staff_dashboard';
+    }
+  } else if (roleParam === 'technician') {
+    if (isTech || isSup) {
+      data.allowed = true;
+      data.targetPage = 'x_1956908_wareho_0_tech_dashboard';
+    }
+  } else if (roleParam === 'supervisor') {
+    if (isSup) {
+      data.allowed = true;
+      data.targetPage = 'x_1956908_wareho_0_sup_dashboard';
+    }
+  }
+
+  // If not allowed, compute the highest dashboard the user may use
+  if (!data.allowed) {
+    if (isSup) {
+      data.highestAllowedPage = 'x_1956908_wareho_0_sup_dashboard';
+      data.highestAllowedTitle = 'Supervisor Dashboard';
+    } else if (isTech) {
+      data.highestAllowedPage = 'x_1956908_wareho_0_tech_dashboard';
+      data.highestAllowedTitle = 'Technician Dashboard';
+    } else if (isStaff) {
+      data.highestAllowedPage = 'x_1956908_wareho_0_staff_dashboard';
+      data.highestAllowedTitle = 'Staff Dashboard';
+    } else {
+      data.highestAllowedPage = '';
+      data.highestAllowedTitle = '';
+    }
+  }
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-10-14 06:00:00</sys_created_on>
+        <sys_id>e1a029384f1b40289d0b67e52a819001</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>Warehouse Role Redirect</sys_name>
+        <sys_package display_value="Warehouse Exception Intelligence" source="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Warehouse Exception Intelligence">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
+        <sys_update_name>sp_widget_e1a029384f1b40289d0b67e52a819001</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-14 10:00:00</sys_updated_on>
+        <template><![CDATA[<div class="wei-redirect-wrapper">
+  <!-- Top Minimal Header -->
+  <header class="wei-redirect-header">
+    <div class="wei-brand">
+      <svg class="wei-brand-cube" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" stroke="#1976D2" fill="#E3F2FD"></path>
+        <polyline points="3.27 6.96 12 12.01 20.73 6.96" stroke="#1976D2"></polyline>
+        <line x1="12" y1="22.08" x2="12" y2="12" stroke="#1976D2"></line>
+      </svg>
+      <span class="wei-brand-title">Warehouse Exception Intelligence</span>
+    </div>
+  </header>
+
+  <!-- Centered Content -->
+  <div class="wei-redirect-body">
+    <!-- Allowed State: Spinner and Redirect Message -->
+    <div class="wei-redirect-card" ng-if="c.data.allowed">
+      <div class="wei-spinner"></div>
+      <h2 class="wei-redirect-title">Redirecting you to your dashboard...</h2>
+      <p class="wei-redirect-desc">Please wait while we determine your role and redirect you to the appropriate page.</p>
+    </div>
+
+    <!-- Denied State: Clean Alert Card with Fallback Options -->
+    <div class="wei-redirect-card wei-denied-card" ng-if="!c.data.allowed">
+      <div class="wei-denied-icon">
+        <i class="fa fa-exclamation-triangle"></i>
+      </div>
+      <h2 class="wei-redirect-title text-danger">Access Denied</h2>
+      <p class="wei-redirect-desc">
+        Your account (<strong>{{c.data.userName}}</strong>) does not hold the 
+        <strong>{{c.data.requestedRoleTitle}}</strong> role required to access this dashboard.
+      </p>
+
+      <div class="wei-fallback-actions" ng-if="c.data.highestAllowedPage">
+        <p class="text-muted small">You may proceed to your highest authorized dashboard:</p>
+        <a href="?id={{c.data.highestAllowedPage}}" class="btn btn-primary btn-lg">
+          <i class="fa fa-arrow-right"></i> Open {{c.data.highestAllowedTitle}}
+        </a>
+      </div>
+
+      <div class="wei-fallback-actions" ng-if="!c.data.highestAllowedPage">
+        <p class="text-muted small">No warehouse operational roles are assigned to your profile. Please contact your system administrator.</p>
+        <a href="/wei" class="btn btn-default">
+          <i class="fa fa-home"></i> Back to Landing Page
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+]]></template>
+    </sp_widget>
+</record_update>

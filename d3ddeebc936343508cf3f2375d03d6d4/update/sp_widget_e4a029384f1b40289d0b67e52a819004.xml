@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller = function() {
+  var c = this;
+  c.successMsg = '';
+  c.errorMsg = '';
+
+  c.approve = function(row) {
+    if (!confirm('Approve and close exception ' + row.number + '?')) return;
+    c.executeAction('approve', row.sys_id, '');
+  };
+
+  c.reject = function(row) {
+    var comment = prompt('Enter required rejection reason (record will revert to In Progress):');
+    if (comment === null) return;
+    if (!comment.trim()) {
+      alert('Rejection reason is mandatory.');
+      return;
+    }
+    c.executeAction('reject', row.sys_id, comment.trim());
+  };
+
+  c.reassign = function(row) {
+    var tech = prompt('Enter technician username to reassign to (e.g., tech1, tech2):', 'tech2');
+    if (tech === null) return;
+    if (!tech.trim()) {
+      alert('Target technician username is required.');
+      return;
+    }
+    c.executeAction('reassign', row.sys_id, tech.trim());
+  };
+
+  c.escalate = function(row) {
+    if (!confirm('Escalate severity for exception ' + row.number + ' and alert supervisor group?')) return;
+    c.executeAction('escalate', row.sys_id, '');
+  };
+
+  c.executeAction = function(action, sysId, payload) {
+    c.successMsg = '';
+    c.errorMsg = '';
+    c.server.get({
+      action: action,
+      sys_id: sysId,
+      payload: payload
+    }).then(function(r) {
+      if (r.data.actionSuccess) {
+        c.successMsg = r.data.actionMessage;
+        c.data.records = r.data.records;
+      } else {
+        c.errorMsg = r.data.actionMessage || 'Action failed.';
+      }
+    });
+  };
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css><![CDATA[
+.wei-approvals-wrapper {
+  max-width: 1000px;
+  margin: 30px auto 60px;
+  padding: 0 16px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+.wei-approvals-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 28px 32px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+.wei-approvals-header {
+  margin-bottom: 24px;
+}
+.wei-approvals-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0 0 4px;
+}
+.wei-approvals-subtitle {
+  font-size: 13px;
+  color: #64748B;
+  margin: 0;
+}
+
+.approvals-table th {
+  background: #F8FAFC;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #64748B;
+  padding: 12px 14px !important;
+  border-bottom: 1.5px solid #E2E8F0 !important;
+}
+.approvals-table td {
+  padding: 12px 14px !important;
+  font-size: 13px !important;
+  vertical-align: middle !important;
+}
+
+/* Action Buttons per Mockup */
+.wei-approval-actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.btn-action-approve {
+  background: #16A34A;
+  color: #FFFFFF !important;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 12px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.btn-action-approve:hover { background: #15803D; }
+
+.btn-action-reject {
+  background: #DC2626;
+  color: #FFFFFF !important;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 12px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.btn-action-reject:hover { background: #B91C1C; }
+
+.btn-action-reassign {
+  background: #0284C7;
+  color: #FFFFFF !important;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 12px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.btn-action-reassign:hover { background: #0369A1; }
+
+.btn-action-escalate {
+  background: #7E22CE;
+  color: #FFFFFF !important;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 12px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.btn-action-escalate:hover { background: #6B21A8; }
+]]></css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>wei-pending-approvals</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {
+}]]></link>
+        <name>Warehouse Pending Approvals</name>
+        <option_schema></option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  var tableName = 'x_1956908_wareho_0_exception';
+
+  // Security guard: Supervisor and Admin only
+  var isSup = gs.hasRole('x_1956908_wareho_0.supervisor') || gs.hasRole('x_1956908_wareho_0.admin') || gs.hasRole('admin');
+  data.allowed = isSup;
+  if (!data.allowed) {
+    data.error = 'Access denied';
+    return;
+  }
+
+  // Handle row actions
+  if (input && input.action && input.sys_id) {
+    var grAction = new GlideRecord(tableName);
+    if (grAction.get(input.sys_id)) {
+      var num = grAction.getValue('number') || '';
+      var userDisplay = gs.getUserDisplayName();
+
+      if (input.action === 'approve') {
+        grAction.setValue('status', 'resolved');
+        var nowGdt = new GlideDateTime();
+        grAction.setValue('resolved_at', nowGdt.getValue());
+        grAction.work_notes = 'Approved by ' + userDisplay + ' on ' + nowGdt.getDisplayValue() + '. Status updated to Resolved.';
+        grAction.update();
+        data.actionSuccess = true;
+        data.actionMessage = 'Exception ' + num + ' approved and marked Resolved.';
+      } else if (input.action === 'reject') {
+        grAction.setValue('status', 'in_progress');
+        var rejReason = input.payload || 'No reason provided';
+        grAction.work_notes = 'Rejected by ' + userDisplay + ' on ' + (new GlideDateTime()).getDisplayValue() + '. Rejection Reason: ' + rejReason + '. Reverted to In Progress.';
+        grAction.update();
+        data.actionSuccess = true;
+        data.actionMessage = 'Exception ' + num + ' rejected and returned to In Progress.';
+      } else if (input.action === 'reassign') {
+        var targetUser = (input.payload || '').trim();
+        var ugr = new GlideRecord('sys_user');
+        if (ugr.get('user_name', targetUser)) {
+          grAction.setValue('assigned_to', ugr.getUniqueValue());
+          grAction.work_notes = 'Reassigned to ' + ugr.getDisplayValue() + ' by ' + userDisplay + '.';
+          grAction.update();
+          data.actionSuccess = true;
+          data.actionMessage = 'Exception ' + num + ' reassigned to ' + ugr.getDisplayValue() + '.';
+        } else {
+          data.actionSuccess = false;
+          data.actionMessage = 'User ' + targetUser + ' not found.';
+        }
+      } else if (input.action === 'escalate') {
+        grAction.setValue('severity', 'critical');
+        grAction.setValue('priority', 'p1_critical');
+        grAction.work_notes = 'Escalated to Critical severity by ' + userDisplay + '. Priority set to P1 - Critical.';
+        grAction.update();
+        data.actionSuccess = true;
+        data.actionMessage = 'Exception ' + num + ' escalated to Critical.';
+      }
+    }
+  }
+
+  // Load records in state Pending Verification (status = 'pending')
+  data.records = [];
+  var gr = new GlideRecord(tableName);
+  gr.addEncodedQuery('status=pending^ORstatus=pending_verification');
+  gr.orderByDesc('sys_updated_on');
+  gr.query();
+
+  var typeLabels = {
+    'damaged_goods': 'Item Disposal',
+    'inventory_mismatch': 'Inventory Adj',
+    'equipment_malfunction': 'Cost Approval',
+    'safety_incident': 'Safety Review',
+    'process_error': 'Escalation'
+  };
+
+  while (gr.next()) {
+    var rawType = gr.getValue('exception_type') || '';
+    var updatedGdt = new GlideDateTime(gr.getValue('sys_updated_on') || gr.getValue('sys_created_on'));
+
+    data.records.push({
+      sys_id: gr.getUniqueValue(),
+      number: gr.getValue('number') || '',
+      type: typeLabels[rawType] || gr.getDisplayValue('exception_type') || rawType,
+      requested_by: gr.getDisplayValue('assigned_to') || gr.getDisplayValue('reported_by') || 'tech1',
+      requested_on: updatedGdt.getLocalDate().getByFormat('yyyy-MM-dd')
+    });
+  }
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-10-14 06:00:00</sys_created_on>
+        <sys_id>e4a029384f1b40289d0b67e52a819004</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>Warehouse Pending Approvals</sys_name>
+        <sys_package display_value="Warehouse Exception Intelligence" source="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Warehouse Exception Intelligence">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
+        <sys_update_name>sp_widget_e4a029384f1b40289d0b67e52a819004</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-14 10:00:00</sys_updated_on>
+        <template><![CDATA[<div class="wei-approvals-wrapper" ng-if="c.data.allowed">
+  <div class="wei-approvals-card">
+    <div class="wei-approvals-header">
+      <h1 class="wei-approvals-title">Pending Approvals</h1>
+      <p class="wei-approvals-subtitle">Review and take action on pending approvals</p>
+    </div>
+
+    <!-- Alert Messages -->
+    <div class="alert alert-success" ng-if="c.successMsg">{{c.successMsg}}</div>
+    <div class="alert alert-danger" ng-if="c.errorMsg">{{c.errorMsg}}</div>
+
+    <!-- Approvals Table -->
+    <table class="table wei-grid-table approvals-table">
+      <thead>
+        <tr>
+          <th>Number</th>
+          <th>Type</th>
+          <th>Requested By</th>
+          <th>Requested On</th>
+          <th style="width: 220px;">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="row in c.data.records track by row.sys_id">
+          <td>
+            <a href="?id=x_1956908_wareho_0_detail&sys_id={{row.sys_id}}" class="wei-row-link">{{row.number}}</a>
+          </td>
+          <td>{{row.type}}</td>
+          <td>{{row.requested_by}}</td>
+          <td class="text-muted">{{row.requested_on}}</td>
+          <td class="wei-approval-actions">
+            <button class="btn btn-action-approve" ng-click="c.approve(row)">Approve</button>
+            <button class="btn btn-action-reject" ng-click="c.reject(row)">Reject</button>
+            <button class="btn btn-action-reassign" ng-click="c.reassign(row)">Reassign</button>
+            <button class="btn btn-action-escalate" ng-click="c.escalate(row)">Escalate</button>
+          </td>
+        </tr>
+        <tr ng-if="c.data.records.length === 0">
+          <td colspan="5" class="text-center p-lg text-muted">No pending approvals found. All exceptions are up to date!</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="wei-access-denied-wrap" ng-if="!c.data.allowed">
+  <div class="wei-denied-box">
+    <h2>Access Denied</h2>
+    <p>Only Supervisors are authorized to access the Approvals workbench.</p>
+    <a href="/wei" class="btn btn-default">Return to Portal</a>
+  </div>
+</div>
+]]></template>
+    </sp_widget>
+</record_update>

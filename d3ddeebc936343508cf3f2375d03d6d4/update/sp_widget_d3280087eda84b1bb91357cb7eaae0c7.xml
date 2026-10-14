@@ -1,178 +1,135 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[
-api.controller = function() {
-    var c = this;
-    c.view = 'form';
-    c.submitting = false;
-    c.serverErrors = [];
+        <client_script><![CDATA[api.controller = function() {
+  var c = this;
+  c.submitting = false;
+  c.errorMsg = '';
+  c.form = {
+    type: '',
+    severity: '',
+    location: '',
+    short_description: '',
+    description: ''
+  };
 
-    // Pre-fill form from URL parameters if available
-    var pre = c.data.prefill || {};
-    c.form = {
-        short_description: pre.short_description || '',
-        description: '',
-        exception_type: pre.category || '',
-        location: pre.location || '',
-        severity: pre.severity || ''
-    };
+  c.triggerUpload = function() {
+    alert('Drag and drop files to attach. Max size: 10 MB per file.');
+  };
 
-    c.submit = function() {
-        c.serverErrors = [];
+  c.submitForm = function() {
+    c.errorMsg = '';
+    if (!c.form.type || !c.form.severity || !c.form.location || !c.form.short_description) {
+      c.errorMsg = 'Please fill out all required fields marked with *.';
+      return;
+    }
+    c.submitting = true;
+    c.data.action = 'create';
+    c.data.form = c.form;
 
-        // Client-side validation
-        if (!c.form.short_description || !c.form.short_description.trim()) {
-            c.serverErrors.push('Short Description is required.');
-        }
-        if (!c.form.exception_type) {
-            c.serverErrors.push('Exception Type is required.');
-        }
-        if (!c.form.severity) {
-            c.serverErrors.push('Severity is required.');
-        }
-        if (c.serverErrors.length > 0) return;
-
-        c.submitting = true;
-        c.data.action = 'create';
-        c.data.short_description = c.form.short_description;
-        c.data.description = c.form.description;
-        c.data.exception_type = c.form.exception_type;
-        c.data.location = c.form.location;
-        c.data.severity = c.form.severity;
-
-        c.server.update().then(function() {
-            c.submitting = false;
-            var result = c.data.submitResult;
-            if (result && result.success) {
-                c.view = 'success';
-                c.data.action = null;
-            } else if (result && result.errors) {
-                c.serverErrors = result.errors;
-                c.data.action = null;
-            }
-        });
-    };
-
-    c.reset = function() {
-        c.form = {
-            short_description: '',
-            description: '',
-            exception_type: '',
-            location: '',
-            severity: ''
-        };
-        c.serverErrors = [];
-        c.view = 'form';
-    };
-
-    c.viewDetail = function() {
-        if (c.data.submitResult && c.data.submitResult.sys_id) {
-            window.location.href = '?id=x_1956908_wareho_0_detail&record_id=' + c.data.submitResult.sys_id;
-        }
-    };
-
-    c.goHome = function() {
-        window.location.href = '?id=wei_landing';
-    };
-};
-]]></client_script>
+    c.server.update().then(function() {
+      c.submitting = false;
+      if (c.data.result && c.data.result.success) {
+        // Redirect to Screen 7 (Exception Submitted)
+        window.location.href = '?id=exception_submitted&sys_id=' + c.data.result.sys_id;
+      } else {
+        c.errorMsg = (c.data.result && c.data.result.message) || 'Error submitting exception.';
+      }
+    });
+  };
+};]]></client_script>
         <controller_as>c</controller_as>
         <css><![CDATA[
-
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
-
-:root {
-  --wei-bg:         #EEECEA;
-  --wei-primary:    #5B4BF5;
-  --wei-primary-dk: #4438D6;
-  --wei-primary-lt: #EAE8FE;
-  --wei-text:       #0F0F0F;
-  --wei-muted:      #6B6B6B;
-  --wei-border:     #D8D4D0;
-  --wei-card:       #FFFFFF;
-  --wei-radius:     12px;
-  --wei-shadow:     0 2px 12px rgba(91,75,245,0.08);
-  --wei-success:    #22C55E;
-  --wei-warning:    #F59E0B;
-  --wei-danger:     #EF4444;
-  --wei-info:       #3B82F6;
-  --ff-head:        'Playfair Display', Georgia, serif;
-  --ff-body:        'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+.wei-report-wrapper {
+  max-width: 640px;
+  margin: 30px auto 50px;
+  padding: 0 16px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
-
-body, .sp-widget, .portal-page {
-  font-family: var(--ff-body) !important;
-  background-color: var(--wei-bg) !important;
-  color: var(--wei-text) !important;
+.wei-report-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 32px 36px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
-
-h1,h2,h3,h4,h5,h6 {
-  font-family: var(--ff-head) !important;
+.wei-report-header {
+  margin-bottom: 24px;
 }
-
-.create-exc-widget {
-  max-width: 820px;
-  margin: 0 auto;
+.wei-report-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0 0 4px;
 }
-.create-header {
-  background: var(--wei-primary) !important;
-  color: #fff;
-  border: none;
-  border-radius: var(--wei-radius) var(--wei-radius) 0 0 !important;
+.wei-report-subtitle {
+  font-size: 13px;
+  color: #64748B;
+  margin: 0;
 }
-.create-header .panel-title {
-  font-family: var(--ff-head) !important;
-  font-weight: 800 !important;
-  color: #fff;
+.wei-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 6px;
+}
+.wei-select, .wei-input, .wei-textarea {
+  border: 1px solid #CBD5E1 !important;
+  border-radius: 6px !important;
+  font-size: 13px !important;
+  color: #1E293B !important;
+}
+.wei-select:focus, .wei-input:focus, .wei-textarea:focus {
+  border-color: #1976D2 !important;
+  box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.15) !important;
+}
+.wei-dropzone {
+  border: 1.5px dashed #CBD5E1;
+  border-radius: 6px;
+  background: #F8FAFC;
+  padding: 24px 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.wei-dropzone:hover {
+  border-color: #1976D2;
+  background: #F0F7FF;
+}
+.dropzone-icon {
   font-size: 18px;
+  color: #64748B;
 }
-.panel {
-  border-radius: var(--wei-radius) !important;
-  box-shadow: var(--wei-shadow) !important;
-  border-color: var(--wei-border) !important;
+.dropzone-text {
+  font-size: 12px;
+  color: #64748B;
 }
-.form-group label {
-  font-family: var(--ff-body) !important;
-  font-size: 12px !important;
-  font-weight: 700 !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.07em !important;
-  color: var(--wei-text) !important;
+.wei-form-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
 }
-.form-control {
-  border-radius: 8px !important;
-  border-color: var(--wei-border) !important;
-  font-family: var(--ff-body) !important;
-  font-size: 14px !important;
+.btn-submit-report {
+  background: #1976D2;
+  border-color: #1976D2;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 24px;
+  border-radius: 6px;
 }
-.form-control:focus {
-  border-color: var(--wei-primary) !important;
-  box-shadow: 0 0 0 3px var(--wei-primary-lt) !important;
+.btn-submit-report:hover { background: #1565C0; }
+.btn-cancel-report {
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 20px;
+  border-radius: 6px;
+  border: 1px solid #CBD5E1;
+  color: #475569;
 }
-.btn-primary {
-  background: var(--wei-primary) !important;
-  border-color: var(--wei-primary) !important;
-  color: #fff !important;
-  border-radius: 8px !important;
-  font-family: var(--ff-body) !important;
-  font-weight: 700 !important;
-  padding: 10px 28px !important;
-  letter-spacing: 0.05em !important;
-}
-.btn-primary:hover { background: var(--wei-primary-dk) !important; border-color: var(--wei-primary-dk) !important; }
-.btn-default {
-  border-radius: 8px !important;
-  font-family: var(--ff-body) !important;
-}
-.form-actions {
-  padding-top: 16px;
-  border-top: 1.5px solid var(--wei-border);
-}
-.success-view { padding: 48px 20px; text-align: center; }
-.success-view .fa-check-circle { color: var(--wei-success) !important; font-size: 56px !important; margin-bottom: 18px !important; }
-.exc-number { color: var(--wei-primary) !important; font-weight: 800 !important; font-family: var(--ff-head) !important; }
-
 ]]></css>
         <data_table>sp_instance</data_table>
         <demo_data/>
@@ -185,214 +142,150 @@ h1,h2,h3,h4,h5,h6 {
         <link><![CDATA[function link(scope, element, attrs, controller) {
 }]]></link>
         <name>Create Warehouse Exception</name>
-        <option_schema/>
+        <option_schema></option_schema>
         <public>false</public>
         <roles/>
-        <script><![CDATA[
-(function() {
-    var tableName = 'x_1956908_wareho_0_exception';
-    data.submitResult = null;
+        <script><![CDATA[(function() {
+  var isStaff = gs.hasRole('x_1956908_wareho_0.staff');
+  var isTech = gs.hasRole('x_1956908_wareho_0.technician');
+  var isSup = gs.hasRole('x_1956908_wareho_0.supervisor') || gs.hasRole('x_1956908_wareho_0.admin') || gs.hasRole('admin');
 
-    // Read URL query parameters for pre-fill
-    data.prefill = {
-        category: ($sp.getParameter('category') || $sp.getParameter('type') || '').trim(),
-        severity: ($sp.getParameter('severity') || '').trim(),
-        location: ($sp.getParameter('location') || '').trim(),
-        short_description: ($sp.getParameter('short_desc') || $sp.getParameter('short_description') || '').trim()
-    };
+  data.allowed = isStaff || isTech || isSup;
+  if (!data.allowed) {
+    data.error = 'Access denied';
+    return;
+  }
 
-    // Exception type choices
-    data.typeChoices = [
-        { value: 'damaged_goods', label: 'Damaged Goods' },
-        { value: 'inventory_mismatch', label: 'Inventory Mismatch' },
-        { value: 'equipment_malfunction', label: 'Equipment Malfunction' },
-        { value: 'process_error', label: 'Process Error' },
-        { value: 'safety_incident', label: 'Safety Incident' },
-        { value: 'other', label: 'Other' }
-    ];
+  var tableName = 'x_1956908_wareho_0_exception';
 
-    // Severity choices
-    data.severityChoices = [
-        { value: 'critical', label: 'Critical' },
-        { value: 'high', label: 'High' },
-        { value: 'medium', label: 'Medium' },
-        { value: 'low', label: 'Low' }
-    ];
+  if (input && input.action === 'create' && input.form) {
+    var form = input.form;
+    var gr = new GlideRecord(tableName);
+    gr.initialize();
+    gr.setValue('exception_type', form.type);
+    gr.setValue('severity', form.severity);
+    gr.setValue('location', form.location);
+    gr.setValue('short_description', form.short_description);
+    gr.setValue('description', form.description || '');
+    gr.setValue('status', 'new');
+    gr.setValue('reported_by', gs.getUserID());
 
-    // Handle form submission
-    if (input && input.action === 'create') {
-        var errors = [];
-        if (!input.short_description || (input.short_description + '').trim() === '') {
-            errors.push('Short Description is required.');
-        }
-        if (!input.exception_type) {
-            errors.push('Exception Type is required.');
-        }
-        if (!input.severity) {
-            errors.push('Severity is required.');
-        }
-
-        if (errors.length > 0) {
-            data.submitResult = { success: false, errors: errors };
-            return;
-        }
-
-        var gr = new GlideRecord(tableName);
-        gr.initialize();
-        gr.setValue('short_description', (input.short_description + '').trim());
-        gr.setValue('description', (input.description || '').trim());
-        gr.setValue('exception_type', input.exception_type);
-        gr.setValue('location', (input.location || '').trim());
-        gr.setValue('severity', input.severity);
-        gr.setValue('reported_by', gs.getUserID());
-        gr.setValue('status', 'new');
-
-        var sysId = gr.insert();
-        if (sysId) {
-            data.submitResult = {
-                success: true,
-                sys_id: sysId + '',
-                number: gr.getValue('number') || 'Created'
-            };
-        } else {
-            data.submitResult = { success: false, errors: ['Failed to create record. Check permissions.'] };
-        }
+    var newId = gr.insert();
+    if (newId) {
+      data.result = {
+        success: true,
+        sys_id: newId + ''
+      };
+    } else {
+      data.result = {
+        success: false,
+        message: 'Database insert failed. Check ACL permissions.'
+      };
     }
-})();
-]]></script>
+  }
+})();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2026-10-05 06:59:39</sys_created_on>
+        <sys_created_on>2026-10-14 06:00:00</sys_created_on>
         <sys_id>d3280087eda84b1bb91357cb7eaae0c7</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>1</sys_mod_count>
         <sys_name>Create Warehouse Exception</sys_name>
         <sys_package display_value="Warehouse Exception Intelligence" source="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_package>
         <sys_policy/>
         <sys_scope display_value="Warehouse Exception Intelligence">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
         <sys_update_name>sp_widget_d3280087eda84b1bb91357cb7eaae0c7</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-10-14 06:38:09</sys_updated_on>
-        <template><![CDATA[
-<div class="create-exc-widget container">
-  <!-- Breadcrumb -->
-  <div class="m-b-md">
-    <a href="?id=wei_landing" class="text-muted"><i class="fa fa-home"></i> Home</a>
-    <span class="text-muted m-r-xs m-l-xs">/</span>
-    <span class="text-primary font-bold">Report Exception</span>
-  </div>
-
-  <!-- Form view -->
-  <div ng-if="c.view === 'form'">
-    <div class="panel panel-default">
-      <div class="panel-heading create-header">
-        <h3 class="panel-title"><i class="fa fa-plus-circle"></i> Report New Warehouse Exception</h3>
-      </div>
-      <div class="panel-body">
-        <!-- Errors -->
-        <div class="alert alert-danger" ng-if="c.serverErrors.length">
-          <ul class="list-unstyled m-b-none">
-            <li ng-repeat="err in c.serverErrors track by $index">
-              <i class="fa fa-exclamation-circle"></i> {{err}}
-            </li>
-          </ul>
-        </div>
-
-        <form name="createForm" ng-submit="c.submit()" novalidate>
-          <div class="form-group" ng-class="{'has-error': createForm.shortDesc.$touched && createForm.shortDesc.$invalid}">
-            <label for="shortDesc">Short Description <span class="text-danger">*</span></label>
-            <input type="text" id="shortDesc" name="shortDesc" class="form-control"
-                   ng-model="c.form.short_description" required
-                   placeholder="Brief summary of the exception (e.g., Forklift hydraulic failure at Bay 4)" />
-            <span class="help-block" ng-if="createForm.shortDesc.$touched && createForm.shortDesc.$error.required">
-              Short Description is required.
-            </span>
-          </div>
-
-          <div class="form-group">
-            <label for="desc">Detailed Description</label>
-            <textarea id="desc" name="desc" class="form-control" rows="4"
-                      ng-model="c.form.description"
-                      placeholder="Detailed description of what happened, evidence, SKU numbers, observations..."></textarea>
-          </div>
-
-          <div class="row">
-            <div class="col-md-6 col-xs-12">
-              <div class="form-group" ng-class="{'has-error': createForm.excType.$touched && createForm.excType.$invalid}">
-                <label for="excType">Exception Type <span class="text-danger">*</span></label>
-                <select id="excType" name="excType" class="form-control"
-                        ng-model="c.form.exception_type" required>
-                  <option value="">-- Select Type --</option>
-                  <option ng-repeat="t in c.data.typeChoices track by t.value"
-                          value="{{t.value}}">{{t.label}}</option>
-                </select>
-                <span class="help-block" ng-if="createForm.excType.$touched && createForm.excType.$error.required">
-                  Exception Type is required.
-                </span>
-              </div>
-            </div>
-            <div class="col-md-6 col-xs-12">
-              <div class="form-group" ng-class="{'has-error': createForm.severity.$touched && createForm.severity.$invalid}">
-                <label for="severity">Severity <span class="text-danger">*</span></label>
-                <select id="severity" name="severity" class="form-control"
-                        ng-model="c.form.severity" required>
-                  <option value="">-- Select Severity --</option>
-                  <option ng-repeat="s in c.data.severityChoices track by s.value"
-                          value="{{s.value}}">{{s.label}}</option>
-                </select>
-                <span class="help-block" ng-if="createForm.severity.$touched && createForm.severity.$error.required">
-                  Severity is required.
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="location">Location / Warehouse Zone</label>
-            <input type="text" id="location" name="location" class="form-control"
-                   ng-model="c.form.location"
-                   placeholder="e.g., Cold Storage Unit 2, Loading Dock B, Aisle 4" />
-          </div>
-
-          <div class="form-actions m-t-lg">
-            <button type="submit" class="btn btn-warning btn-lg"
-                    ng-disabled="c.submitting || createForm.$invalid">
-              <span ng-if="c.submitting"><i class="fa fa-spinner fa-spin"></i> Submitting...</span>
-              <span ng-if="!c.submitting"><i class="fa fa-paper-plane"></i> Submit Exception</span>
-            </button>
-            <button type="button" class="btn btn-default btn-lg m-l-sm" ng-click="c.reset()">
-              <i class="fa fa-refresh"></i> Reset
-            </button>
-            <button type="button" class="btn btn-link btn-lg m-l-sm" ng-click="c.goHome()">
-              Cancel
-            </button>
-          </div>
-        </form>
-      </div>
+        <sys_updated_on>2026-10-14 10:00:00</sys_updated_on>
+        <template><![CDATA[<div class="wei-report-wrapper" ng-if="c.data.allowed">
+  <div class="wei-report-card">
+    <div class="wei-report-header">
+      <h1 class="wei-report-title">Report Exception</h1>
+      <p class="wei-report-subtitle">Submit a new warehouse exception</p>
     </div>
-  </div>
 
-  <!-- Success view -->
-  <div ng-if="c.view === 'success'" class="text-center success-view">
-    <div class="panel panel-default p-lg">
-      <div class="panel-body">
-        <i class="fa fa-check-circle fa-4x text-success"></i>
-        <h2 class="m-t-md">Exception Reported Successfully!</h2>
-        <p class="text-muted font-16">Your exception has been logged and assigned tracking number:</p>
-        <h1 class="exc-number text-primary font-bold m-b-lg">{{c.data.submitResult.number}}</h1>
-        <div class="m-t-lg">
-          <button type="button" class="btn btn-primary btn-lg" ng-click="c.viewDetail()">
-            <i class="fa fa-eye"></i> View Details &amp; AI Routing
-          </button>
-          <button type="button" class="btn btn-default btn-lg m-l-sm" ng-click="c.reset()">
-            <i class="fa fa-plus"></i> Report Another
-          </button>
-          <button type="button" class="btn btn-link btn-lg m-l-sm" ng-click="c.goHome()">
-            Return to Home
-          </button>
+    <!-- Alert for validation errors -->
+    <div class="alert alert-danger" ng-if="c.errorMsg">{{c.errorMsg}}</div>
+
+    <form ng-submit="c.submitForm()" class="wei-report-form">
+      <!-- Type Field -->
+      <div class="form-group">
+        <label class="wei-label">Type <span class="text-danger">*</span></label>
+        <select class="form-control wei-select" ng-model="c.form.type" required>
+          <option value="">-- Select --</option>
+          <option value="damaged_goods">Damaged Item</option>
+          <option value="inventory_mismatch">Missing Item</option>
+          <option value="equipment_malfunction">Equipment Issue</option>
+          <option value="safety_incident">Safety Concern</option>
+          <option value="process_error">Inventory Discrepancy</option>
+        </select>
+      </div>
+
+      <!-- Severity Field -->
+      <div class="form-group">
+        <label class="wei-label">Severity <span class="text-danger">*</span></label>
+        <select class="form-control wei-select" ng-model="c.form.severity" required>
+          <option value="">-- Select --</option>
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+          <option value="critical">Critical</option>
+        </select>
+      </div>
+
+      <!-- Location Field -->
+      <div class="form-group">
+        <label class="wei-label">Location <span class="text-danger">*</span></label>
+        <select class="form-control wei-select" ng-model="c.form.location" required>
+          <option value="">-- Select --</option>
+          <option value="Aisle 1">Aisle 1</option>
+          <option value="Aisle 2">Aisle 2</option>
+          <option value="Aisle 3">Aisle 3</option>
+          <option value="Aisle 5">Aisle 5</option>
+          <option value="Dock 1">Dock 1</option>
+          <option value="Dock 2">Dock 2</option>
+          <option value="Cold Storage">Cold Storage</option>
+        </select>
+      </div>
+
+      <!-- Short Description Field -->
+      <div class="form-group">
+        <label class="wei-label">Short Description <span class="text-danger">*</span></label>
+        <input type="text" class="form-control wei-input" placeholder="Brief description of the exception"
+               ng-model="c.form.short_description" required>
+      </div>
+
+      <!-- Details Field -->
+      <div class="form-group">
+        <label class="wei-label">Details</label>
+        <textarea class="form-control wei-textarea" rows="4" placeholder="Provide additional details..."
+                  ng-model="c.form.description"></textarea>
+      </div>
+
+      <!-- Attachment Drop Zone -->
+      <div class="form-group">
+        <div class="wei-dropzone" ng-click="c.triggerUpload()">
+          <i class="fa fa-paperclip dropzone-icon"></i>
+          <span class="dropzone-text">Drag and drop files here or click to attach (max 10 MB per file)</span>
         </div>
       </div>
-    </div>
+
+      <!-- Form Actions -->
+      <div class="wei-form-buttons">
+        <button type="submit" class="btn btn-primary btn-submit-report" ng-disabled="c.submitting">
+          {{c.submitting ? 'Submitting...' : 'Submit'}}
+        </button>
+        <a href="?id=x_1956908_wareho_0_staff_dashboard" class="btn btn-default btn-cancel-report">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="wei-access-denied-wrap" ng-if="!c.data.allowed">
+  <div class="wei-denied-box">
+    <h2>Access Denied</h2>
+    <p>You do not have permission to submit warehouse exceptions.</p>
+    <a href="/wei" class="btn btn-default">Back to Landing Page</a>
   </div>
 </div>
 ]]></template>

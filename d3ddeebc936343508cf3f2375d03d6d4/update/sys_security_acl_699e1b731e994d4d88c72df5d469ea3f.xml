@@ -2,29 +2,40 @@
     <sys_security_acl action="INSERT_OR_UPDATE">
         <active>true</active>
         <admin_overrides>true</admin_overrides>
-        <advanced>false</advanced>
+        <advanced>true</advanced>
         <applies_to/>
         <condition/>
         <controlled_by_refs/>
         <decision_type>allow</decision_type>
-        <description>Allow staff, technicians, supervisors, and admins to read exceptions</description>
+        <description>Enforce data partitioning: Staff read own records, Technicians read assigned, Supervisors read all.</description>
         <local_or_existing/>
         <name>x_1956908_wareho_0_exception</name>
         <operation display_value="read">read</operation>
-        <script/>
+        <script><![CDATA[answer = (function() {
+    if (gs.hasRole('x_1956908_wareho_0.supervisor') || gs.hasRole('x_1956908_wareho_0.admin') || gs.hasRole('admin')) {
+        return true;
+    }
+    if (gs.hasRole('x_1956908_wareho_0.technician') && current.assigned_to == gs.getUserID()) {
+        return true;
+    }
+    if (gs.hasRole('x_1956908_wareho_0.staff') && current.reported_by == gs.getUserID()) {
+        return true;
+    }
+    return false;
+})();]]></script>
         <security_attribute/>
         <sys_class_name>sys_security_acl</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2026-09-25 01:51:54</sys_created_on>
         <sys_id>699e1b731e994d4d88c72df5d469ea3f</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>1</sys_mod_count>
         <sys_name>x_1956908_wareho_0_exception</sys_name>
         <sys_package display_value="Warehouse Exception Intelligence" source="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_package>
         <sys_policy/>
         <sys_scope display_value="Warehouse Exception Intelligence">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
         <sys_update_name>sys_security_acl_699e1b731e994d4d88c72df5d469ea3f</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-09-25 01:51:54</sys_updated_on>
+        <sys_updated_on>2026-10-14 10:00:00</sys_updated_on>
         <type display_value="record">record</type>
     </sys_security_acl>
 </record_update>

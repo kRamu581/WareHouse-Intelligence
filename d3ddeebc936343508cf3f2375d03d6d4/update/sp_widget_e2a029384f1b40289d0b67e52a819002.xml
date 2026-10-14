@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller = function() {
+  var c = this;
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css><![CDATA[
+.wei-submitted-wrapper {
+  max-width: 580px;
+  margin: 40px auto 60px;
+  padding: 0 16px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+.wei-submitted-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 40px 36px 36px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+}
+.wei-success-check-wrap {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wei-submitted-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0 0 6px;
+}
+.wei-submitted-subtitle {
+  font-size: 13px;
+  color: #64748B;
+  margin: 0 0 28px;
+}
+.wei-summary-table {
+  text-align: left;
+  margin-bottom: 28px;
+  border: 1px solid #F1F5F9;
+  border-radius: 6px;
+}
+.wei-summary-table td {
+  padding: 10px 14px !important;
+  font-size: 13px !important;
+  border-top: 1px solid #F1F5F9 !important;
+}
+.wei-summary-table .lbl {
+  color: #64748B;
+  width: 140px;
+  font-weight: 500;
+}
+.wei-summary-table .val {
+  color: #0F172A;
+}
+.wei-submitted-actions {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+}
+.btn-track {
+  background: #1976D2;
+  border-color: #1976D2;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 9px 22px;
+  border-radius: 6px;
+}
+.btn-track:hover { background: #1565C0; }
+.btn-back-exceptions {
+  font-size: 13px;
+  font-weight: 500;
+  padding: 9px 20px;
+  border-radius: 6px;
+  border: 1px solid #CBD5E1;
+  color: #475569;
+}
+]]></css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>wei-exception-submitted</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {
+}]]></link>
+        <name>Warehouse Exception Submitted</name>
+        <option_schema></option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  var tableName = 'x_1956908_wareho_0_exception';
+  var sysId = ($sp.getParameter('sys_id') || '').trim();
+  data.record = null;
+
+  if (sysId) {
+    var gr = new GlideRecord(tableName);
+    if (gr.get(sysId)) {
+      var rawType = gr.getValue('exception_type') || '';
+      var rawSev = gr.getValue('severity') || 'medium';
+
+      var typeLabels = {
+        'damaged_goods': 'Damaged Item',
+        'inventory_mismatch': 'Missing Item',
+        'equipment_malfunction': 'Equipment Issue',
+        'safety_incident': 'Safety Concern',
+        'process_error': 'Inventory Discrepancy'
+      };
+
+      data.record = {
+        sys_id: gr.getUniqueValue(),
+        number: gr.getValue('number') || '',
+        type: typeLabels[rawType] || gr.getDisplayValue('exception_type') || rawType,
+        severity: gr.getDisplayValue('severity') || rawSev,
+        severity_raw: rawSev,
+        location: gr.getValue('location') || '',
+        short_description: gr.getValue('short_description') || '',
+        submitted_on: gr.getDisplayValue('sys_created_on') || ''
+      };
+    }
+  }
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-10-14 06:00:00</sys_created_on>
+        <sys_id>e2a029384f1b40289d0b67e52a819002</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>Warehouse Exception Submitted</sys_name>
+        <sys_package display_value="Warehouse Exception Intelligence" source="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Warehouse Exception Intelligence">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
+        <sys_update_name>sp_widget_e2a029384f1b40289d0b67e52a819002</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-14 10:00:00</sys_updated_on>
+        <template><![CDATA[<div class="wei-submitted-wrapper">
+  <div class="wei-submitted-card" ng-if="c.data.record">
+    <!-- Big Green Checkmark Icon -->
+    <div class="wei-success-check-wrap">
+      <svg viewBox="0 0 24 24" width="56" height="56" fill="none" stroke="#FFFFFF" stroke-width="2.5">
+        <circle cx="12" cy="12" r="10" fill="#16A34A" stroke="#16A34A"></circle>
+        <path d="M7 12.5l3.5 3.5 7-7" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+    </div>
+
+    <h2 class="wei-submitted-title">Exception Submitted</h2>
+    <p class="wei-submitted-subtitle">Your exception has been successfully submitted.</p>
+
+    <!-- Summary Key-Value Table -->
+    <table class="table wei-summary-table">
+      <tbody>
+        <tr>
+          <td class="lbl">Number</td>
+          <td class="val font-semibold">{{c.data.record.number}}</td>
+        </tr>
+        <tr>
+          <td class="lbl">Type</td>
+          <td class="val">{{c.data.record.type}}</td>
+        </tr>
+        <tr>
+          <td class="lbl">Severity</td>
+          <td class="val">
+            <span class="wei-badge badge-sev-{{c.data.record.severity_raw}}">{{c.data.record.severity}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="lbl">Location</td>
+          <td class="val">{{c.data.record.location}}</td>
+        </tr>
+        <tr>
+          <td class="lbl">Short Description</td>
+          <td class="val">{{c.data.record.short_description}}</td>
+        </tr>
+        <tr>
+          <td class="lbl">Submitted On</td>
+          <td class="val">{{c.data.record.submitted_on}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Action Buttons -->
+    <div class="wei-submitted-actions">
+      <a href="?id=x_1956908_wareho_0_detail&sys_id={{c.data.record.sys_id}}" class="btn btn-primary btn-track">
+        Track This Exception
+      </a>
+      <a href="?id=x_1956908_wareho_0_staff_dashboard" class="btn btn-default btn-back-exceptions">
+        Back to My Exceptions
+      </a>
+    </div>
+  </div>
+
+  <div class="wei-submitted-card text-center" ng-if="!c.data.record">
+    <h3>No exception record specified</h3>
+    <a href="?id=x_1956908_wareho_0_staff_dashboard" class="btn btn-default m-t-md">Return to My Exceptions</a>
+  </div>
+</div>
+]]></template>
+    </sp_widget>
+</record_update>

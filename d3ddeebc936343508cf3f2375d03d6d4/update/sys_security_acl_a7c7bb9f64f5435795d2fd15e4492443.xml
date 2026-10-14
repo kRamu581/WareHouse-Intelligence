@@ -2,29 +2,37 @@
     <sys_security_acl action="INSERT_OR_UPDATE">
         <active>true</active>
         <admin_overrides>true</admin_overrides>
-        <advanced>false</advanced>
+        <advanced>true</advanced>
         <applies_to/>
         <condition/>
         <controlled_by_refs/>
         <decision_type>allow</decision_type>
-        <description>Allow technicians, supervisors, and admins to update exceptions</description>
+        <description>Allow technicians to update assigned records, supervisors full update access.</description>
         <local_or_existing/>
         <name>x_1956908_wareho_0_exception</name>
         <operation display_value="write">write</operation>
-        <script/>
+        <script><![CDATA[answer = (function() {
+    if (gs.hasRole('x_1956908_wareho_0.supervisor') || gs.hasRole('x_1956908_wareho_0.admin') || gs.hasRole('admin')) {
+        return true;
+    }
+    if (gs.hasRole('x_1956908_wareho_0.technician') && current.assigned_to == gs.getUserID()) {
+        return true;
+    }
+    return false;
+})();]]></script>
         <security_attribute/>
         <sys_class_name>sys_security_acl</sys_class_name>
         <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2026-09-25 01:51:55</sys_created_on>
+        <sys_created_on>2026-09-25 01:51:50</sys_created_on>
         <sys_id>a7c7bb9f64f5435795d2fd15e4492443</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>1</sys_mod_count>
         <sys_name>x_1956908_wareho_0_exception</sys_name>
         <sys_package display_value="Warehouse Exception Intelligence" source="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_package>
         <sys_policy/>
         <sys_scope display_value="Warehouse Exception Intelligence">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
         <sys_update_name>sys_security_acl_a7c7bb9f64f5435795d2fd15e4492443</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-09-25 01:51:55</sys_updated_on>
+        <sys_updated_on>2026-10-14 10:00:00</sys_updated_on>
         <type display_value="record">record</type>
     </sys_security_acl>
 </record_update>
