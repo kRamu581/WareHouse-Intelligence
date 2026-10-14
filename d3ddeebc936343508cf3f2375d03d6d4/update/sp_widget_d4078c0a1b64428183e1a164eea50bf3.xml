@@ -7,13 +7,14 @@ api.controller = function() {
     c.newStatus = '';
     c.resolutionNotes = c.data.record ? c.data.record.resolution_notes : '';
     c.assignTo = c.data.record ? c.data.record.assigned_to_id : '';
+    c.assignGroup = c.data.record ? c.data.record.assignment_group_id : '';
     c.newComment = '';
     c.updating = false;
     c.successMsg = '';
     c.errorMsg = '';
 
     c.updateRecord = function() {
-        if (!c.newStatus && !c.assignTo && !c.resolutionNotes) return;
+        if (!c.newStatus && !c.assignTo && !c.assignGroup && !c.resolutionNotes) return;
         c.updating = true;
         c.successMsg = '';
         c.errorMsg = '';
@@ -23,6 +24,7 @@ api.controller = function() {
         c.data.new_status = c.newStatus;
         c.data.resolution_notes = c.resolutionNotes;
         c.data.assigned_to = c.assignTo;
+        c.data.assignment_group = c.assignGroup;
 
         c.server.update().then(function() {
             c.updating = false;
@@ -181,37 +183,70 @@ api.controller = function() {
     var tableName = 'x_1956908_wareho_0_exception';
     var userId = gs.getUserID();
 
+    // Authenticated role checks
     data.isSupervisor = gs.hasRole('x_1956908_wareho_0.supervisor') || gs.hasRole('x_1956908_wareho_0.admin') || gs.hasRole('admin');
     data.isTechnician = gs.hasRole('x_1956908_wareho_0.technician');
     data.isStaff = !data.isSupervisor && !data.isTechnician;
+
     data.canEdit = data.isSupervisor || data.isTechnician;
-    data.canAssign = data.isSupervisor;
+    data.canAssign = data.isSupervisor; // Only Supervisor can assign group and technician
 
     data.record = null;
     data.error = null;
     data.statusOptions = [];
     data.updateResult = null;
 
-    // Handle update actions
+    // Handle update actions with strict server-side authorization
     if (input && input.action === 'update_status') {
+        // Security check: Staff cannot change status or assignments
+        if (data.isStaff) {
+            data.updateResult = { success: false, message: 'Unauthorized: Staff members cannot change status or assignments.' };
+            return;
+        }
+
         var ugr = new GlideRecord(tableName);
         if (ugr.get(input.sys_id)) {
+            // Verify Technician access: Can only update if assigned to them or unassigned
+            if (data.isTechnician && !data.isSupervisor) {
+                var assignedToId = ugr.getValue('assigned_to');
+                if (assignedToId && assignedToId !== userId) {
+                    data.updateResult = { success: false, message: 'Unauthorized: You can only update exceptions assigned to you.' };
+                    return;
+                }
+            }
+
+            // Status transition logic
             if (input.new_status) {
-                ugr.setValue('status', input.new_status);
+                // If resolving, resolution notes are strictly mandatory
                 if (input.new_status === 'resolved' || input.new_status === 'closed') {
+                    var notes = (input.resolution_notes || '').replace(/<[^>]*>/g, '').trim();
+                    if (!notes) {
+                        data.updateResult = { success: false, message: 'Resolution Notes are required to resolve an exception.' };
+                        return;
+                    }
                     var now = new GlideDateTime();
                     ugr.setValue('resolved_at', now.getValue());
                 }
+                ugr.setValue('status', input.new_status);
             }
+
             if (input.resolution_notes) {
                 ugr.setValue('resolution_notes', input.resolution_notes);
             }
-            if (input.assigned_to && data.canAssign) {
-                ugr.setValue('assigned_to', input.assigned_to);
-                if (ugr.getValue('status') === 'new') {
-                    ugr.setValue('status', 'assigned');
+
+            // Supervisor assignment permissions
+            if (data.isSupervisor) {
+                if (input.assignment_group !== undefined) {
+                    ugr.setValue('assignment_group', input.assignment_group || '');
+                }
+                if (input.assigned_to !== undefined) {
+                    ugr.setValue('assigned_to', input.assigned_to || '');
+                    if (input.assigned_to && ugr.getValue('status') === 'new') {
+                        ugr.setValue('status', 'assigned');
+                    }
                 }
             }
+
             ugr.update();
             data.updateResult = { success: true, message: 'Record updated successfully.' };
         } else {
@@ -225,7 +260,7 @@ api.controller = function() {
         if (cgr.get(input.sys_id)) {
             cgr.work_notes = input.comment;
             cgr.update();
-            data.updateResult = { success: true, message: 'Work note added.' };
+            data.updateResult = { success: true, message: 'Work note logged.' };
         }
     }
 
@@ -234,7 +269,7 @@ api.controller = function() {
     var recordNumber = $sp.getParameter('number') || '';
 
     if (!recordId && !recordNumber) {
-        data.error = 'No record specified. Please provide a record ID.';
+        data.error = 'No exception record specified.';
         return;
     }
 
@@ -242,7 +277,7 @@ api.controller = function() {
         'new': 'label-info',
         'assigned': 'label-warning',
         'in_progress': 'label-primary',
-        'pending': 'label-default',
+        'pending': 'label-warning',
         'resolved': 'label-success',
         'closed': 'label-default'
     };
@@ -272,6 +307,12 @@ api.controller = function() {
     }
 
     if (found) {
+        // Enforce role security: Staff can ONLY view their own records
+        if (data.isStaff && gr.getValue('reported_by') !== userId) {
+            data.error = 'Access Denied: You are only authorized to view exception reports you submitted.';
+            return;
+        }
+
         var rawConf = (gr.getValue('ai_confidence') || '').replace(/%+$/, '').trim();
 
         data.record = {
@@ -295,6 +336,7 @@ api.controller = function() {
             assigned_to: gr.getDisplayValue('assigned_to') || '',
             assigned_to_id: gr.getValue('assigned_to') || '',
             assignment_group: gr.getDisplayValue('assignment_group') || '',
+            assignment_group_id: gr.getValue('assignment_group') || '',
             resolution_notes: gr.getValue('resolution_notes') || '',
             resolved_at: gr.getDisplayValue('resolved_at') || '',
             created: gr.getDisplayValue('sys_created_on') || '',
@@ -309,23 +351,23 @@ api.controller = function() {
 
         data.hasAI = !!(data.record.ai_suggested_type || data.record.ai_suggested_severity || data.record.ai_insights || data.record.ai_routing_suggestion);
 
-        // Technician status transitions
-        if (data.isTechnician) {
-            var currentStatus = gr.getValue('status');
-            if (currentStatus === 'assigned') {
-                data.statusOptions = [{ value: 'in_progress', label: 'In Progress' }];
-            } else if (currentStatus === 'in_progress') {
-                data.statusOptions = [{ value: 'resolved', label: 'Resolved' }];
-            }
+        // Technician workflow status options
+        if (data.isTechnician && !data.isSupervisor) {
+            data.statusOptions = [
+                { value: 'assigned', label: 'Assigned' },
+                { value: 'in_progress', label: 'Work in Progress' },
+                { value: 'pending', label: 'On Hold' },
+                { value: 'resolved', label: 'Resolved' }
+            ];
         }
 
-        // Supervisor can set any forward status
+        // Supervisor can set any status in the lifecycle
         if (data.isSupervisor) {
             data.statusOptions = [
                 { value: 'new', label: 'New' },
                 { value: 'assigned', label: 'Assigned' },
-                { value: 'in_progress', label: 'In Progress' },
-                { value: 'pending', label: 'Pending' },
+                { value: 'in_progress', label: 'Work in Progress' },
+                { value: 'pending', label: 'On Hold' },
                 { value: 'resolved', label: 'Resolved' },
                 { value: 'closed', label: 'Closed' }
             ];
@@ -335,22 +377,66 @@ api.controller = function() {
         return;
     }
 
-    // Load technicians for supervisor assignment
+    // Load assignment groups (Supervisor only)
     if (data.canAssign) {
-        data.technicians = [];
+        data.assignmentGroups = [];
         try {
-            var userGr = new GlideRecord('sys_user_has_role');
-            userGr.addQuery('role.name', 'x_1956908_wareho_0.technician');
-            userGr.addQuery('user.active', true);
-            userGr.setLimit(50);
-            userGr.query();
-            while (userGr.next()) {
-                data.technicians.push({
-                    sys_id: userGr.getValue('user'),
-                    name: userGr.getDisplayValue('user')
+            var grpGr = new GlideRecord('sys_user_group');
+            grpGr.addActiveQuery();
+            grpGr.orderBy('name');
+            grpGr.setLimit(50);
+            grpGr.query();
+            while (grpGr.next()) {
+                data.assignmentGroups.push({
+                    sys_id: grpGr.getUniqueValue(),
+                    name: grpGr.getValue('name')
                 });
             }
         } catch(e) {}
+
+        // Fallback default groups if none exist
+        if (data.assignmentGroups.length === 0) {
+            data.assignmentGroups = [
+                { sys_id: 'grp_maint', name: 'Maintenance & Engineering Crew' },
+                { sys_id: 'grp_inv', name: 'Inventory Control & Audit' },
+                { sys_id: 'grp_qa', name: 'Quality Assurance & Quarantine' },
+                { sys_id: 'grp_ops', name: 'Warehouse Operations Desk' }
+            ];
+        }
+
+        // Load technicians
+        data.technicians = [];
+        try {
+            var userGr = new GlideRecord('sys_user_has_role');
+            userGr.addQuery('role.name', 'IN', 'x_1956908_wareho_0.technician,x_1956908_wareho_0.supervisor,admin');
+            userGr.addQuery('user.active', true);
+            userGr.setLimit(50);
+            userGr.query();
+            var seen = {};
+            while (userGr.next()) {
+                var uId = userGr.getValue('user');
+                if (!seen[uId]) {
+                    seen[uId] = true;
+                    data.technicians.push({
+                        sys_id: uId,
+                        name: userGr.getDisplayValue('user')
+                    });
+                }
+            }
+        } catch(e) {}
+
+        if (data.technicians.length === 0) {
+            var usr = new GlideRecord('sys_user');
+            usr.addActiveQuery();
+            usr.setLimit(30);
+            usr.query();
+            while (usr.next()) {
+                data.technicians.push({
+                    sys_id: usr.getUniqueValue(),
+                    name: usr.getValue('name')
+                });
+            }
+        }
     }
 
     // Load work notes / comments
@@ -361,7 +447,7 @@ api.controller = function() {
         jGr.addQuery('name', tableName);
         jGr.addQuery('element', 'work_notes');
         jGr.orderByDesc('sys_created_on');
-        jGr.setLimit(20);
+        jGr.setLimit(25);
         jGr.query();
         while (jGr.next()) {
             data.comments.push({
@@ -386,7 +472,7 @@ api.controller = function() {
         <sys_scope display_value="Warehouse Exception Intelligence">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
         <sys_update_name>sp_widget_d4078c0a1b64428183e1a164eea50bf3</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-10-14 05:05:23</sys_updated_on>
+        <sys_updated_on>2026-10-14 06:01:50</sys_updated_on>
         <template><![CDATA[
 <div class="exc-detail-widget container">
   <!-- Breadcrumb & Back -->
@@ -409,13 +495,13 @@ api.controller = function() {
   <!-- Detail view -->
   <div ng-if="c.data.record">
     <!-- Header banner -->
-    <div class="detail-header panel panel-default">
+    <div class="detail-header panel panel-default shadow-sm">
       <div class="panel-body">
         <div class="pull-left">
           <button type="button" class="btn btn-sm btn-default m-r-sm" ng-click="c.goBack()">
             <i class="fa fa-arrow-left"></i> Back
           </button>
-          <span class="exc-id font-bold font-20">{{c.data.record.number}}</span>
+          <span class="exc-id font-bold font-20 text-primary">{{c.data.record.number}}</span>
           <span class="text-muted m-l-sm font-16">{{c.data.record.short_description}}</span>
         </div>
         <div class="pull-right header-badges">
@@ -438,9 +524,9 @@ api.controller = function() {
       <!-- Left column: Record details -->
       <div class="col-md-8 col-xs-12">
         <!-- Details card -->
-        <div class="panel panel-default">
+        <div class="panel panel-default shadow-sm">
           <div class="panel-heading detail-panel-heading">
-            <h4 class="panel-title"><i class="fa fa-info-circle"></i> Exception Overview</h4>
+            <h4 class="panel-title font-bold"><i class="fa fa-info-circle text-primary"></i> Exception Overview</h4>
           </div>
           <div class="panel-body">
             <div class="row">
@@ -453,37 +539,50 @@ api.controller = function() {
                   <dt>Reported By</dt>
                   <dd>{{c.data.record.reported_by}}</dd>
                   <dt>Created</dt>
-                  <dd>{{c.data.record.created}}</dd>
+                  <dd class="text-muted">{{c.data.record.created}}</dd>
                 </dl>
               </div>
               <div class="col-sm-6">
                 <dl class="dl-horizontal-custom">
+                  <dt>Assigned Group</dt>
+                  <dd><strong>{{c.data.record.assignment_group || 'Unassigned Group'}}</strong></dd>
                   <dt>Assigned To</dt>
-                  <dd><strong>{{c.data.record.assigned_to || 'Unassigned'}}</strong></dd>
-                  <dt>Group</dt>
-                  <dd>{{c.data.record.assignment_group || 'Operations'}}</dd>
+                  <dd>
+                    <strong ng-class="{'text-danger': !c.data.record.assigned_to}">
+                      {{c.data.record.assigned_to || 'Unassigned Technician'}}
+                    </strong>
+                  </dd>
                   <dt>Updated</dt>
-                  <dd>{{c.data.record.updated}}</dd>
+                  <dd class="text-muted">{{c.data.record.updated}}</dd>
                   <dt>Resolved At</dt>
-                  <dd>{{c.data.record.resolved_at || 'Pending resolution'}}</dd>
+                  <dd>
+                    <span ng-if="c.data.record.resolved_at" class="text-success font-bold">
+                      <i class="fa fa-clock-o"></i> {{c.data.record.resolved_at}}
+                    </span>
+                    <span ng-if="!c.data.record.resolved_at" class="text-muted">
+                      Pending resolution
+                    </span>
+                  </dd>
                 </dl>
               </div>
             </div>
             <div class="detail-description m-t-md" ng-if="c.data.record.description">
               <strong>Detailed Description:</strong>
-              <p class="m-t-xs text-muted font-14">{{c.data.record.description}}</p>
+              <div class="well well-sm m-t-xs text-dark font-14">{{c.data.record.description}}</div>
             </div>
             <div class="detail-description m-t-md" ng-if="c.data.record.resolution_notes">
-              <strong class="text-success"><i class="fa fa-check-square-o"></i> Resolution Notes:</strong>
-              <div class="well well-sm m-t-xs">{{c.data.record.resolution_notes}}</div>
+              <strong class="text-success"><i class="fa fa-check-circle"></i> Resolution Notes:</strong>
+              <div class="well well-sm m-t-xs text-dark" style="background-color: #f6fff6; border-color: #c3e6cb;">
+                {{c.data.record.resolution_notes}}
+              </div>
             </div>
           </div>
         </div>
 
         <!-- AI Insights & Root Cause Analysis -->
-        <div class="panel panel-default" ng-if="c.data.hasAI">
+        <div class="panel panel-default shadow-sm" ng-if="c.data.hasAI">
           <div class="panel-heading ai-panel-heading" style="background: linear-gradient(90deg, #6e48aa, #9d50bb); color: white;">
-            <h4 class="panel-title"><i class="fa fa-magic"></i> Generative AI Diagnostics &amp; Root Cause</h4>
+            <h4 class="panel-title font-bold"><i class="fa fa-magic"></i> Generative AI Diagnostics &amp; Root Cause</h4>
           </div>
           <div class="panel-body">
             <div class="row">
@@ -501,7 +600,7 @@ api.controller = function() {
               </div>
               <div class="col-sm-6 m-b-sm" ng-if="c.data.record.ai_routing_suggestion">
                 <strong>Routing Recommendation:</strong>
-                <div class="text-info">{{c.data.record.ai_routing_suggestion}}</div>
+                <div class="text-info font-bold">{{c.data.record.ai_routing_suggestion}}</div>
               </div>
             </div>
 
@@ -518,9 +617,9 @@ api.controller = function() {
         </div>
 
         <!-- Work Notes & Comments -->
-        <div class="panel panel-default">
+        <div class="panel panel-default shadow-sm">
           <div class="panel-heading detail-panel-heading">
-            <h4 class="panel-title"><i class="fa fa-comments"></i> Work Notes &amp; Activity Log</h4>
+            <h4 class="panel-title font-bold"><i class="fa fa-comments text-primary"></i> Work Notes &amp; Activity Log</h4>
           </div>
           <div class="panel-body">
             <div class="comment-form m-b-md">
@@ -548,26 +647,27 @@ api.controller = function() {
         </div>
       </div>
 
-      <!-- Right column: Actions & Workflows -->
+      <!-- Right column: Role-specific Operational Actions -->
       <div class="col-md-4 col-xs-12">
-        <div class="panel panel-default" ng-if="c.data.canEdit">
+        <!-- Actions for Supervisor & Technician -->
+        <div class="panel panel-default shadow-sm" ng-if="c.data.canEdit">
           <div class="panel-heading action-panel-heading bg-warning">
-            <h4 class="panel-title"><i class="fa fa-wrench"></i> Operational Actions</h4>
+            <h4 class="panel-title font-bold"><i class="fa fa-wrench"></i> Operational Actions</h4>
           </div>
           <div class="panel-body">
-            <!-- Status update -->
-            <div class="form-group" ng-if="c.data.statusOptions.length">
-              <label for="statusSelect">Update Status</label>
-              <select id="statusSelect" class="form-control" ng-model="c.newStatus">
-                <option value="">-- Change Status --</option>
-                <option ng-repeat="opt in c.data.statusOptions track by opt.value"
-                        value="{{opt.value}}">{{opt.label}}</option>
+            <!-- Assignment Group (Supervisor Only) -->
+            <div class="form-group" ng-if="c.data.canAssign">
+              <label for="groupSelect" class="font-bold">Assignment Group</label>
+              <select id="groupSelect" class="form-control" ng-model="c.assignGroup">
+                <option value="">-- Select Group --</option>
+                <option ng-repeat="grp in c.data.assignmentGroups track by grp.sys_id"
+                        value="{{grp.sys_id}}">{{grp.name}}</option>
               </select>
             </div>
 
-            <!-- Assign technician (supervisor only) -->
+            <!-- Assign Technician (Supervisor Only) -->
             <div class="form-group" ng-if="c.data.canAssign">
-              <label for="assignSelect">Assign Technician</label>
+              <label for="assignSelect" class="font-bold">Assign Technician</label>
               <select id="assignSelect" class="form-control" ng-model="c.assignTo">
                 <option value="">-- Select Technician --</option>
                 <option ng-repeat="tech in c.data.technicians track by tech.sys_id"
@@ -575,30 +675,50 @@ api.controller = function() {
               </select>
             </div>
 
-            <!-- Resolution notes -->
-            <div class="form-group">
-              <label for="resNotes">Resolution Notes <span class="text-danger" ng-if="c.newStatus === 'resolved' || c.newStatus === 'closed'">*</span></label>
-              <textarea id="resNotes" class="form-control" rows="3"
-                        ng-model="c.resolutionNotes"
-                        placeholder="Explain root cause and resolution applied..."></textarea>
+            <!-- Status Update (Supervisor & Technician) -->
+            <div class="form-group" ng-if="c.data.statusOptions.length">
+              <label for="statusSelect" class="font-bold">Update Status</label>
+              <select id="statusSelect" class="form-control" ng-model="c.newStatus">
+                <option value="">-- Change Status --</option>
+                <option ng-repeat="opt in c.data.statusOptions track by opt.value"
+                        value="{{opt.value}}">{{opt.label}}</option>
+              </select>
             </div>
 
-            <button type="button" class="btn btn-warning btn-block btn-lg"
+            <!-- Resolution Notes -->
+            <div class="form-group">
+              <label for="resNotes" class="font-bold">
+                Resolution Notes 
+                <span class="text-danger" ng-if="c.newStatus === 'resolved' || c.newStatus === 'closed'">* (Required on resolve)</span>
+              </label>
+              <textarea id="resNotes" class="form-control" rows="4"
+                        ng-model="c.resolutionNotes"
+                        placeholder="Explain root cause and solution implemented..."></textarea>
+            </div>
+
+            <button type="button" class="btn btn-warning btn-block btn-lg font-bold shadow-sm"
                     ng-click="c.updateRecord()"
                     ng-disabled="c.updating">
-              <span ng-if="c.updating"><i class="fa fa-spinner fa-spin"></i> Updating...</span>
+              <span ng-if="c.updating"><i class="fa fa-spinner fa-spin"></i> Saving...</span>
               <span ng-if="!c.updating"><i class="fa fa-save"></i> Save Changes</span>
             </button>
           </div>
         </div>
 
-        <!-- Quick Info card for staff (read only) -->
-        <div class="panel panel-default" ng-if="c.data.isStaff">
+        <!-- Read-Only View for Staff -->
+        <div class="panel panel-default shadow-sm" ng-if="c.data.isStaff">
           <div class="panel-heading detail-panel-heading">
-            <h4 class="panel-title"><i class="fa fa-info"></i> Tracking Status</h4>
+            <h4 class="panel-title font-bold"><i class="fa fa-info-circle text-primary"></i> Tracking Status</h4>
           </div>
           <div class="panel-body">
-            <p class="text-muted">You reported this exception. Our automated engine has classified it and routed it to the warehouse operations queue. You can post work notes to share additional details with technicians.</p>
+            <p class="text-muted">
+              You submitted this report. A supervisor will triage and assign a technician. You can add work notes below to communicate directly with the technician.
+            </p>
+            <div class="m-t-md">
+              <a href="?id=x_1956908_wareho_0_create" class="btn btn-warning btn-block">
+                <i class="fa fa-plus-circle"></i> Report Another Exception
+              </a>
+            </div>
           </div>
         </div>
       </div>

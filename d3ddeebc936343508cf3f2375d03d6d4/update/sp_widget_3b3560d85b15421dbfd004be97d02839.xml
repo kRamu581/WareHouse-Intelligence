@@ -1,15 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[api.controller = function($location) {
+        <client_script><![CDATA[
+api.controller = function($rootScope) {
     var c = this;
     c.currentPage = c.data.currentPage || 1;
+    c.filterStatus = c.data.filterStatus || '';
+    c.filterSeverity = c.data.filterSeverity || '';
+    c.filterSearch = c.data.filterSearch || '';
+    c.filterUnassigned = c.data.filterUnassigned || false;
+
+    // Listen to KPI card filter event
+    $rootScope.$on('wei.filterTable', function(event, args) {
+        if (args && args.filter) {
+            if (args.filter.indexOf('status=') !== -1) {
+                var m = args.filter.match(/status=([a-z_]+)/);
+                if (m) c.filterStatus = m[1];
+            } else if (args.filter.indexOf('severityIN') !== -1) {
+                c.filterSeverity = 'critical';
+            } else if (args.filter.indexOf('assigned_toISEMPTY') !== -1) {
+                c.filterUnassigned = true;
+            }
+        } else {
+            c.filterStatus = '';
+            c.filterSeverity = '';
+            c.filterUnassigned = false;
+        }
+        c.applyFilters();
+    });
+
+    c.applyFilters = function() {
+        c.currentPage = 1;
+        c.server.get({
+            page: 1,
+            filterStatus: c.filterStatus,
+            filterSeverity: c.filterSeverity,
+            filterSearch: c.filterSearch,
+            filterUnassigned: c.filterUnassigned
+        }).then(function(r) {
+            c.data.records = r.data.records;
+            c.data.totalPages = r.data.totalPages;
+            c.data.totalRecords = r.data.totalRecords;
+            c.data.pages = r.data.pages;
+            c.currentPage = 1;
+        });
+    };
+
+    c.resetFilters = function() {
+        c.filterStatus = '';
+        c.filterSeverity = '';
+        c.filterSearch = '';
+        c.filterUnassigned = false;
+        c.applyFilters();
+    };
 
     c.goToPage = function(page) {
         if (page < 1 || page > c.data.totalPages) return;
         c.currentPage = page;
-        c.server.get({ page: page }).then(function() {
-            c.currentPage = c.data.currentPage;
+        c.server.get({
+            page: page,
+            filterStatus: c.filterStatus,
+            filterSeverity: c.filterSeverity,
+            filterSearch: c.filterSearch,
+            filterUnassigned: c.filterUnassigned
+        }).then(function(r) {
+            c.data.records = r.data.records;
+            c.currentPage = r.data.currentPage;
         });
     };
 
@@ -20,47 +76,37 @@
 };
 ]]></client_script>
         <controller_as>c</controller_as>
-        <css>.exc-table-widget {
-  margin-bottom: 20px;
-}
-
+        <css><![CDATA[
 .exc-table-header {
-  background-color: $brand-primary;
-  color: #fff;
-  border: none;
+  background-color: #fff;
+  border-bottom: 2px solid #FF5A1F;
+  padding: 14px 18px;
 }
 
-.exc-table-header .panel-title {
-  font-weight: 600;
+.filter-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
-.exc-table-header .badge {
-  background-color: rgba(255,255,255,0.2);
-  color: #fff;
-}
-
-.exc-table-widget .table thead th {
-  border-bottom: 2px solid #ddd;
+.table > thead > tr > th {
+  background-color: #f9f9f9;
+  font-weight: 700;
   font-size: 12px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: #666;
+  color: #555;
+  border-bottom: 1px solid #ddd;
 }
 
-.exc-table-widget .table tbody td {
+.table > tbody > tr > td {
   vertical-align: middle;
+  font-size: 13px;
 }
 
-.exc-table-widget .label {
-  font-size: 11px;
-  padding: 3px 8px;
-  border-radius: 3px;
-}
-
-.exc-table-widget .pagination {
-  margin: 10px 0 0 0;
-}
-</css>
+.font-12 { font-size: 12px; }
+.shadow-sm { box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.shadow-xs { box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+]]></css>
         <data_table>sp_instance</data_table>
         <demo_data/>
         <description/>
@@ -75,7 +121,8 @@
         <option_schema>[{"name":"role","label":"Role Filter","type":"string","section":"Data","default_value":""},{"name":"filter","label":"Encoded Query Filter","type":"string","section":"Data","default_value":""},{"name":"title","label":"Table Title","type":"string","section":"Presentation","default_value":"Exceptions"}]</option_schema>
         <public>false</public>
         <roles/>
-        <script><![CDATA[(function() {
+        <script><![CDATA[
+(function() {
     var tableName = 'x_1956908_wareho_0_exception';
     var userId = gs.getUserID();
     var pageSize = 10;
@@ -83,44 +130,75 @@
     if (page < 1) page = 1;
 
     data.records = [];
-    data.title = options.title || 'Exceptions';
+    data.title = options.title || 'Warehouse Exceptions';
     data.currentPage = page;
     data.totalPages = 1;
+    data.totalRecords = 0;
 
-    // Determine effective role
-    var role = options.role || 'staff';
-    if (gs.hasRole('x_1956908_wareho_0.supervisor') || gs.hasRole('x_1956908_wareho_0.admin') || gs.hasRole('admin')) {
-        if (!options.role) role = 'supervisor';
-    } else if (gs.hasRole('x_1956908_wareho_0.technician')) {
-        if (!options.role) role = 'technician';
-    }
+    // Detect actual authenticated roles
+    var isSupervisor = gs.hasRole('x_1956908_wareho_0.supervisor') || gs.hasRole('x_1956908_wareho_0.admin') || gs.hasRole('admin');
+    var isTech = gs.hasRole('x_1956908_wareho_0.technician');
+    var isStaff = !isSupervisor && !isTech;
 
-    // Build base query
+    data.userRole = isSupervisor ? 'supervisor' : (isTech ? 'technician' : 'staff');
+
+    // Strict server-side security: enforce queries based on role
     var baseQuery = '';
-    if (role === 'staff') {
+    if (isStaff) {
+        // Staff can ONLY view their own reported exceptions
         baseQuery = 'reported_by=' + userId;
-    } else if (role === 'technician') {
+        data.title = data.title || 'My Reported Exceptions';
+    } else if (isTech && !isSupervisor) {
+        // Technician can ONLY view their assigned exceptions
         baseQuery = 'assigned_to=' + userId;
+        data.title = data.title || 'My Assigned Exceptions';
+    } else {
+        // Supervisor view: default to all, or options.filter if provided by instance
+        if (options.filter) {
+            baseQuery = options.filter;
+        }
+        data.title = data.title || 'All Warehouse Exceptions';
     }
 
-    // Optional extra filter from widgetParameters
-    var extraFilter = options.filter || '';
-    if (extraFilter && baseQuery) {
-        baseQuery = baseQuery + '^' + extraFilter;
-    } else if (extraFilter) {
-        baseQuery = extraFilter;
+    // Dynamic filters from client
+    var filterStatus = (input && input.filterStatus) || '';
+    var filterSeverity = (input && input.filterSeverity) || '';
+    var filterSearch = (input && input.filterSearch) || '';
+    var filterUnassigned = (input && input.filterUnassigned) || false;
+
+    data.filterStatus = filterStatus;
+    data.filterSeverity = filterSeverity;
+    data.filterSearch = filterSearch;
+    data.filterUnassigned = filterUnassigned;
+
+    var queryParts = [];
+    if (baseQuery) queryParts.push(baseQuery);
+
+    if (filterStatus) {
+        queryParts.push('status=' + filterStatus);
+    }
+    if (filterSeverity) {
+        queryParts.push('severity=' + filterSeverity);
+    }
+    if (filterUnassigned) {
+        queryParts.push('assigned_toISEMPTY^statusNOT INresolved,closed');
+    }
+    if (filterSearch) {
+        queryParts.push('numberLIKE' + filterSearch + '^ORshort_descriptionLIKE' + filterSearch + '^ORlocationLIKE' + filterSearch);
     }
 
-    // Count total records
+    var finalQuery = queryParts.join('^');
+
+    // Count records
     var countGr = new GlideAggregate(tableName);
-    if (baseQuery) {
-        countGr.addEncodedQuery(baseQuery);
+    if (finalQuery) {
+        countGr.addEncodedQuery(finalQuery);
     }
     countGr.addAggregate('COUNT');
     countGr.query();
     var total = 0;
     if (countGr.next()) {
-        total = parseInt(countGr.getAggregate('COUNT'), 10);
+        total = parseInt(countGr.getAggregate('COUNT'), 10) || 0;
     }
     data.totalPages = Math.max(1, Math.ceil(total / pageSize));
     data.totalRecords = total;
@@ -128,17 +206,16 @@
     if (page > data.totalPages) page = data.totalPages;
     data.currentPage = page;
 
-    // Status badge mapping
+    // Badges mapping
     var STATUS_CLASS = {
         'new': 'label-info',
         'assigned': 'label-warning',
         'in_progress': 'label-primary',
-        'pending': 'label-default',
+        'pending': 'label-warning',
         'resolved': 'label-success',
         'closed': 'label-default'
     };
 
-    // Priority badge mapping
     var PRIORITY_CLASS = {
         'p1_critical': 'label-danger',
         'p2_high': 'label-warning',
@@ -146,33 +223,48 @@
         'p4_low': 'label-success'
     };
 
-    // Query records
+    var SEVERITY_CLASS = {
+        'critical': 'label-danger',
+        'high': 'label-warning',
+        'medium': 'label-info',
+        'low': 'label-success'
+    };
+
+    // Query records for page window
     var gr = new GlideRecord(tableName);
-    if (baseQuery) {
-        gr.addEncodedQuery(baseQuery);
+    if (finalQuery) {
+        gr.addEncodedQuery(finalQuery);
     }
     gr.orderByDesc('sys_created_on');
     gr.chooseWindow((page - 1) * pageSize, page * pageSize);
     gr.query();
 
     while (gr.next()) {
+        var sevVal = gr.getValue('severity') || 'medium';
+        var priVal = gr.getValue('priority') || 'p3_medium';
+        var stVal = gr.getValue('status') || 'new';
+
         data.records.push({
             sys_id: gr.getUniqueValue(),
             number: gr.getValue('number') || '',
-            exception_type: gr.getDisplayValue('exception_type'),
-            location: gr.getValue('location') || '',
-            priority: gr.getDisplayValue('priority'),
-            priorityVal: gr.getValue('priority') || '',
-            priorityClass: PRIORITY_CLASS[gr.getValue('priority')] || 'label-default',
-            status: gr.getDisplayValue('status'),
-            statusVal: gr.getValue('status') || '',
-            statusClass: STATUS_CLASS[gr.getValue('status')] || 'label-default',
-            created: gr.getDisplayValue('sys_created_on'),
-            updated: gr.getDisplayValue('sys_updated_on')
+            short_description: gr.getValue('short_description') || '',
+            exception_type: gr.getDisplayValue('exception_type') || gr.getValue('exception_type') || '',
+            location: gr.getValue('location') || 'General',
+            severity: gr.getDisplayValue('severity') || sevVal,
+            severityClass: SEVERITY_CLASS[sevVal] || 'label-default',
+            priority: gr.getDisplayValue('priority') || priVal,
+            priorityClass: PRIORITY_CLASS[priVal] || 'label-default',
+            status: gr.getDisplayValue('status') || stVal,
+            statusClass: STATUS_CLASS[stVal] || 'label-default',
+            reported_by: gr.getDisplayValue('reported_by') || 'Staff',
+            assigned_to: gr.getDisplayValue('assigned_to') || 'Unassigned',
+            assignment_group: gr.getDisplayValue('assignment_group') || 'Operations',
+            created: gr.getDisplayValue('sys_created_on') || '',
+            updated: gr.getDisplayValue('sys_updated_on') || ''
         });
     }
 
-    // Build page numbers array
+    // Page numbers
     data.pages = [];
     for (var i = 1; i <= data.totalPages; i++) {
         data.pages.push(i);
@@ -191,41 +283,134 @@
         <sys_scope display_value="Warehouse Exception Intelligence">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
         <sys_update_name>sp_widget_3b3560d85b15421dbfd004be97d02839</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-10-05 06:59:33</sys_updated_on>
-        <template><![CDATA[<div class="exc-table-widget">
-  <div class="panel panel-default">
+        <sys_updated_on>2026-10-14 06:00:29</sys_updated_on>
+        <template><![CDATA[
+<div class="exc-table-widget">
+  <div class="panel panel-default shadow-sm">
+    <!-- Panel Header -->
     <div class="panel-heading exc-table-header">
-      <h3 class="panel-title">
-        <i class="fa fa-list"></i> {{c.data.title}}
-        <span class="badge pull-right">{{c.data.totalRecords}} record(s)</span>
-      </h3>
+      <div class="pull-left">
+        <h3 class="panel-title font-bold">
+          <i class="fa fa-list-alt text-primary"></i> {{c.data.title}}
+        </h3>
+      </div>
+      <div class="pull-right">
+        <span class="badge badge-primary font-12">{{c.data.totalRecords}} record(s)</span>
+      </div>
+      <div class="clearfix"></div>
     </div>
-    <div class="panel-body" ng-if="c.data.records.length">
+
+    <!-- Filter Bar (For Supervisor & Technician) -->
+    <div class="panel-body b-b bg-light p-sm" ng-if="c.data.userRole === 'supervisor' || c.data.userRole === 'technician'">
+      <div class="row filter-row">
+        <!-- Search -->
+        <div class="col-md-4 col-sm-6 col-xs-12 m-b-xs">
+          <div class="input-group input-group-sm">
+            <input type="text" class="form-control" placeholder="Search number, description, location..."
+                   ng-model="c.filterSearch" ng-keyup="$event.keyCode == 13 && c.applyFilters()">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button" ng-click="c.applyFilters()"><i class="fa fa-search"></i></button>
+            </span>
+          </div>
+        </div>
+
+        <!-- Status Filter -->
+        <div class="col-md-2 col-sm-3 col-xs-6 m-b-xs">
+          <select class="form-control input-sm" ng-model="c.filterStatus" ng-change="c.applyFilters()">
+            <option value="">-- All Statuses --</option>
+            <option value="new">New</option>
+            <option value="assigned">Assigned</option>
+            <option value="in_progress">In Progress</option>
+            <option value="pending">On Hold</option>
+            <option value="resolved">Resolved</option>
+            <option value="closed">Closed</option>
+          </select>
+        </div>
+
+        <!-- Severity Filter -->
+        <div class="col-md-2 col-sm-3 col-xs-6 m-b-xs">
+          <select class="form-control input-sm" ng-model="c.filterSeverity" ng-change="c.applyFilters()">
+            <option value="">-- All Severities --</option>
+            <option value="critical">Critical</option>
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
+          </select>
+        </div>
+
+        <!-- Unassigned Quick Toggle (Supervisor only) -->
+        <div class="col-md-2 col-sm-6 col-xs-6 m-b-xs" ng-if="c.data.userRole === 'supervisor'">
+          <label class="checkbox-inline font-12 font-bold text-muted">
+            <input type="checkbox" ng-model="c.filterUnassigned" ng-change="c.applyFilters()"> Unassigned Only
+          </label>
+        </div>
+
+        <!-- Reset Button -->
+        <div class="col-md-2 col-sm-6 col-xs-6 text-right m-b-xs">
+          <button type="button" class="btn btn-sm btn-default" ng-click="c.resetFilters()">
+            <i class="fa fa-refresh"></i> Reset
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Table Body -->
+    <div class="panel-body p-none" ng-if="c.data.records.length">
       <div class="table-responsive">
-        <table class="table table-hover table-striped">
+        <table class="table table-hover table-striped m-b-none">
           <thead>
             <tr>
-              <th>Exception ID</th>
-              <th>Type</th>
-              <th>Location</th>
-              <th>Priority</th>
-              <th>Status</th>
-              <th>Created</th>
-              <th>Updated</th>
-              <th>Action</th>
+              <th style="width: 120px;">Number</th>
+              <th>Description</th>
+              <th ng-if="c.data.userRole === 'technician'">Type</th>
+              <th style="width: 100px;">Severity</th>
+              <th ng-if="c.data.userRole !== 'staff'">Location</th>
+              <th ng-if="c.data.userRole !== 'staff'">Reported By</th>
+              <th>Group</th>
+              <th>Assigned To</th>
+              <th style="width: 110px;">Status</th>
+              <th style="width: 140px;">Updated</th>
+              <th style="width: 80px;" class="text-center">Action</th>
             </tr>
           </thead>
           <tbody>
             <tr ng-repeat="rec in c.data.records track by rec.sys_id">
-              <td><strong>{{rec.number}}</strong></td>
-              <td>{{rec.exception_type}}</td>
-              <td>{{rec.location}}</td>
-              <td><span class="label" ng-class="rec.priorityClass">{{rec.priority}}</span></td>
-              <td><span class="label" ng-class="rec.statusClass">{{rec.status}}</span></td>
-              <td class="text-muted small">{{rec.created}}</td>
-              <td class="text-muted small">{{rec.updated}}</td>
               <td>
-                <button type="button" class="btn btn-xs btn-primary" ng-click="c.viewDetail(rec.sys_id)">
+                <a href="javascript:void(0)" ng-click="c.viewDetail(rec.sys_id)" class="font-bold text-primary">
+                  {{rec.number}}
+                </a>
+              </td>
+              <td>
+                <span class="font-bold text-dark">{{rec.short_description}}</span>
+              </td>
+              <td ng-if="c.data.userRole === 'technician'">
+                <span class="label label-default">{{rec.exception_type}}</span>
+              </td>
+              <td>
+                <span class="label" ng-class="rec.severityClass">{{rec.severity}}</span>
+              </td>
+              <td ng-if="c.data.userRole !== 'staff'">
+                <small class="text-muted"><i class="fa fa-map-marker"></i> {{rec.location}}</small>
+              </td>
+              <td ng-if="c.data.userRole !== 'staff'">
+                <small>{{rec.reported_by}}</small>
+              </td>
+              <td>
+                <small class="text-muted">{{rec.assignment_group}}</small>
+              </td>
+              <td>
+                <small ng-class="{'text-danger font-bold': rec.assigned_to === 'Unassigned'}">
+                  {{rec.assigned_to}}
+                </small>
+              </td>
+              <td>
+                <span class="label" ng-class="rec.statusClass">{{rec.status}}</span>
+              </td>
+              <td class="text-muted small">
+                {{rec.updated}}
+              </td>
+              <td class="text-center">
+                <button type="button" class="btn btn-xs btn-primary shadow-xs" ng-click="c.viewDetail(rec.sys_id)">
                   <i class="fa fa-eye"></i> View
                 </button>
               </td>
@@ -235,8 +420,8 @@
       </div>
 
       <!-- Pagination -->
-      <div class="text-center" ng-if="c.data.totalPages > 1">
-        <ul class="pagination pagination-sm">
+      <div class="panel-footer text-center" ng-if="c.data.totalPages > 1">
+        <ul class="pagination pagination-sm m-none">
           <li ng-class="{disabled: c.currentPage === 1}">
             <a href="javascript:void(0)" ng-click="c.goToPage(c.currentPage - 1)">&laquo;</a>
           </li>
@@ -250,10 +435,24 @@
       </div>
     </div>
 
-    <!-- Empty state -->
-    <div class="panel-body text-center text-muted" ng-if="!c.data.records.length">
-      <i class="fa fa-inbox fa-3x"></i>
-      <p class="m-t-sm">No exceptions found.</p>
+    <!-- Empty State -->
+    <div class="panel-body text-center text-muted p-xl" ng-if="!c.data.records.length">
+      <i class="fa fa-folder-open-o fa-3x m-b-sm"></i>
+      <h4 class="font-bold">No Exceptions Found</h4>
+      <p class="text-muted" ng-if="c.data.userRole === 'staff'">
+        You haven't reported any exceptions yet, or none match the filter.
+      </p>
+      <p class="text-muted" ng-if="c.data.userRole === 'technician'">
+        You have no assigned exceptions matching the selected criteria.
+      </p>
+      <p class="text-muted" ng-if="c.data.userRole === 'supervisor'">
+        No exceptions match the selected filter parameters.
+      </p>
+      <div class="m-t-md" ng-if="c.data.userRole === 'staff'">
+        <a href="?id=x_1956908_wareho_0_create" class="btn btn-warning">
+          <i class="fa fa-plus-circle"></i> Report an Exception
+        </a>
+      </div>
     </div>
   </div>
 </div>
