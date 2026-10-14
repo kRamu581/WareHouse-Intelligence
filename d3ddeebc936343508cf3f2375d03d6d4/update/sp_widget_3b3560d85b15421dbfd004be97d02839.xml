@@ -76,7 +76,7 @@ api.controller = function($rootScope) {
 };
 ]]></client_script>
         <controller_as>c</controller_as>
-        <css><![CDATA[
+        <css>
 .exc-table-header {
   background-color: #fff;
   border-bottom: 2px solid #FF5A1F;
@@ -89,7 +89,7 @@ api.controller = function($rootScope) {
   flex-wrap: wrap;
 }
 
-.table > thead > tr > th {
+.table &gt; thead &gt; tr &gt; th {
   background-color: #f9f9f9;
   font-weight: 700;
   font-size: 12px;
@@ -98,7 +98,7 @@ api.controller = function($rootScope) {
   border-bottom: 1px solid #ddd;
 }
 
-.table > tbody > tr > td {
+.table &gt; tbody &gt; tr &gt; td {
   vertical-align: middle;
   font-size: 13px;
 }
@@ -106,7 +106,7 @@ api.controller = function($rootScope) {
 .font-12 { font-size: 12px; }
 .shadow-sm { box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
 .shadow-xs { box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-]]></css>
+</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
         <description/>
