@@ -64,9 +64,9 @@ api.controller = function() {
 };
 ]]></client_script>
         <controller_as>c</controller_as>
-        <css><![CDATA[
+        <css>
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&amp;family=DM+Sans:wght@300;400;500;600;700&amp;display=swap');
 
 :root {
   --wei-bg:         #EEECEA;
@@ -208,7 +208,7 @@ h1,h2,h3,h4,h5,h6 {
 .label-medium,   .badge-medium   { background: #FBBF24 !important; color: #000 !important; }
 .label-low,      .badge-low      { background: var(--wei-success) !important; color: #fff !important; }
 
-]]></css>
+</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
         <description/>
