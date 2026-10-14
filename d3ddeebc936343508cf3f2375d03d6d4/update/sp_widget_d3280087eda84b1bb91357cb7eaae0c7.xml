@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller = function() {
+    var c = this;
+    c.view = 'form';
+    c.submitting = false;
+    c.serverErrors = [];
+
+    c.form = {
+        short_description: '',
+        description: '',
+        exception_type: '',
+        location: '',
+        severity: ''
+    };
+
+    c.submit = function() {
+        c.serverErrors = [];
+
+        // Client-side validation
+        if (!c.form.short_description || !c.form.short_description.trim()) {
+            c.serverErrors.push('Short Description is required.');
+        }
+        if (!c.form.exception_type) {
+            c.serverErrors.push('Exception Type is required.');
+        }
+        if (!c.form.severity) {
+            c.serverErrors.push('Severity is required.');
+        }
+        if (c.serverErrors.length > 0) return;
+
+        c.submitting = true;
+        c.data.action = 'create';
+        c.data.short_description = c.form.short_description;
+        c.data.description = c.form.description;
+        c.data.exception_type = c.form.exception_type;
+        c.data.location = c.form.location;
+        c.data.severity = c.form.severity;
+
+        c.server.update().then(function() {
+            c.submitting = false;
+            var result = c.data.submitResult;
+            if (result && result.success) {
+                c.view = 'success';
+                c.data.action = null;
+            } else if (result && result.errors) {
+                c.serverErrors = result.errors;
+                c.data.action = null;
+            }
+        });
+    };
+
+    c.reset = function() {
+        c.form = {
+            short_description: '',
+            description: '',
+            exception_type: '',
+            location: '',
+            severity: ''
+        };
+        c.serverErrors = [];
+        c.view = 'form';
+    };
+
+    c.viewDetail = function() {
+        if (c.data.submitResult && c.data.submitResult.sys_id) {
+            window.location.href = '?id=x_1956908_wareho_0_detail&record_id=' + c.data.submitResult.sys_id;
+        }
+    };
+};
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.create-exc-widget {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.create-header {
+  background-color: $brand-primary;
+  color: #fff;
+  border: none;
+}
+
+.create-header .panel-title {
+  font-weight: 600;
+  color: #fff;
+}
+
+.form-actions {
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+  margin-top: 10px;
+}
+
+.success-view {
+  padding: 40px 20px;
+}
+
+.success-view .fa-check-circle {
+  margin-bottom: 15px;
+}
+
+.exc-number {
+  color: $brand-primary;
+  font-weight: 700;
+}
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>x_1956908_wareho_0_create_exc</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {
+}]]></link>
+        <name>Create Warehouse Exception</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+    var tableName = 'x_1956908_wareho_0_exception';
+    data.submitResult = null;
+
+    // Exception type choices
+    data.typeChoices = [
+        { value: 'damaged_goods', label: 'Damaged Goods' },
+        { value: 'inventory_mismatch', label: 'Inventory Mismatch' },
+        { value: 'equipment_malfunction', label: 'Equipment Malfunction' },
+        { value: 'process_error', label: 'Process Error' }
+    ];
+
+    // Severity choices
+    data.severityChoices = [
+        { value: 'critical', label: 'Critical' },
+        { value: 'high', label: 'High' },
+        { value: 'medium', label: 'Medium' },
+        { value: 'low', label: 'Low' }
+    ];
+
+    // Handle form submission
+    if (input && input.action === 'create') {
+        var errors = [];
+        if (!input.short_description || (input.short_description + '').trim() === '') {
+            errors.push('Short Description is required.');
+        }
+        if (!input.exception_type) {
+            errors.push('Exception Type is required.');
+        }
+        if (!input.severity) {
+            errors.push('Severity is required.');
+        }
+
+        if (errors.length > 0) {
+            data.submitResult = { success: false, errors: errors };
+            return;
+        }
+
+        var gr = new GlideRecord(tableName);
+        gr.initialize();
+        gr.setValue('short_description', (input.short_description + '').trim());
+        gr.setValue('description', (input.description || '').trim());
+        gr.setValue('exception_type', input.exception_type);
+        gr.setValue('location', (input.location || '').trim());
+        gr.setValue('severity', input.severity);
+        gr.setValue('reported_by', gs.getUserID());
+        gr.setValue('status', 'new');
+
+        var sysId = gr.insert();
+        if (sysId) {
+            data.submitResult = {
+                success: true,
+                sys_id: sysId + '',
+                number: gr.getValue('number')
+            };
+        } else {
+            data.submitResult = { success: false, errors: ['Failed to create record. Check permissions.'] };
+        }
+    }
+})();
+]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-10-05 06:59:39</sys_created_on>
+        <sys_id>d3280087eda84b1bb91357cb7eaae0c7</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Create Warehouse Exception</sys_name>
+        <sys_package display_value="Warehouse Exception Intelligence" source="x_1956908_wareho_0">d3ddeebc936343508cf3f2375d03d6d4</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Warehouse Exception Intelligence">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
+        <sys_update_name>sp_widget_d3280087eda84b1bb91357cb7eaae0c7</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-05 06:59:39</sys_updated_on>
+        <template><![CDATA[<div class="create-exc-widget">
+  <!-- Form view -->
+  <div ng-if="c.view === 'form'">
+    <div class="panel panel-default">
+      <div class="panel-heading create-header">
+        <h3 class="panel-title"><i class="fa fa-plus-circle"></i> Report New Exception</h3>
+      </div>
+      <div class="panel-body">
+        <!-- Errors -->
+        <div class="alert alert-danger" ng-if="c.serverErrors.length">
+          <ul class="list-unstyled m-b-none">
+            <li ng-repeat="err in c.serverErrors track by $index">
+              <i class="fa fa-exclamation-circle"></i> {{err}}
+            </li>
+          </ul>
+        </div>
+
+        <form name="createForm" ng-submit="c.submit()" novalidate>
+          <div class="form-group" ng-class="{'has-error': createForm.shortDesc.$touched && createForm.shortDesc.$invalid}">
+            <label for="shortDesc">Short Description <span class="text-danger">*</span></label>
+            <input type="text" id="shortDesc" name="shortDesc" class="form-control"
+                   ng-model="c.form.short_description" required
+                   placeholder="Brief summary of the exception" />
+            <span class="help-block" ng-if="createForm.shortDesc.$touched && createForm.shortDesc.$error.required">
+              Short Description is required.
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label for="desc">Description</label>
+            <textarea id="desc" name="desc" class="form-control" rows="4"
+                      ng-model="c.form.description"
+                      placeholder="Detailed description of what happened..."></textarea>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 col-xs-12">
+              <div class="form-group" ng-class="{'has-error': createForm.excType.$touched && createForm.excType.$invalid}">
+                <label for="excType">Exception Type <span class="text-danger">*</span></label>
+                <select id="excType" name="excType" class="form-control"
+                        ng-model="c.form.exception_type" required>
+                  <option value="">-- Select Type --</option>
+                  <option ng-repeat="t in c.data.typeChoices track by t.value"
+                          value="{{t.value}}">{{t.label}}</option>
+                </select>
+                <span class="help-block" ng-if="createForm.excType.$touched && createForm.excType.$error.required">
+                  Exception Type is required.
+                </span>
+              </div>
+            </div>
+            <div class="col-md-6 col-xs-12">
+              <div class="form-group" ng-class="{'has-error': createForm.severity.$touched && createForm.severity.$invalid}">
+                <label for="severity">Severity <span class="text-danger">*</span></label>
+                <select id="severity" name="severity" class="form-control"
+                        ng-model="c.form.severity" required>
+                  <option value="">-- Select Severity --</option>
+                  <option ng-repeat="s in c.data.severityChoices track by s.value"
+                          value="{{s.value}}">{{s.label}}</option>
+                </select>
+                <span class="help-block" ng-if="createForm.severity.$touched && createForm.severity.$error.required">
+                  Severity is required.
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="location">Location</label>
+            <input type="text" id="location" name="location" class="form-control"
+                   ng-model="c.form.location"
+                   placeholder="e.g., Warehouse A, Dock 3, Aisle 5" />
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-warning"
+                    ng-disabled="c.submitting || createForm.$invalid">
+              <span ng-if="c.submitting"><i class="fa fa-spinner fa-spin"></i> Submitting...</span>
+              <span ng-if="!c.submitting"><i class="fa fa-paper-plane"></i> Submit Exception</span>
+            </button>
+            <button type="button" class="btn btn-default m-l-sm" ng-click="c.reset()">
+              <i class="fa fa-refresh"></i> Reset
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success view -->
+  <div ng-if="c.view === 'success'" class="text-center success-view">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <i class="fa fa-check-circle fa-4x text-success"></i>
+        <h3>Exception Reported Successfully!</h3>
+        <p class="text-muted">Your exception has been logged and assigned number:</p>
+        <h2 class="exc-number">{{c.data.submitResult.number}}</h2>
+        <div class="m-t-lg">
+          <button type="button" class="btn btn-primary" ng-click="c.viewDetail()">
+            <i class="fa fa-eye"></i> View Details
+          </button>
+          <button type="button" class="btn btn-default m-l-sm" ng-click="c.reset()">
+            <i class="fa fa-plus"></i> Report Another
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+]]></template>
+    </sp_widget>
+</record_update>
