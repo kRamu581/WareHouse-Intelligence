@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[api.controller = function() {
+        <client_script><![CDATA[
+api.controller = function() {
     var c = this;
     c.view = 'form';
     c.submitting = false;
     c.serverErrors = [];
 
+    // Pre-fill form from URL parameters if available
+    var pre = c.data.prefill || {};
     c.form = {
-        short_description: '',
+        short_description: pre.short_description || '',
         description: '',
-        exception_type: '',
-        location: '',
-        severity: ''
+        exception_type: pre.category || '',
+        location: pre.location || '',
+        severity: pre.severity || ''
     };
 
     c.submit = function() {
@@ -68,6 +71,10 @@
             window.location.href = '?id=x_1956908_wareho_0_detail&record_id=' + c.data.submitResult.sys_id;
         }
     };
+
+    c.goHome = function() {
+        window.location.href = '?id=wei_landing';
+    };
 };
 ]]></client_script>
         <controller_as>c</controller_as>
@@ -120,16 +127,27 @@
         <option_schema/>
         <public>false</public>
         <roles/>
-        <script><![CDATA[(function() {
+        <script><![CDATA[
+(function() {
     var tableName = 'x_1956908_wareho_0_exception';
     data.submitResult = null;
+
+    // Read URL query parameters for pre-fill
+    data.prefill = {
+        category: ($sp.getParameter('category') || $sp.getParameter('type') || '').trim(),
+        severity: ($sp.getParameter('severity') || '').trim(),
+        location: ($sp.getParameter('location') || '').trim(),
+        short_description: ($sp.getParameter('short_desc') || $sp.getParameter('short_description') || '').trim()
+    };
 
     // Exception type choices
     data.typeChoices = [
         { value: 'damaged_goods', label: 'Damaged Goods' },
         { value: 'inventory_mismatch', label: 'Inventory Mismatch' },
         { value: 'equipment_malfunction', label: 'Equipment Malfunction' },
-        { value: 'process_error', label: 'Process Error' }
+        { value: 'process_error', label: 'Process Error' },
+        { value: 'safety_incident', label: 'Safety Incident' },
+        { value: 'other', label: 'Other' }
     ];
 
     // Severity choices
@@ -173,7 +191,7 @@
             data.submitResult = {
                 success: true,
                 sys_id: sysId + '',
-                number: gr.getValue('number')
+                number: gr.getValue('number') || 'Created'
             };
         } else {
             data.submitResult = { success: false, errors: ['Failed to create record. Check permissions.'] };
@@ -193,13 +211,21 @@
         <sys_scope display_value="Warehouse Exception Intelligence">d3ddeebc936343508cf3f2375d03d6d4</sys_scope>
         <sys_update_name>sp_widget_d3280087eda84b1bb91357cb7eaae0c7</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-10-05 06:59:39</sys_updated_on>
-        <template><![CDATA[<div class="create-exc-widget">
+        <sys_updated_on>2026-10-14 05:04:32</sys_updated_on>
+        <template><![CDATA[
+<div class="create-exc-widget container">
+  <!-- Breadcrumb -->
+  <div class="m-b-md">
+    <a href="?id=wei_landing" class="text-muted"><i class="fa fa-home"></i> Home</a>
+    <span class="text-muted m-r-xs m-l-xs">/</span>
+    <span class="text-primary font-bold">Report Exception</span>
+  </div>
+
   <!-- Form view -->
   <div ng-if="c.view === 'form'">
     <div class="panel panel-default">
       <div class="panel-heading create-header">
-        <h3 class="panel-title"><i class="fa fa-plus-circle"></i> Report New Exception</h3>
+        <h3 class="panel-title"><i class="fa fa-plus-circle"></i> Report New Warehouse Exception</h3>
       </div>
       <div class="panel-body">
         <!-- Errors -->
@@ -216,17 +242,17 @@
             <label for="shortDesc">Short Description <span class="text-danger">*</span></label>
             <input type="text" id="shortDesc" name="shortDesc" class="form-control"
                    ng-model="c.form.short_description" required
-                   placeholder="Brief summary of the exception" />
+                   placeholder="Brief summary of the exception (e.g., Forklift hydraulic failure at Bay 4)" />
             <span class="help-block" ng-if="createForm.shortDesc.$touched && createForm.shortDesc.$error.required">
               Short Description is required.
             </span>
           </div>
 
           <div class="form-group">
-            <label for="desc">Description</label>
+            <label for="desc">Detailed Description</label>
             <textarea id="desc" name="desc" class="form-control" rows="4"
                       ng-model="c.form.description"
-                      placeholder="Detailed description of what happened..."></textarea>
+                      placeholder="Detailed description of what happened, evidence, SKU numbers, observations..."></textarea>
           </div>
 
           <div class="row">
@@ -261,20 +287,23 @@
           </div>
 
           <div class="form-group">
-            <label for="location">Location</label>
+            <label for="location">Location / Warehouse Zone</label>
             <input type="text" id="location" name="location" class="form-control"
                    ng-model="c.form.location"
-                   placeholder="e.g., Warehouse A, Dock 3, Aisle 5" />
+                   placeholder="e.g., Cold Storage Unit 2, Loading Dock B, Aisle 4" />
           </div>
 
-          <div class="form-actions">
-            <button type="submit" class="btn btn-warning"
+          <div class="form-actions m-t-lg">
+            <button type="submit" class="btn btn-warning btn-lg"
                     ng-disabled="c.submitting || createForm.$invalid">
               <span ng-if="c.submitting"><i class="fa fa-spinner fa-spin"></i> Submitting...</span>
               <span ng-if="!c.submitting"><i class="fa fa-paper-plane"></i> Submit Exception</span>
             </button>
-            <button type="button" class="btn btn-default m-l-sm" ng-click="c.reset()">
+            <button type="button" class="btn btn-default btn-lg m-l-sm" ng-click="c.reset()">
               <i class="fa fa-refresh"></i> Reset
+            </button>
+            <button type="button" class="btn btn-link btn-lg m-l-sm" ng-click="c.goHome()">
+              Cancel
             </button>
           </div>
         </form>
@@ -284,18 +313,21 @@
 
   <!-- Success view -->
   <div ng-if="c.view === 'success'" class="text-center success-view">
-    <div class="panel panel-default">
+    <div class="panel panel-default p-lg">
       <div class="panel-body">
         <i class="fa fa-check-circle fa-4x text-success"></i>
-        <h3>Exception Reported Successfully!</h3>
-        <p class="text-muted">Your exception has been logged and assigned number:</p>
-        <h2 class="exc-number">{{c.data.submitResult.number}}</h2>
+        <h2 class="m-t-md">Exception Reported Successfully!</h2>
+        <p class="text-muted font-16">Your exception has been logged and assigned tracking number:</p>
+        <h1 class="exc-number text-primary font-bold m-b-lg">{{c.data.submitResult.number}}</h1>
         <div class="m-t-lg">
-          <button type="button" class="btn btn-primary" ng-click="c.viewDetail()">
-            <i class="fa fa-eye"></i> View Details
+          <button type="button" class="btn btn-primary btn-lg" ng-click="c.viewDetail()">
+            <i class="fa fa-eye"></i> View Details &amp; AI Routing
           </button>
-          <button type="button" class="btn btn-default m-l-sm" ng-click="c.reset()">
+          <button type="button" class="btn btn-default btn-lg m-l-sm" ng-click="c.reset()">
             <i class="fa fa-plus"></i> Report Another
+          </button>
+          <button type="button" class="btn btn-link btn-lg m-l-sm" ng-click="c.goHome()">
+            Return to Home
           </button>
         </div>
       </div>
